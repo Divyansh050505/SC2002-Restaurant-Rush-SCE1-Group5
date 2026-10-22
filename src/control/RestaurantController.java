@@ -1,5 +1,6 @@
 package control;
 
+import entity.ActionResult;
 import entity.Cashier;
 import entity.Chef;
 import entity.Customer;
@@ -32,36 +33,89 @@ public class RestaurantController {
     private Cashier cashier;
 
     public RestaurantController() {
-        // insert implementation here
+        customers = new ArrayList<>();
+        waitingQueue = new ArrayList<>();
+        paymentQueue = new ArrayList<>();
+        orders = new ArrayList<>();
+        tables = new Table[NUM_TABLES];
+        for (int i = 0; i < NUM_TABLES; i++) {
+            tables[i] = new Table(i + 1);
+        }
+        menu = new Menu();
+        waiter = new Waiter();
+        chef = new Chef();
+        cashier = new Cashier();
     }
 
+    /**
+     * Begins the next turn: frees every staff member's task and runs
+     * Step 1 (arrivals). Does nothing once all turns have been played.
+     */
     public void startTurn() {
-        // insert implementation here
+        if (isGameOver()) {
+            return;
+        }
+        currentTurn++;
+        waiter.resetTurn();
+        chef.resetTurn();
+        cashier.resetTurn();
+        handleArrival();
     }
 
-    public void seatCustomer(int customerId) {
-        // insert implementation here
+    public ActionResult seatCustomer(int customerId) {
+        Customer customer = findCustomer(customerId);
+        if (customer == null) {
+            return ActionResult.failure("There is no customer #" + customerId + ".");
+        }
+        ActionResult result = waiter.seat(customer, findFreeTable());
+        if (result.isSuccess()) {
+            waitingQueue.remove(customer);
+        }
+        return result;
     }
 
-    public void takeOrder(int customerId) {
-        // insert implementation here
+    public ActionResult takeOrder(int customerId) {
+        Customer customer = findCustomer(customerId);
+        if (customer == null) {
+            return ActionResult.failure("There is no customer #" + customerId + ".");
+        }
+        ActionResult result = waiter.takeOrder(customer, nextOrderNo, menu);
+        if (result.isSuccess()) {
+            orders.add(customer.getOrder());
+            nextOrderNo++;
+        }
+        return result;
     }
 
-    public void serveOrder(int orderNo) {
-        // insert implementation here
+    public ActionResult serveOrder(int orderNo) {
+        Order order = findOrder(orderNo);
+        if (order == null) {
+            return ActionResult.failure("There is no order #" + orderNo + ".");
+        }
+        return waiter.serve(order, currentTurn);
     }
 
-    public void prepareOrder(int orderNo) {
-        // insert implementation here
+    public ActionResult prepareOrder(int orderNo) {
+        Order order = findOrder(orderNo);
+        if (order == null) {
+            return ActionResult.failure("There is no order #" + orderNo + ".");
+        }
+        return chef.prepare(order);
     }
 
+    /**
+     * Finishes the current turn after the Waiter and Chef have acted.
+     * Payment runs before eating so that a customer who becomes
+     * READY_TO_PAY this turn pays next turn at the earliest.
+     */
     public void endTurn() {
-        // insert implementation here
+        handlePayment();  // Step 4a: Cashier pays the oldest READY_TO_PAY customer
+        handleEating();   // Step 4b: customers served on an earlier turn finish eating
+        handleWaiting();  // Step 5: unserved customers lose satisfaction, may leave
     }
 
     public boolean isGameOver() {
-        // insert implementation here
-        return false;
+        return currentTurn >= MAX_TURNS;
     }
 
     public boolean isVictory() {
@@ -70,8 +124,7 @@ public class RestaurantController {
     }
 
     public int getCurrentTurn() {
-        // insert implementation here
-        return 0;
+        return currentTurn;
     }
 
     public int getRevenueCents() {
@@ -120,7 +173,14 @@ public class RestaurantController {
     }
 
     private void handleArrival() {
-        // insert implementation here
+        for (int arrivalTurn : ARRIVAL_TURNS) {
+            if (arrivalTurn == currentTurn) {
+                Customer customer = new Customer(nextCustomerId, currentTurn);
+                nextCustomerId++;
+                customers.add(customer);
+                waitingQueue.add(customer);
+            }
+        }
     }
 
     private void handlePayment() {
@@ -136,12 +196,20 @@ public class RestaurantController {
     }
 
     private Customer findCustomer(int customerId) {
-        // insert implementation here
+        for (Customer customer : customers) {
+            if (customer.getCustomerId() == customerId) {
+                return customer;
+            }
+        }
         return null;
     }
 
     private Order findOrder(int orderNo) {
-        // insert implementation here
+        for (Order order : orders) {
+            if (order.getOrderNo() == orderNo) {
+                return order;
+            }
+        }
         return null;
     }
 
