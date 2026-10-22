@@ -8,16 +8,18 @@ public class Waiter extends Staff {
         // insert implementation here
     }
 
-    public void seat(Customer customer, Table table) {
-        // insert implementation here
-    }
-
-    public Order takeOrder(Customer customer, int orderNo, Menu menu) {
+    public ActionResult seat(Customer customer, Table table) {
         // insert implementation here
         return null;
     }
 
-    public void serve(Order order, int currentTurn) {
+    public ActionResult takeOrder(Customer customer, int orderNo, Menu menu) {
         // insert implementation here
+        return null;
+    }
+
+    public ActionResult serve(Order order, int currentTurn) {
+        // insert implementation here
+        return null;
     }
 }

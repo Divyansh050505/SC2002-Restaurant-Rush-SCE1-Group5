@@ -8,7 +8,8 @@ public class Chef extends Staff {
         // insert implementation here
     }
 
-    public void prepare(Order order) {
+    public ActionResult prepare(Order order) {
         // insert implementation here
+        return null;
     }
 }
