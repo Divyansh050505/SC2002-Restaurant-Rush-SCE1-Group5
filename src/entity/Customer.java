@@ -32,7 +32,10 @@ public class Customer {
     }
 
     public void finishEating(int currentTurn) {
-        // insert implementation here
+        // A customer finishes eating if it's at least one turn *after* they were served.
+        if (this.status == CustomerStatus.EATING && currentTurn > this.servedTurn) {
+            this.status = CustomerStatus.READY_TO_PAY;
+        }
     }
 
     public void leave() {
@@ -40,43 +43,41 @@ public class Customer {
     }
 
     public int getCustomerId() {
-        // insert implementation here
-        return 0;
+        return customerId;
     }
 
     public int getSatisfaction() {
-        // insert implementation here
-        return 0;
+        return satisfaction;
     }
 
     public CustomerStatus getStatus() {
-        // insert implementation here
-        return null;
+        return status;
     }
 
     public void markServed(int currentTurn) {
-        // insert implementation here
+        this.servedTurn = currentTurn;
+        this.status = CustomerStatus.EATING;
     }
 
     public Table getTable() {
-        // insert implementation here
-        return null;
+        return table;
     }
 
     public void seatAt(Table table) {
-        // insert implementation here
+        this.table = table;
+        this.status = CustomerStatus.SEATED;
     }
 
     public Order getOrder() {
-        // insert implementation here
-        return null;
+        return order;
     }
 
     public void placeOrder(Order order) {
-        // insert implementation here
+        this.order = order;
+        this.status = CustomerStatus.ORDERED;
     }
 
     public void markPaid() {
-        // insert implementation here
+        this.status = CustomerStatus.PAID;
     }
 }
