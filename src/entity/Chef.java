@@ -9,7 +9,27 @@ public class Chef extends Staff {
     }
 
     public ActionResult prepare(Order order) {
-        // insert implementation here
-        return null;
+        
+
+        if (order.getStatus()==OrderStatus.PREPARING) {
+
+            String message=
+            "Added 1 to the unitsDone , "
+            +"for the Order No. "
+            +order.getOrderNo();
+
+            return ActionResult.success(message);
+
+        }
+        
+        else {
+
+            String message=
+            "Error (Order no. "
+            +order.getOrderNo()
+            +" not in \"PREPARING\" status)";
+
+            return ActionResult.failure(message);
+        }
     }
 }
