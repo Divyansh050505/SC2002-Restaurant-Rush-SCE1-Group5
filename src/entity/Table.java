@@ -8,29 +8,43 @@ public class Table {
     private Customer customer;
 
     public Table(int tableNo) {
-        // insert implementation here
+    
+        this.tableNo=tableNo;
+
+        this.customer=null;
     }
 
     public boolean isFree() {
-        // insert implementation here
-        return false;
+        
+
+        if (this.customer==null) {
+
+            return true;
+        }
+        else {
+
+            return false;
+        }
     }
 
     public void assign(Customer customer) {
-        // insert implementation here
+
+        this.customer=customer;
     }
 
     public void release() {
-        // insert implementation here
+
+        this.customer=null;
+
     }
 
     public int getTableNo() {
-        // insert implementation here
-        return 0;
+
+        return this.tableNo;
     }
 
     public Customer getCustomer() {
-        // insert implementation here
-        return null;
+
+        return this.customer;
     }
 }
