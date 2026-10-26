@@ -9,7 +9,7 @@ import entity.Order;
 import entity.Table;
 import entity.Waiter;
 import java.util.ArrayList;
-
+import entity.CustomerStatus;
 /**
  * Stage One turn and game state controller skeleton.
  */
@@ -26,6 +26,7 @@ public class RestaurantController {
     private ArrayList<Customer> waitingQueue;
     private ArrayList<Customer> paymentQueue;
     private ArrayList<Order> orders;
+    private ArrayList<Customer> paidCustomers;
     private Table[] tables;
     private Menu menu;
     private Waiter waiter;
@@ -45,6 +46,7 @@ public class RestaurantController {
         waiter = new Waiter();
         chef = new Chef();
         cashier = new Cashier();
+        paidCustomers = new ArrayList<>();
     }
 
     /**
@@ -119,8 +121,9 @@ public class RestaurantController {
     }
 
     public boolean isVictory() {
-        // insert implementation here
-        return false;
+        return getPaidCount() >= 4
+                && getRevenueCents() >= 4500
+                && getAverageSatisfaction() >= 60.0;
     }
 
     public int getCurrentTurn() {
@@ -128,48 +131,52 @@ public class RestaurantController {
     }
 
     public int getRevenueCents() {
-        // insert implementation here
-        return 0;
+        return this.revenueCents;
     }
 
     public double getAverageSatisfaction() {
-        // insert implementation here
-        return 0.0;
+        if (paidCustomers.isEmpty()) {
+            return 0.0; // Avoid division by zero; UI can treat 0 as N/A
+        }
+        double totalSatisfaction = 0;
+        for (Customer customer : paidCustomers) {
+            totalSatisfaction += customer.getSatisfaction();
+        }
+        return totalSatisfaction / paidCustomers.size();
     }
 
     public int getPaidCount() {
-        // insert implementation here
-        return 0;
+        return this.paidCustomers.size();
     }
 
     public int getServedCount() {
-        // insert implementation here
-        return 0;
+        return getPaidCount();
     }
 
     public int getAbandonedCount() {
-        // insert implementation here
-        return 0;
+        int abandoned = 0;
+        for (Customer customer : customers) {
+            if (customer.getStatus() == entity.CustomerStatus.LEFT) {
+                abandoned++;
+            }
+        }
+        return abandoned;
     }
 
     public ArrayList<Customer> getWaitingQueue() {
-        // insert implementation here
-        return null;
+        return this.waitingQueue;
     }
 
     public ArrayList<Customer> getCustomers() {
-        // insert implementation here
-        return null;
+        return this.customers;
     }
 
     public ArrayList<Order> getOrders() {
-        // insert implementation here
-        return null;
+        return this.orders;
     }
-
+    
     public Table[] getTables() {
-        // insert implementation here
-        return null;
+        return this.tables;
     }
 
     private void handleArrival() {
@@ -184,11 +191,35 @@ public class RestaurantController {
     }
 
     private void handlePayment() {
-        // insert implementation here
+        if (cashier.hasActed()) {
+            return; // Cashier has already acted this turn.
+        }
+
+        // Find the first customer in the queue who is READY_TO_PAY
+        Customer customerToPay = null;
+        for (Customer customer : customers) {
+            if (customer.getStatus() == CustomerStatus.READY_TO_PAY) {
+                customerToPay = customer;
+                break; // Find the oldest one (first in the main list) and stop
+            }
+        }
+
+        if (customerToPay != null) {
+            int amount = cashier.collectPayment(customerToPay);
+            if (amount > 0) {
+                this.revenueCents += amount;
+                this.paidCustomers.add(customerToPay);
+                System.out.println("Cashier collected $" + (amount/100.0) + " from Customer #" + customerToPay.getCustomerId());
+            }
+        }
     }
 
     private void handleEating() {
-        // insert implementation here
+        for (Customer customer : customers) {
+            if (customer.getStatus() == CustomerStatus.EATING) {
+                customer.finishEating(this.currentTurn);
+            }
+        }
     }
 
     private void handleWaiting() {
@@ -214,7 +245,11 @@ public class RestaurantController {
     }
 
     private Table findFreeTable() {
-        // insert implementation here
-        return null;
+        for (Table table : tables) {
+            if (table.isFree()) {
+                return table;
+            }
+        }
+        return null; // No free tables found
     }
 }
