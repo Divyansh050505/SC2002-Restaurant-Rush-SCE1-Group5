@@ -1,7 +1,5 @@
 package entity;
 
-import control.RestaurantController;
-
 /**
  * Stage One order skeleton.
  */

@@ -13,6 +13,8 @@ public class Chef extends Staff {
 
         if (order.getStatus()==OrderStatus.PREPARING) {
 
+            order.advanceOneUnit();
+
             String message=
             "Added 1 to the unitsDone , "
             +"for the Order No. "
