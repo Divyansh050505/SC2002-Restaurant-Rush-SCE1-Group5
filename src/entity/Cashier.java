@@ -32,10 +32,8 @@ public class Cashier extends Staff {
 
         int amountPaid = order.getItem().getPriceCents();
 
-        // Update states
-        customer.markPaid(); // Sets customer status to PAID
-        order.markPaid();    // Sets order status to PAID
-        customer.getTable().release(); // Frees up the table
+        // Marks the customer and order PAID and frees the table
+        customer.markPaid();
 
         markActed(); // The cashier has now performed their action for the turn
 
