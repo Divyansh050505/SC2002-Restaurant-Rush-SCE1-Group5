@@ -229,7 +229,15 @@ public class RestaurantController {
     }
 
     private void handleWaiting() {
-        // insert implementation here
+        for (Customer customer : customers) {
+            if (customer.isWaitingForService()) {
+                // At 0 satisfaction the customer leaves: order cancelled, table freed
+                customer.loseSatisfaction();
+                if (customer.getStatus() == CustomerStatus.LEFT) {
+                    waitingQueue.remove(customer);
+                }
+            }
+        }
     }
 
     private Customer findCustomer(int customerId) {
