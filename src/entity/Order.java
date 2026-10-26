@@ -1,5 +1,7 @@
 package entity;
 
+import control.RestaurantController;
+
 /**
  * Stage One order skeleton.
  */
@@ -11,52 +13,99 @@ public class Order {
     private OrderStatus status;
 
     public Order(int orderNo, Customer customer, MenuItem item) {
-        // insert implementation here
+
+        this.orderNo=orderNo;
+        this.customer=customer;
+        this.item=item;
+        this.status=OrderStatus.PREPARING;
+
+
+        
     }
 
     public void advanceOneUnit() {
-        // insert implementation here
+        
+
+        if (this.unitsDone<this.item.getPrepUnits()) {
+
+            this.unitsDone+=1;
+
+        }
+
+        if (this.unitsDone<this.item.getPrepUnits()) {
+
+            this.status=OrderStatus.PREPARING;
+        }
+
+        else if (this.unitsDone==this.item.getPrepUnits()) {
+
+            this.status=OrderStatus.READY;
+
+        }
+        
     }
 
     public int getRemainingUnits() {
-        // insert implementation here
-        return 0;
+        
+
+       return 
+       (this.item.getPrepUnits()-this.unitsDone);
+
     }
 
     public boolean isReady() {
-        // insert implementation here
-        return false;
+        
+
+        if (this.status==OrderStatus.READY) {
+
+            return true;
+        }
+        else {
+            
+            return false;
+        }
+        
     }
 
     public void markServed() {
-        // insert implementation here
+       
+
+        this.status=OrderStatus.SERVED;
     }
 
     public void markPaid() {
-        // insert implementation here
+       
+
+        this.status=OrderStatus.PAID;
     }
 
     public void cancel() {
-        // insert implementation here
+        
+
+        status=OrderStatus.CANCELLED;
     }
 
     public int getOrderNo() {
-        // insert implementation here
-        return 0;
+        
+
+        return this.orderNo;
     }
 
     public Customer getCustomer() {
-        // insert implementation here
-        return null;
+        
+
+        return this.customer;
     }
 
     public MenuItem getItem() {
-        // insert implementation here
-        return null;
+        
+
+        return this.item;
     }
 
     public OrderStatus getStatus() {
-        // insert implementation here
-        return null;
+       
+
+        return this.status;
     }
 }

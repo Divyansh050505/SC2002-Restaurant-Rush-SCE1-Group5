@@ -9,21 +9,26 @@ public class MenuItem {
     private int prepUnits;
 
     public MenuItem(String name, int priceCents, int prepUnits) {
-        // insert implementation here
+        
+
+        this.name=name;
+        this.priceCents=priceCents;
+        this.prepUnits=prepUnits;
     }
 
     public String getName() {
-        // insert implementation here
-        return null;
+        
+        return this.name;
     }
 
     public int getPriceCents() {
-        // insert implementation here
-        return 0;
+        
+        return this.priceCents;
     }
 
     public int getPrepUnits() {
-        // insert implementation here
-        return 0;
+        
+        return this.prepUnits;
+        
     }
 }
