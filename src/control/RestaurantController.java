@@ -10,6 +10,7 @@ import entity.Table;
 import entity.Waiter;
 import java.util.ArrayList;
 import entity.CustomerStatus;
+import entity.OrderStatus;
 /**
  * Stage One turn and game state controller skeleton.
  */
@@ -150,7 +151,13 @@ public class RestaurantController {
     }
 
     public int getServedCount() {
-        return getPaidCount();
+        int served = 0;
+        for (Order order : orders) {
+            if (order.getStatus() == OrderStatus.SERVED || order.getStatus() == OrderStatus.PAID) {
+                served++;
+            }
+        }
+        return served;
     }
 
     public int getAbandonedCount() {
@@ -209,7 +216,6 @@ public class RestaurantController {
             if (amount > 0) {
                 this.revenueCents += amount;
                 this.paidCustomers.add(customerToPay);
-                System.out.println("Cashier collected $" + (amount/100.0) + " from Customer #" + customerToPay.getCustomerId());
             }
         }
     }
