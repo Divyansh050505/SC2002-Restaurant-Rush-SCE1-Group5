@@ -9,16 +9,24 @@ public class Menu {
     private ArrayList<MenuItem> items;
 
     public Menu() {
-        // insert implementation here
+        
+
+        items=new ArrayList<>();
+
+        items.add(new MenuItem("Salad", 900, 1));
+        items.add(new MenuItem("Burger", 1500, 1));
+        items.add(new MenuItem("Pasta", 1800, 2));
+        
     }
 
     public MenuItem getItem(int index) {
-        // insert implementation here
-        return null;
+        
+
+        return items.get(index);
     }
 
     public int getItemCount() {
-        // insert implementation here
-        return 0;
+        
+        return items.size();
     }
 }
