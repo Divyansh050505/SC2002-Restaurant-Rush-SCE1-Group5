@@ -3,9 +3,12 @@ package boundary;
 import control.RestaurantController;
 import entity.ActionResult;
 import entity.Customer;
+import entity.CustomerStatus;
 import entity.Order;
 import entity.Table;
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -15,6 +18,8 @@ public class RestaurantUI {
     private RestaurantController controller;
     private Scanner sc;
     private boolean inputEnded;
+    // Active customers and table numbers before automatic end-of-turn actions.
+    private final Map<Customer, Integer> customerTablesBeforeEnd = new LinkedHashMap<>();
 
     public RestaurantUI(RestaurantController controller) {
         this.controller = controller;
@@ -32,6 +37,14 @@ public class RestaurantUI {
             displayTurnStart();
             chooseWaiterTask();
             chooseChefTask();
+            customerTablesBeforeEnd.clear();
+            for (Customer customer : controller.getCustomers()) {
+                CustomerStatus status = customer.getStatus();
+                if (status != CustomerStatus.PAID && status != CustomerStatus.LEFT) {
+                    Table table = customer.getTable();
+                    customerTablesBeforeEnd.put(customer, table == null ? null : table.getTableNo());
+                }
+            }
             controller.endTurn();
             displayTurnEnd();
         }
@@ -183,6 +196,23 @@ public class RestaurantUI {
 
     private void displayTurnEnd() {
         System.out.println("\n--- End of turn " + controller.getCurrentTurn() + " ---");
+        for (Map.Entry<Customer, Integer> entry : customerTablesBeforeEnd.entrySet()) {
+            Customer customer = entry.getKey();
+            if (customer.getStatus() == CustomerStatus.PAID) {
+                System.out.println("Customer #" + customer.getCustomerId() + " paid "
+                        + formatMoney(customer.getOrder().getItem().getPriceCents()) + ".");
+            } else if (customer.getStatus() == CustomerStatus.LEFT) {
+                System.out.println("Customer #" + customer.getCustomerId() + " left without paying."
+                        + (customer.getOrder() == null ? ""
+                        : " Order #" + customer.getOrder().getOrderNo() + " was cancelled."));
+            } else {
+                continue;
+            }
+            if (entry.getValue() != null) {
+                System.out.println("Table #" + entry.getValue() + " is now free.");
+            }
+        }
+        customerTablesBeforeEnd.clear();
         displayTotals();
         System.out.println("Turns used: " + controller.getCurrentTurn() + " / 18");
     }
