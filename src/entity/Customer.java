@@ -47,7 +47,8 @@ public class Customer {
      * Each game's menu gets a fresh shuffled plan for its six customers:
      * every item appears once, and the remaining slots are chosen randomly.
      * Customer IDs select slots, so retries and ordering priority do not reroll
-     * choices or affect coverage across the six customers.
+     * choices or affect coverage across the six customers. The launch seed,
+     * when supplied by the UI, reproduces the same plan for a replay.
      */
     public MenuItem chooseItem(Menu menu) {
         if (menu == null) {
@@ -68,7 +69,8 @@ public class Customer {
         synchronized (CHOICES_BY_MENU) {
             int[] choices = CHOICES_BY_MENU.get(menu);
             if (choices == null) {
-                Random random = new Random();
+                Long seed = Long.getLong("restaurant.rush.seed");
+                Random random = seed == null ? new Random() : new Random(seed);
                 choices = new int[6];
                 for (int i = 0; i < choices.length; i++) {
                     choices[i] = i < itemCount ? i : random.nextInt(itemCount);

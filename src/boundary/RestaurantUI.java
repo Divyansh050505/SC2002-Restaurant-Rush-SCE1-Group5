@@ -9,6 +9,7 @@ import entity.Table;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -27,28 +28,65 @@ public class RestaurantUI {
     }
 
     /**
-     * Plays the whole game: every turn runs arrivals, the Waiter's task,
+     * Offers a new game or a replay by seed before turn 1.
+     * Every turn runs arrivals, the Waiter's task,
      * the Chef's task (Waiter always before Chef), then eating, payment and
      * waiting. The game always runs all turns before showing the result.
      */
     public void start() {
-        while (!controller.isGameOver()) {
-            controller.startTurn();
-            displayTurnStart();
-            chooseWaiterTask();
-            chooseChefTask();
-            customerTablesBeforeEnd.clear();
-            for (Customer customer : controller.getCustomers()) {
-                CustomerStatus status = customer.getStatus();
-                if (status != CustomerStatus.PAID && status != CustomerStatus.LEFT) {
-                    Table table = customer.getTable();
-                    customerTablesBeforeEnd.put(customer, table == null ? null : table.getTableNo());
+        int seed;
+        while (true) {
+            System.out.println("\nRESTAURANT RUSH");
+            System.out.println("  1. New game");
+            System.out.println("  2. Replay using a seed");
+            System.out.println("  0. Exit");
+            int choice = readChoice(0, 2);
+            if (choice == 0) {
+                return;
+            }
+            if (choice == 1) {
+                seed = new Random().nextInt(900_000) + 100_000;
+            } else {
+                System.out.println("Enter the previous game's seed (0 = back):");
+                seed = readChoice(0, 999_999);
+                if (seed == 0) {
+                    if (inputEnded) {
+                        return;
+                    }
+                    continue;
                 }
             }
-            controller.endTurn();
-            displayTurnEnd();
+            break;
         }
-        displayFinalResult();
+
+        String previousSeed = System.getProperty("restaurant.rush.seed");
+        System.setProperty("restaurant.rush.seed", Integer.toString(seed));
+        System.out.println("Game seed: " + seed);
+        try {
+            while (!controller.isGameOver()) {
+                controller.startTurn();
+                displayTurnStart();
+                chooseWaiterTask();
+                chooseChefTask();
+                customerTablesBeforeEnd.clear();
+                for (Customer customer : controller.getCustomers()) {
+                    CustomerStatus status = customer.getStatus();
+                    if (status != CustomerStatus.PAID && status != CustomerStatus.LEFT) {
+                        Table table = customer.getTable();
+                        customerTablesBeforeEnd.put(customer, table == null ? null : table.getTableNo());
+                    }
+                }
+                controller.endTurn();
+                displayTurnEnd();
+            }
+            displayFinalResult();
+        } finally {
+            if (previousSeed == null) {
+                System.clearProperty("restaurant.rush.seed");
+            } else {
+                System.setProperty("restaurant.rush.seed", previousSeed);
+            }
+        }
     }
 
     private void displayTurnStart() {
@@ -254,10 +292,12 @@ public class RestaurantUI {
             System.out.print("Choice [" + min + "-" + max + "]: ");
             if (!sc.hasNextLine()) {
                 if (!inputEnded) {
-                    System.out.println("\nInput ended. Remaining staff tasks will use Wait.");
+                    System.out.println(controller.getCurrentTurn() == 0
+                            ? "\nInput ended. Exiting before the game starts."
+                            : "\nInput ended. Remaining staff tasks will use Wait.");
                     inputEnded = true;
                 }
-                // Every menu includes 0: back at a submenu, then Wait at its parent.
+                // Every menu includes 0: exit before play, otherwise back or Wait.
                 return 0;
             }
             String input = sc.nextLine().trim();
