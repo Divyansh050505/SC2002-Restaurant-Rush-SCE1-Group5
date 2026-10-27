@@ -33,6 +33,10 @@ java -cp out RestaurantApp
 ```
 
 ## How to play
+At launch, choose **1. New game** or **2. Replay using a seed**.
+New games print a six-digit seed; enter that seed in Replay to reproduce the customers' food choices.
+You still choose the staff actions, so the result can differ. Choose `0` to exit the startup menu or return from the seed prompt.
+
 Each turn the game shows the restaurant state, then asks for one Waiter task and one Chef task by number.
 Customers and orders are chosen by the number shown next to them; `0` goes back or makes the staff member wait.
 An invalid choice explains why it failed and asks again without using up the staff task.

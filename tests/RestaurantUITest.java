@@ -49,12 +49,34 @@ public class RestaurantUITest {
     }
 
     private static void eofAndFullLoop() throws Exception {
-        // EOF at top level, customer selection, Chef menu, and Chef order selection.
-        for (String input : List.of("", "1\n", "0\n", "0\n1\n")) {
+        for (String input : List.of("0\n", "", "2\n", "2\n0\n0\n")) {
             Fixture fixture = new Fixture();
             capture(input, fixture, (ui, out) -> {
                 ui.start();
                 String text = out.toString(StandardCharsets.UTF_8);
+                check(fixture.turn == 0 && fixture.ended == 0, "startup exit/back/EOF does not start turn 1");
+                check(!text.contains("FINAL RESULT:"), "exiting before play has no game result");
+            });
+        }
+        Fixture replay = new Fixture();
+        String previousSeed = System.getProperty("restaurant.rush.seed");
+        capture("2\nabc\n-1\n1000000\n48219\n", replay, (ui, out) -> {
+            ui.start();
+            String text = out.toString(StandardCharsets.UTF_8);
+            check(count(text, "Invalid input.") == 3, "invalid replay seeds explain and retry");
+            check(text.contains("Game seed: 48219"), "the accepted replay seed is displayed");
+            check(replay.turn == 18 && replay.ended == 18, "a valid replay starts and completes the game");
+        });
+        check(java.util.Objects.equals(previousSeed, System.getProperty("restaurant.rush.seed")),
+                "the launch seed configuration is restored after a game");
+
+        // EOF at top level, customer selection, Chef menu, and Chef order selection.
+        for (String input : List.of("", "1\n", "0\n", "0\n1\n")) {
+            Fixture fixture = new Fixture();
+            capture("1\n" + input, fixture, (ui, out) -> {
+                ui.start();
+                String text = out.toString(StandardCharsets.UTF_8);
+                check(text.matches("(?s).*Game seed: [1-9][0-9]{5}.*"), "new game displays a six-digit seed");
                 check(fixture.turn == 18 && fixture.ended == 18, "EOF completes all 18 turns");
                 check(count(text, "Input ended.") == 1, "EOF notice appears once");
                 check(count(text, "--- End of turn") == 18, "every turn has summary");
@@ -66,7 +88,7 @@ public class RestaurantUITest {
     private static void actions() throws Exception {
         Fixture fixture = new Fixture();
         // Back, rejected seating, retry seating, then Chef action.
-        capture("1\n0\n1\n1\n1\n1\n1\n1\n", fixture, (ui, out) -> {
+        capture("1\n1\n0\n1\n1\n1\n1\n1\n1\n", fixture, (ui, out) -> {
             ui.start();
             check(fixture.calls.equals(List.of("seat:1", "seat:1", "prepare:1")),
                     "back/rejection do not spend task; success advances to Chef");
@@ -74,14 +96,14 @@ public class RestaurantUITest {
                     "controller rejection shown");
         });
         Fixture other = new Fixture();
-        capture("2\n1\n0\n3\n1\n0\n", other, (ui, out) -> {
+        capture("1\n2\n1\n0\n3\n1\n0\n", other, (ui, out) -> {
             ui.start();
             check(other.calls.equals(List.of("order:1", "serve:1")), "order and serve route by IDs");
         });
         Fixture empty = new Fixture();
         empty.orders.clear();
         empty.customers.clear();
-        capture("3\n0\n1\n0\n", empty, (ui, out) -> {
+        capture("1\n3\n0\n1\n0\n", empty, (ui, out) -> {
             ui.start();
             check(count(out.toString(StandardCharsets.UTF_8), "There are no orders yet.") == 2,
                     "empty order menus recover");
@@ -95,7 +117,7 @@ public class RestaurantUITest {
         fixture.revenue = 4500;
         fixture.average = 60;
         fixture.victory = true;
-        capture("", fixture, (ui, out) -> {
+        capture("1\n", fixture, (ui, out) -> {
             ui.start();
             String text = out.toString(StandardCharsets.UTF_8);
             for (String expected : List.of("Customer #1", "satisfaction 76", "Order #1",

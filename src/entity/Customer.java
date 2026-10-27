@@ -1,6 +1,8 @@
 package entity;
 
+import java.util.Map;
 import java.util.Random;
+import java.util.WeakHashMap;
 
 /**
  * A Stage One regular customer and their service lifecycle.
@@ -16,6 +18,9 @@ import java.util.Random;
  */
 public class Customer {
     private static final int SATISFACTION_LOSS = 8;
+    // A controller creates one Menu per game; weak keys do not retain completed games.
+    private static final Map<Menu, int[]> CHOICES_BY_MENU = new WeakHashMap<>();
+
     private final int customerId;
     private final int arrivalTurn;
     private int satisfaction = 100;
@@ -39,9 +44,11 @@ public class Customer {
 
     /**
      * Chooses from the menu only while seated and without an order.
-     * The seed is 2002 + 31 * customerId + arrivalTurn. For an unchanged menu,
-     * retries and repeated games give the same customer the same choice,
-     * independently of the order in which customers are asked.
+     * Each game's menu gets a fresh shuffled plan for its six customers:
+     * every item appears once, and the remaining slots are chosen randomly.
+     * Customer IDs select slots, so retries and ordering priority do not reroll
+     * choices or affect coverage across the six customers. The launch seed,
+     * when supplied by the UI, reproduces the same plan for a replay.
      */
     public MenuItem chooseItem(Menu menu) {
         if (menu == null) {
@@ -54,9 +61,31 @@ public class Customer {
         if (itemCount <= 0) {
             throw new IllegalArgumentException("Cannot choose food from an empty menu.");
         }
+        if (itemCount > 6) {
+            throw new IllegalArgumentException("Six customers cannot order every item from a menu larger than six items.");
+        }
 
-        final long seed = 2002L + 31L * customerId + arrivalTurn;
-        int index = new Random(seed).nextInt(itemCount);
+        int index;
+        synchronized (CHOICES_BY_MENU) {
+            int[] choices = CHOICES_BY_MENU.get(menu);
+            if (choices == null) {
+                Long seed = Long.getLong("restaurant.rush.seed");
+                Random random = seed == null ? new Random() : new Random(seed);
+                choices = new int[6];
+                for (int i = 0; i < choices.length; i++) {
+                    choices[i] = i < itemCount ? i : random.nextInt(itemCount);
+                }
+                // Fisher-Yates shuffle gives each arrangement an unbiased shuffle.
+                for (int i = choices.length - 1; i > 0; i--) {
+                    int other = random.nextInt(i + 1);
+                    int temporary = choices[i];
+                    choices[i] = choices[other];
+                    choices[other] = temporary;
+                }
+                CHOICES_BY_MENU.put(menu, choices);
+            }
+            index = choices[(customerId - 1) % choices.length];
+        }
         MenuItem item;
         try {
             item = menu.getItem(index);
