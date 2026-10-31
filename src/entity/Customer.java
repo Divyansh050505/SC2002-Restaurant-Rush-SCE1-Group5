@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.WeakHashMap;
 
 /**
- * A Stage One regular customer and their service lifecycle.
+ * Shared customer lifecycle with polymorphic Stage Two behaviour hooks.
  *
  * <p>Invalid arguments and actions are rejected with descriptive
  * {@link IllegalArgumentException}s or {@link IllegalStateException}s, leaving
@@ -16,8 +16,7 @@ import java.util.WeakHashMap;
  * Later actions rely on those references but recheck table occupancy and order
  * status because other objects can change them.</p>
  */
-public class Customer {
-    private static final int SATISFACTION_LOSS = 8;
+public abstract class Customer {
     // A controller creates one Menu per game; weak keys do not retain completed games.
     private static final Map<Menu, int[]> CHOICES_BY_MENU = new WeakHashMap<>();
 
@@ -30,7 +29,7 @@ public class Customer {
     private Order order;
 
     /** Creates an unserved, waiting customer with satisfaction 100. */
-    public Customer(int customerId, int arrivalTurn) {
+    protected Customer(int customerId, int arrivalTurn) {
         if (customerId <= 0) {
             throw new IllegalArgumentException("Customer ID must be positive.");
         }
@@ -44,13 +43,10 @@ public class Customer {
 
     /**
      * Chooses from the menu only while seated and without an order.
-     * Each game's menu gets a fresh shuffled plan for its six customers:
-     * every item appears once, and the remaining slots are chosen randomly.
-     * Customer IDs select slots, so retries and ordering priority do not reroll
-     * choices or affect coverage across the six customers. The launch seed,
-     * when supplied by the UI, reproduces the same plan for a replay.
+     * Validates the shared preconditions before dispatching to selectItem.
+     * Choosing food does not place an order or consume a staff task.
      */
-    public MenuItem chooseItem(Menu menu) {
+    public final MenuItem chooseItem(Menu menu) {
         if (menu == null) {
             throw new IllegalArgumentException("A menu is required to choose food.");
         }
@@ -65,6 +61,26 @@ public class Customer {
             throw new IllegalArgumentException("Six customers cannot order every item from a menu larger than six items.");
         }
 
+        MenuItem item;
+        try {
+            item = selectItem(menu);
+        } catch (IndexOutOfBoundsException exception) {
+            throw new IllegalStateException("The menu does not contain the selected item.", exception);
+        }
+        if (item == null) {
+            throw new IllegalStateException("The selected menu item is missing.");
+        }
+        return item;
+    }
+
+    /**
+     * Default seeded choice for Regular and VIP customers. Each menu gets six
+     * shuffled slots covering every item; customer IDs select stable slots.
+     * Critic preferences can replace slots, so mixed groups need not order every
+     * dish. Selection order and retries never reroll a customer's choice.
+     */
+    protected MenuItem selectItem(Menu menu) {
+        int itemCount = menu.getItemCount();
         int index;
         synchronized (CHOICES_BY_MENU) {
             int[] choices = CHOICES_BY_MENU.get(menu);
@@ -86,16 +102,7 @@ public class Customer {
             }
             index = choices[(customerId - 1) % choices.length];
         }
-        MenuItem item;
-        try {
-            item = menu.getItem(index);
-        } catch (IndexOutOfBoundsException exception) {
-            throw new IllegalStateException("The menu does not contain the selected item.", exception);
-        }
-        if (item == null) {
-            throw new IllegalStateException("The selected menu item is missing.");
-        }
-        return item;
+        return menu.getItem(index);
     }
 
     /**
@@ -103,12 +110,12 @@ public class Customer {
      * Reaching zero also completes abandonment. Served and terminal customers
      * are unchanged, so their satisfaction remains available for reporting.
      */
-    public void loseSatisfaction() {
+    public final void loseSatisfaction() {
         if (!isWaitingForService()) {
             return;
         }
         int previousSatisfaction = satisfaction;
-        satisfaction = Math.max(0, satisfaction - SATISFACTION_LOSS);
+        satisfaction = Math.max(0, satisfaction - getSatisfactionLoss());
         if (satisfaction == 0) {
             try {
                 leave();
@@ -294,5 +301,32 @@ public class Customer {
         table.release();
         table = null;
         status = CustomerStatus.PAID;
+    }
+
+    /** Points lost per unserved turn; all types share the abandonment rules. */
+    protected abstract int getSatisfactionLoss();
+
+    /** Display label supplied by the customer, without UI subtype checks. */
+    public abstract String getTypeLabel();
+
+    /** Regular and Critic customers pay full price. */
+    protected int getDiscountPercent() {
+        return 0;
+    }
+
+    /**
+     * Calculates a bill in integer cents, rounding half cents up. A long
+     * intermediate avoids overflow even for the largest valid int price.
+     * Cashier and UI use this same calculation; it does not change game state.
+     */
+    public final int calculateBillCents(int basePriceCents) {
+        if (basePriceCents < 0) {
+            throw new IllegalArgumentException("The base price cannot be negative.");
+        }
+        int discount = getDiscountPercent();
+        if (discount < 0 || discount > 100) {
+            throw new IllegalStateException("The discount percentage must be between 0 and 100.");
+        }
+        return (int) ((basePriceCents * (100L - discount) + 50) / 100);
     }
 }

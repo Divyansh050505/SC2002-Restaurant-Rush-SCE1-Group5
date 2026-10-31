@@ -1,7 +1,7 @@
 package entity;
 
 /**
- * Stage One cashier skeleton.
+ * Collects the bill supplied by the customer's pricing behaviour.
  */
 public class Cashier extends Staff {
 
@@ -30,7 +30,7 @@ public class Cashier extends Staff {
             return 0; // Should not happen if customer is READY_TO_PAY
         }
 
-        int amountPaid = order.getItem().getPriceCents();
+        int amountPaid = customer.calculateBillCents(order.getItem().getPriceCents());
 
         // Marks the customer and order PAID and frees the table
         customer.markPaid();

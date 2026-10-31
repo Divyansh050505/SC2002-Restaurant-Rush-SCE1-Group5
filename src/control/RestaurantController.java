@@ -9,10 +9,11 @@ import entity.Order;
 import entity.Table;
 import entity.Waiter;
 import java.util.ArrayList;
+import java.util.Random;
 import entity.CustomerStatus;
 import entity.OrderStatus;
 /**
- * Stage One turn and game state controller skeleton.
+ * Turn sequence and game state, with a seeded Stage Two arrival plan.
  */
 public class RestaurantController {
     private static final int MAX_TURNS = 18;
@@ -33,6 +34,7 @@ public class RestaurantController {
     private Waiter waiter;
     private Chef chef;
     private Cashier cashier;
+    private CustomerArrivalPlan arrivalPlan = null;
 
     public RestaurantController() {
         customers = new ArrayList<>();
@@ -58,6 +60,7 @@ public class RestaurantController {
         if (isGameOver()) {
             return;
         }
+        initializeArrivalPlan();
         currentTurn++;
         waiter.resetTurn();
         chef.resetTurn();
@@ -189,7 +192,7 @@ public class RestaurantController {
     private void handleArrival() {
         for (int arrivalTurn : ARRIVAL_TURNS) {
             if (arrivalTurn == currentTurn) {
-                Customer customer = new Customer(nextCustomerId, currentTurn);
+                Customer customer = arrivalPlan.createCustomer(nextCustomerId, currentTurn);
                 nextCustomerId++;
                 customers.add(customer);
                 waitingQueue.add(customer);
@@ -265,5 +268,13 @@ public class RestaurantController {
             }
         }
         return null; // No free tables found
+    }
+
+    /** The UI selects the seed after controller construction, before turn one. */
+    private void initializeArrivalPlan() {
+        if (arrivalPlan == null) {
+            Long seed = Long.getLong("restaurant.rush.seed");
+            arrivalPlan = new CustomerArrivalPlan(seed == null ? new Random().nextLong() : seed);
+        }
     }
 }

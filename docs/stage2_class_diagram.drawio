@@ -1247,7 +1247,7 @@
         <mxCell id="stage2-CustomerArrivalPlan-method-buildSlots" value="-buildSlots(random: Random): void" style="text=1;html=0;strokeColor=none;fillColor=none;overflow=visible;whiteSpace=nowrap;fontFamily=Arial;fontSize=14;spacing=0;verticalAlign=middle;fontStyle=0;align=left;" parent="CustomerArrivalPlan" vertex="1">
           <mxGeometry x="12" y="142" width="536" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="stage2-subtitle" value="Stage 1 copy updated against commit 084d133; Stage 2 design planned, Java source unchanged" style="text=1;html=0;strokeColor=none;fillColor=none;overflow=visible;whiteSpace=nowrap;fontFamily=Arial;fontSize=14;spacing=0;verticalAlign=middle;fontStyle=0;align=center;" parent="1" vertex="1">
+        <mxCell id="stage2-subtitle" value="Stage 2 implementation based on commit 084d133; complete members verified against Java source" style="text=1;html=0;strokeColor=none;fillColor=none;overflow=visible;whiteSpace=nowrap;fontFamily=Arial;fontSize=14;spacing=0;verticalAlign=middle;fontStyle=0;align=center;" parent="1" vertex="1">
           <mxGeometry x="200" y="44" width="2020" height="18" as="geometry" />
         </mxCell>
         <mxCell id="stage2-behaviour-note" value="" style="shape=note;size=15;whiteSpace=wrap;html=0;fillColor=#FFFFE0;strokeColor=#777777;container=1;collapsible=0;" parent="1" vertex="1">

@@ -1,4 +1,50 @@
-# Stage One recorded runs
+# Recorded runs
+
+## Stage Two
+
+Build the current source using the main README, then run:
+
+```sh
+java -cp out RestaurantApp < test-runs/stage2_victory.txt
+java -cp out RestaurantApp < test-runs/stage2_defeat.txt
+```
+
+Both recordings use replay seed **482190**. Their exact numeric inputs include the startup selection and seed. The corresponding `stage2_*_transcript.txt` files contain the application's complete redirected output; input is not echoed. Compare a fresh replay with its saved transcript to verify repeatability.
+
+The customer types for this seed are VIP, VIP, Critic, VIP, Critic, VIP at turns 1, 4, 7, 10, 13, 16. Other seeds can include Regular customers. The four random slots do not guarantee a Regular in every game.
+
+Victory strategy: serve the oldest READY order first, otherwise take the oldest seated customer's order, otherwise seat the oldest waiting customer if a table is free. The Chef advances the oldest PREPARING order each turn, including a newly taken order. There is no customer-type branch in this strategy.
+
+| Customer | Type | Food | Final state | Satisfaction | Amount collected |
+| --- | --- | --- | --- | ---: | ---: |
+| 1 | VIP | Salad | PAID | 90 | $8.10 |
+| 2 | VIP | Burger | PAID | 90 | $13.50 |
+| 3 | Critic | Pasta | PAID | 64 | $18.00 |
+| 4 | VIP | Pasta | PAID | 80 | $16.20 |
+| 5 | Critic | Pasta | READY_TO_PAY | 52 | $0.00 |
+| 6 | VIP | No order | SEATED | 85 | $0.00 |
+
+```text
+FINAL RESULT: VICTORY
+Served: 5 | Paid: 4 | Departures: 0
+Revenue: $55.80 | Average paid-customer satisfaction: 81.00
+Turns used: 18 / 18
+```
+
+Defeat uses the same Waiter priorities but leaves the Chef on Wait. The first two VIPs hold the tables with unfinished orders; the Critic arriving on turn 7 leaves the waiting queue on turn 15. No payments occur.
+
+```text
+FINAL RESULT: DEFEAT
+Served: 0 | Paid: 0 | Departures: 1
+Revenue: $0.00 | Average paid-customer satisfaction: N/A (no paid customers)
+Turns used: 18 / 18
+```
+
+The dependency-free Stage 2 tests also cover all three customer types through the same lifecycle, abandonment of both preparing and READY orders, half-cent rounding, actual Cashier transactions, 201 seeded type plans, initialization after seed selection, and repeated real UI replays. A separate controller scenario prioritizes the turn-7 Critic, takes its Pasta order, leaves it unprepared, and verifies cancellation and table release on turn 15. See the main README for test commands.
+
+## Stage One (historical)
+
+These inputs and transcripts are unchanged evidence for source baseline `084d133`. Run them with that Stage 1 revision, rather than with the current Stage 2 source, whose types and Critic preferences change the schedule.
 
 Both runs use replay seed **482190** and the same six-customer food plan.
 Each run starts from a fresh game and completes all 18 turns.
@@ -8,7 +54,7 @@ Each run starts from a fresh game and completes all 18 turns.
 - `stage1_defeat.txt`: exact numeric inputs, including startup selection and seed.
 - `stage1_defeat_transcript.txt`: complete terminal output with every manager input echoed at its prompt.
 
-## Strategies and results
+### Strategies and results
 
 Victory: serve READY orders first, then take seated customers' orders, then seat waiting customers. The Chef advances the oldest PREPARING order whenever possible.
 
@@ -36,7 +82,7 @@ Victory targets (all three must pass):
   FAIL Average paid-customer satisfaction: N/A (no paid customers) / 60
 ```
 
-## Reproduce from the repository root
+### Reproduce from the repository root at the Stage 1 revision
 
 Build using the instructions in the main README, then run:
 
@@ -47,7 +93,7 @@ java -cp out RestaurantApp < test-runs/stage1_defeat.txt
 
 Redirected input is not echoed by the application; the saved terminal transcripts include the original input echoes.
 
-## All manager choices by turn
+### All manager choices by turn
 
 | Turn | Victory: Waiter | Victory: Chef | Defeat: Waiter | Defeat: Chef |
 | --- | --- | --- | --- | --- |

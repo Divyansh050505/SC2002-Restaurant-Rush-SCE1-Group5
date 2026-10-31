@@ -13,7 +13,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * Console input and output for Stage One. Game actions remain in the controller.
+ * Console input and output for Stage Two. Game actions remain in the controller.
  */
 public class RestaurantUI {
     private RestaurantController controller;
@@ -115,7 +115,8 @@ public class RestaurantUI {
 
     private String describeCustomer(Customer customer) {
         Order order = customer.getOrder();
-        return "Customer #" + customer.getCustomerId() + " | " + customer.getStatus()
+        return "Customer #" + customer.getCustomerId() + " | " + customer.getTypeLabel()
+                + " | " + customer.getStatus()
                 + " | satisfaction " + customer.getSatisfaction()
                 + (order == null ? " | no order"
                     : " | order #" + order.getOrderNo() + " " + order.getStatus());
@@ -140,7 +141,9 @@ public class RestaurantUI {
             System.out.println("  Order #" + order.getOrderNo()
                     + " | Customer #" + order.getCustomer().getCustomerId()
                     + " | " + order.getItem().getName()
-                    + " | " + formatMoney(order.getItem().getPriceCents())
+                    + " | Menu " + formatMoney(order.getItem().getPriceCents())
+                    + " | Bill " + formatMoney(order.getCustomer()
+                            .calculateBillCents(order.getItem().getPriceCents()))
                     + " | " + order.getStatus()
                     + " | preparation units remaining: " + order.getRemainingUnits());
         }
@@ -238,7 +241,8 @@ public class RestaurantUI {
             Customer customer = entry.getKey();
             if (customer.getStatus() == CustomerStatus.PAID) {
                 System.out.println("Customer #" + customer.getCustomerId() + " paid "
-                        + formatMoney(customer.getOrder().getItem().getPriceCents()) + ".");
+                        + formatMoney(customer.calculateBillCents(
+                                customer.getOrder().getItem().getPriceCents())) + ".");
             } else if (customer.getStatus() == CustomerStatus.LEFT) {
                 System.out.println("Customer #" + customer.getCustomerId() + " left without paying."
                         + (customer.getOrder() == null ? ""

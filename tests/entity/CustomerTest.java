@@ -5,7 +5,7 @@ import java.util.Set;
 
 /**
  * Dependency-free Customer regression tests. Table, Order and Menu test doubles
- * supply the behaviour that is still a skeleton in the production classes.
+ * exercise failure and retry paths independently of production dependencies.
  *
  * <p>From the repository root:</p>
  * <pre>
@@ -29,11 +29,11 @@ public class CustomerTest {
     }
 
     private static void constructionAndInvalidActions() {
-        expect(IllegalArgumentException.class, () -> new Customer(0, 1));
-        expect(IllegalArgumentException.class, () -> new Customer(-1, 1));
-        expect(IllegalArgumentException.class, () -> new Customer(1, 0));
-        expect(IllegalArgumentException.class, () -> new Customer(1, -1));
-        Customer customer = new Customer(1, 1);
+        expect(IllegalArgumentException.class, () -> new RegularCustomer(0, 1));
+        expect(IllegalArgumentException.class, () -> new RegularCustomer(-1, 1));
+        expect(IllegalArgumentException.class, () -> new RegularCustomer(1, 0));
+        expect(IllegalArgumentException.class, () -> new RegularCustomer(1, -1));
+        Customer customer = new RegularCustomer(1, 1);
         check(customer.getCustomerId() == 1, "The constructor retains the customer ID.");
         check(customer.getSatisfaction() == 100, "Arrivals start with satisfaction 100.");
         check(customer.getStatus() == CustomerStatus.WAITING, "Arrivals start waiting.");
@@ -49,7 +49,7 @@ public class CustomerTest {
         customer.finishEating(1);
         check(customer.getStatus() == CustomerStatus.WAITING, "An unserved customer cannot finish eating.");
 
-        Customer laterArrival = new Customer(2, 4);
+        Customer laterArrival = new RegularCustomer(2, 4);
         unchanged(laterArrival, IllegalArgumentException.class, () -> laterArrival.markServed(3));
         unchanged(laterArrival, IllegalArgumentException.class, () -> laterArrival.finishEating(3));
     }
@@ -128,9 +128,9 @@ public class CustomerTest {
     }
 
     private static void seatingAndOrderingPreconditions() {
-        Customer customer = new Customer(1, 1);
+        Customer customer = new RegularCustomer(1, 1);
         TestTable occupied = new TestTable();
-        Customer other = new Customer(2, 4);
+        Customer other = new RegularCustomer(2, 4);
         other.seatAt(occupied);
         unchanged(customer, IllegalStateException.class, () -> customer.seatAt(occupied));
         check(occupied.getCustomer() == other, "Rejected seating preserves the existing occupant.");
@@ -215,7 +215,7 @@ public class CustomerTest {
 
     private static void abandonment() {
         for (int phase = 0; phase < 5; phase++) {
-            Customer customer = new Customer(1, 1);
+            Customer customer = new RegularCustomer(1, 1);
             TestTable table = null;
             TestOrder order = null;
             if (phase >= 1) {
@@ -260,7 +260,7 @@ public class CustomerTest {
     }
 
     private static void staffMayUpdateAssociationsFirst() {
-        Customer customer = new Customer(1, 1);
+        Customer customer = new RegularCustomer(1, 1);
         TestTable table = new TestTable();
         table.assign(customer);
         customer.seatAt(table);
@@ -279,7 +279,7 @@ public class CustomerTest {
     }
 
     private static void dependencyFailuresCanBeRetried() {
-        Customer customer = new Customer(1, 1);
+        Customer customer = new RegularCustomer(1, 1);
         TestTable table = new TestTable();
         table.failAssign = true;
         unchanged(customer, IllegalStateException.class, () -> customer.seatAt(table));
@@ -331,7 +331,7 @@ public class CustomerTest {
 
         // Table is mutable and exposed to staff, so its occupant can change independently.
         table.release();
-        Customer other = new Customer(2, 4);
+        Customer other = new RegularCustomer(2, 4);
         other.seatAt(table);
         unchanged(customer, IllegalStateException.class, () -> customer.markServed(4));
         check(order.getStatus() == OrderStatus.READY, "Invalid seating must prevent service.");
@@ -346,7 +346,7 @@ public class CustomerTest {
     }
 
     private static Customer seated(int id, int arrivalTurn) {
-        Customer customer = new Customer(id, arrivalTurn);
+        Customer customer = new RegularCustomer(id, arrivalTurn);
         customer.seatAt(new TestTable());
         return customer;
     }
