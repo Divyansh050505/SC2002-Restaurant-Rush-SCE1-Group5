@@ -48,7 +48,7 @@ java -cp out RestaurantApp < test-runs/stage2_victory.txt
 java -cp out RestaurantApp < test-runs/stage2_defeat.txt
 ```
 
-Both Stage 2 examples use seed **482190**, contain VIP and Critic arrivals, and run all 18 turns. The victory pays four customers, including VIPs and a Critic, earns **$55.80**, and records average paid-customer satisfaction **81.00**. See [test notes](test-runs/README.md) for the strategies and full transcripts. Stage 1 recordings are preserved for the Stage 1 revision; they are not Stage 2 replay fixtures.
+Both Stage 2 examples use seed **482193**, contain VIP and Critic arrivals, and run all 18 turns. The victory pays four customers, including the VIP and Critic, earns **$58.20**, and records average paid-customer satisfaction **74.00**. See [test notes](test-runs/README.md) for the strategies and full transcripts. Stage 1 recordings are preserved for the Stage 1 revision; they are not Stage 2 replay fixtures.
 
 ## Stage 2 customer rules
 
@@ -60,11 +60,11 @@ Both Stage 2 examples use seed **482190**, contain VIP and Critic arrivals, and 
 
 Every customer starts at satisfaction 100. Waiting for a table, waiting to order, or waiting for food causes the subtype's loss at turn end, clamped at zero. At zero the customer leaves, cancels an unserved order and releases their table. Served/eating/ready-to-pay customers lose no satisfaction. All types eat for one full turn: service on turn T, readiness at the end of T+1, payment on T+2 at the earliest.
 
-Six arrivals retain the base schedule. Their type plan contains one guaranteed VIP, one guaranteed Critic, and four independent, equally likely selections from all three types, then one shuffle. A game may therefore contain additional VIPs/Critics and need not contain a Regular. `CustomerArrivalPlan` uses `new Random(seed ^ 0x435553544F4D4552L)`; its random stream is separate from the existing food-plan stream. The controller creates this plan once on the first turn, after the UI selects the seed.
+Six arrivals retain the base schedule. Their type plan always contains exactly four Regular customers, one VIP, and one Critic. Only their arrival positions are shuffled; the customer counts never vary. `CustomerArrivalPlan` uses `new Random(seed ^ 0x435553544F4D4552L)`; its random stream is separate from the existing food-plan stream. The controller creates this plan once on the first turn, after the UI selects the seed.
 
 Regular/VIP food choices retain the existing six-slot plan: one of each menu item plus three random choices, shuffled using the game seed and indexed by customer ID. Retries and the manager's ordering priority do not reroll choices. Critics replace their own slots with Pasta, so mixed groups need not order every menu item. The manager never chooses the dish.
 
-All bills use integer cents with half cents rounded up. VIP bills for Salad/Burger/Pasta are **$8.10 / $13.50 / $16.20**. Cashier and UI share the same customer pricing method, so displayed payments match revenue. Prices are calculated from the ordered item in Stage 2; locking an order's bill for Happy Hour remains a Stage 3 extension.
+All bills use integer cents with half cents rounded up. VIP bills for Salad/Burger/Pasta are **$8.10 / $13.50 / $16.20**. Cashier and UI share the same customer pricing method, so displayed payments match revenue.
 
 ## Stage 1 to Stage 2 design changes
 

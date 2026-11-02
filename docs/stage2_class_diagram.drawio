@@ -1265,7 +1265,7 @@
         <mxCell id="stage2-note-line3" value="Critic selects Pasta; falls back if Pasta is absent." style="text;html=0;strokeColor=none;fillColor=none;overflow=visible;whiteSpace=nowrap;fontFamily=Arial;fontSize=14;spacing=0;verticalAlign=middle;fontStyle=0;align=left;" parent="stage2-behaviour-note" vertex="1">
           <mxGeometry x="14" y="63" width="532" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="stage2-note-line4" value="Six slots: 1 VIP + 1 Critic + 4 random, then shuffle." style="text;html=0;strokeColor=none;fillColor=none;overflow=visible;whiteSpace=nowrap;fontFamily=Arial;fontSize=14;spacing=0;verticalAlign=middle;fontStyle=0;align=left;" parent="stage2-behaviour-note" vertex="1">
+        <mxCell id="stage2-note-line4" value="Six slots: 4 Regular + 1 VIP + 1 Critic; shuffle positions." style="text;html=0;strokeColor=none;fillColor=none;overflow=visible;whiteSpace=nowrap;fontFamily=Arial;fontSize=14;spacing=0;verticalAlign=middle;fontStyle=0;align=left;" parent="stage2-behaviour-note" vertex="1">
           <mxGeometry x="14" y="81" width="532" height="18" as="geometry" />
         </mxCell>
         <mxCell id="stage2-note-line5" value="Initialize arrival plan after seed selection, at first turn." style="text;html=0;strokeColor=none;fillColor=none;overflow=visible;whiteSpace=nowrap;fontFamily=Arial;fontSize=14;spacing=0;verticalAlign=middle;fontStyle=0;align=left;" parent="stage2-behaviour-note" vertex="1">

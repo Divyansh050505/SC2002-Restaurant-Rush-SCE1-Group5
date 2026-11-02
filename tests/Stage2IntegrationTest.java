@@ -17,7 +17,7 @@ public class Stage2IntegrationTest {
         try {
             lateSeedAndSchedule();
             orderedCriticAbandons();
-            Run victory = play(482190, true);
+            Run victory = play(482193, true);
             check(victory.controller.isVictory(), "documented Stage Two strategy wins");
             check(victory.controller.getPaidCount() >= 4 && victory.controller.getRevenueCents() >= 4500
                     && victory.controller.getAverageSatisfaction() >= 60, "all victory thresholds remain required");
@@ -25,7 +25,7 @@ public class Stage2IntegrationTest {
                     && c.getStatus() == CustomerStatus.PAID), "victory exercises a paid VIP");
             check(victory.controller.getCustomers().stream().anyMatch(c -> c.getTypeLabel().equals("Critic")
                     && c.getStatus() == CustomerStatus.PAID), "victory exercises a paid Critic");
-            Run defeat = play(482190, false);
+            Run defeat = play(482193, false);
             check(!defeat.controller.isVictory() && defeat.controller.getRevenueCents() == 0
                     && defeat.controller.getPaidCount() == 0 && defeat.controller.getAbandonedCount() > 0,
                     "unfinished and abandoned orders generate no revenue");
@@ -34,6 +34,8 @@ public class Stage2IntegrationTest {
                 String saved = Files.readString(Path.of("test-runs/stage2_" + name + ".txt"));
                 check(saved.equals(run.input), "recorded " + name + " manager inputs reproduce the strategy");
                 String output = console(saved);
+                check(output.equals(Files.readString(Path.of("test-runs/stage2_" + name + "_transcript.txt"))),
+                        "saved transcript matches a fresh real CLI replay");
                 check(output.equals(console(saved)), "same seed and manager choices reproduce the entire console output");
                 check(output.contains("FINAL RESULT: " + name.toUpperCase(Locale.ROOT))
                         && count(output, "--- End of turn") == 18 && !output.contains("Invalid input."),
@@ -58,8 +60,8 @@ public class Stage2IntegrationTest {
         System.setProperty("restaurant.rush.seed", "1");
         RestaurantController controller = new RestaurantController();
         check(controller.getCustomers().isEmpty(), "construction creates no premature arrivals");
-        System.setProperty("restaurant.rush.seed", "482190");
-        CustomerArrivalPlan expected = new CustomerArrivalPlan(482190);
+        System.setProperty("restaurant.rush.seed", "482193");
+        CustomerArrivalPlan expected = new CustomerArrivalPlan(482193);
         for (int turn = 1; turn <= 18; turn++) {
             controller.startTurn();
             check(controller.getCustomers().size() == (turn + 2) / 3, "only the six scheduled turns create arrivals");
@@ -77,29 +79,30 @@ public class Stage2IntegrationTest {
         controller.startTurn();
         check(controller.getCurrentTurn() == 18 && controller.getCustomers().size() == 6,
                 "no arrivals or additional turns after game over");
-        check(controller.getCustomers().stream().anyMatch(c -> c.getTypeLabel().equals("VIP"))
-                && controller.getCustomers().stream().anyMatch(c -> c.getTypeLabel().equals("Critic")),
-                "complete base game includes both special customer types");
+        List<String> types = controller.getCustomers().stream().map(Customer::getTypeLabel).toList();
+        check(Collections.frequency(types, "Regular") == 4 && Collections.frequency(types, "VIP") == 1
+                && Collections.frequency(types, "Critic") == 1,
+                "complete base game has exactly four Regulars, one VIP and one Critic");
     }
 
     private static void orderedCriticAbandons() {
-        System.setProperty("restaurant.rush.seed", "482190");
+        System.setProperty("restaurant.rush.seed", "482193");
         RestaurantController game = new RestaurantController();
         Customer critic = null;
         Table table = null;
         for (int turn = 1; turn <= 18; turn++) {
             game.startTurn();
-            if (turn == 7) {
-                critic = game.getCustomers().get(2);
-                check(critic.getTypeLabel().equals("Critic"), "fixed test seed has a Critic arriving on turn 7");
-                check(game.seatCustomer(3).isSuccess(), "manager can prioritize the Critic over earlier arrivals");
+            if (turn == 1) {
+                critic = game.getCustomers().get(0);
+                check(critic.getTypeLabel().equals("Critic"), "fixed test seed has a Critic arriving on turn 1");
+                check(game.seatCustomer(1).isSuccess(), "manager seats the Critic");
                 table = critic.getTable();
-            } else if (turn == 8) {
-                check(game.takeOrder(3).isSuccess(), "Critic orders Pasta through the actual Waiter");
+            } else if (turn == 2) {
+                check(game.takeOrder(1).isSuccess(), "Critic orders Pasta through the actual Waiter");
             }
             game.endTurn();
-            if (turn == 14) check(critic.getSatisfaction() == 4 && !table.isFree(), "Critic still holds table before final loss");
-            if (turn == 15) {
+            if (turn == 8) check(critic.getSatisfaction() == 4 && !table.isFree(), "Critic still holds table before final loss");
+            if (turn == 9) {
                 check(critic.getSatisfaction() == 0 && critic.getStatus() == CustomerStatus.LEFT
                         && critic.getOrder().getStatus() == OrderStatus.CANCELLED && table.isFree(),
                         "controller cancels an unfinished Critic order and frees its table on the ninth loss");

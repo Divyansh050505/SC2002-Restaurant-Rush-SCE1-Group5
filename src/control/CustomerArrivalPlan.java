@@ -11,7 +11,7 @@ import java.util.Random;
 import java.util.function.BiFunction;
 
 /**
- * Six factory slots, including at least one VIP and one Critic, shuffled once.
+ * Exactly four Regular, one VIP and one Critic factory slots, shuffled once.
  * Customer construction is confined here; service code uses Customer only.
  */
 public class CustomerArrivalPlan {
@@ -33,12 +33,10 @@ public class CustomerArrivalPlan {
     }
 
     private void buildSlots(Random random) {
-        List<BiFunction<Integer, Integer, Customer>> types = List.of(
-                RegularCustomer::new, VIPCustomer::new, CriticCustomer::new);
         slots.add(VIPCustomer::new);
         slots.add(CriticCustomer::new);
         for (int i = slots.size(); i < SLOT_COUNT; i++) {
-            slots.add(types.get(random.nextInt(types.size())));
+            slots.add(RegularCustomer::new);
         }
         Collections.shuffle(slots, random);
     }

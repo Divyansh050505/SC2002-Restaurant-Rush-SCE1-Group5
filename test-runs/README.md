@@ -9,38 +9,38 @@ java -cp out RestaurantApp < test-runs/stage2_victory.txt
 java -cp out RestaurantApp < test-runs/stage2_defeat.txt
 ```
 
-Both recordings use replay seed **482190**. Their exact numeric inputs include the startup selection and seed. The corresponding `stage2_*_transcript.txt` files contain the application's complete redirected output; input is not echoed. Compare a fresh replay with its saved transcript to verify repeatability.
+Both recordings use replay seed **482193**. Their exact numeric inputs include the startup selection and seed. The corresponding `stage2_*_transcript.txt` files contain the application's complete redirected output; input is not echoed. Compare a fresh replay with its saved transcript to verify repeatability.
 
-The customer types for this seed are VIP, VIP, Critic, VIP, Critic, VIP at turns 1, 4, 7, 10, 13, 16. Other seeds can include Regular customers. The four random slots do not guarantee a Regular in every game.
+The customer types for this seed are Critic, Regular, Regular, VIP, Regular, Regular at turns 1, 4, 7, 10, 13, 16. Every seed has exactly four Regulars, one VIP and one Critic; only their positions change.
 
 Victory strategy: serve the oldest READY order first, otherwise take the oldest seated customer's order, otherwise seat the oldest waiting customer if a table is free. The Chef advances the oldest PREPARING order each turn, including a newly taken order. There is no customer-type branch in this strategy.
 
 | Customer | Type | Food | Final state | Satisfaction | Amount collected |
 | --- | --- | --- | --- | ---: | ---: |
-| 1 | VIP | Salad | PAID | 90 | $8.10 |
-| 2 | VIP | Burger | PAID | 90 | $13.50 |
-| 3 | Critic | Pasta | PAID | 64 | $18.00 |
+| 1 | Critic | Pasta | PAID | 64 | $18.00 |
+| 2 | Regular | Salad | PAID | 76 | $9.00 |
+| 3 | Regular | Burger | PAID | 76 | $15.00 |
 | 4 | VIP | Pasta | PAID | 80 | $16.20 |
-| 5 | Critic | Pasta | READY_TO_PAY | 52 | $0.00 |
-| 6 | VIP | No order | SEATED | 85 | $0.00 |
+| 5 | Regular | Pasta | READY_TO_PAY | 68 | $0.00 |
+| 6 | Regular | No order | SEATED | 76 | $0.00 |
 
 ```text
 FINAL RESULT: VICTORY
 Served: 5 | Paid: 4 | Departures: 0
-Revenue: $55.80 | Average paid-customer satisfaction: 81.00
+Revenue: $58.20 | Average paid-customer satisfaction: 74.00
 Turns used: 18 / 18
 ```
 
-Defeat uses the same Waiter priorities but leaves the Chef on Wait. The first two VIPs hold the tables with unfinished orders; the Critic arriving on turn 7 leaves the waiting queue on turn 15. No payments occur.
+Defeat uses the same Waiter priorities but leaves the Chef on Wait. The Critic arriving on turn 1 leaves on turn 9 and cancels its unfinished Pasta; the Regular arriving on turn 4 leaves on turn 16 and cancels its unfinished Salad. Later arrivals reuse the freed tables, but no payments occur.
 
 ```text
 FINAL RESULT: DEFEAT
-Served: 0 | Paid: 0 | Departures: 1
+Served: 0 | Paid: 0 | Departures: 2
 Revenue: $0.00 | Average paid-customer satisfaction: N/A (no paid customers)
 Turns used: 18 / 18
 ```
 
-The dependency-free Stage 2 tests also cover all three customer types through the same lifecycle, abandonment of both preparing and READY orders, half-cent rounding, actual Cashier transactions, 201 seeded type plans, initialization after seed selection, and repeated real UI replays. A separate controller scenario prioritizes the turn-7 Critic, takes its Pasta order, leaves it unprepared, and verifies cancellation and table release on turn 15. See the main README for test commands.
+The dependency-free Stage 2 tests also cover all three customer types through the same lifecycle, abandonment of both preparing and READY orders, half-cent rounding, actual Cashier transactions, exact 4R/1V/1C counts across 201 seeded type plans, initialization after seed selection, and repeated real UI replays. A separate controller scenario seats the turn-1 Critic, takes its Pasta order, leaves it unprepared, and verifies cancellation and table release on turn 9. See the main README for test commands.
 
 ## Stage One (historical)
 

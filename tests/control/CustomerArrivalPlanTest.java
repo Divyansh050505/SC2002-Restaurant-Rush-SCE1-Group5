@@ -2,6 +2,7 @@ package control;
 
 import entity.Customer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,7 +28,9 @@ public class CustomerArrivalPlanTest {
                 check(replay.createCustomer(id, 3 * id - 2).getTypeLabel().equals(types.get(id - 1)),
                         "same seed reproduces every slot independently of creation order");
             }
-            check(types.size() == 6 && types.contains("VIP") && types.contains("Critic"), "guaranteed special types");
+            check(types.size() == 6 && Collections.frequency(types, "Regular") == 4
+                    && Collections.frequency(types, "VIP") == 1 && Collections.frequency(types, "Critic") == 1,
+                    "every seed has exactly four Regulars, one VIP and one Critic");
             arrangements.add(types);
         }
         check(arrangements.size() > 1, "different seeds vary customer types/order");

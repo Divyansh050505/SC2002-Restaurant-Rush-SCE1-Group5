@@ -4,7 +4,7 @@ RESTAURANT RUSH
   2. Replay using a seed
   0. Exit
 Choice [0-2]: Enter the previous game's seed (0 = back):
-Choice [0-999999]: Game seed: 482190
+Choice [0-999999]: Game seed: 482193
 
 ==================================================
 RESTAURANT RUSH | Turn 1 / 18
@@ -15,12 +15,12 @@ Choose one Waiter task, then one Chef task. Cashier acts automatically.
 Enter the displayed customer/order number; 0 means back or wait.
 
 Waiting queue (arrival order):
-  Customer #1 | VIP | WAITING | satisfaction 100 | no order
+  Customer #1 | Critic | WAITING | satisfaction 100 | no order
 Tables:
   Table #1: FREE
   Table #2: FREE
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | WAITING | satisfaction 100 | no order
+  Customer #1 | Critic | WAITING | satisfaction 100 | no order
 Orders (use Order # when selecting):
   None yet
 Waiter task:
@@ -29,7 +29,7 @@ Waiter task:
   3. Serve a READY dish
   0. Wait
 Choice [0-3]: Customers (use Customer # when selecting):
-  Customer #1 | VIP | WAITING | satisfaction 100 | no order
+  Customer #1 | Critic | WAITING | satisfaction 100 | no order
 Enter customer number (0 = back):
 Choice [0-1]: Waiter seated Customer #1 at Table 1.
 Orders (use Order # when selecting):
@@ -55,10 +55,10 @@ Enter the displayed customer/order number; 0 means back or wait.
 Waiting queue (arrival order):
   Empty
 Tables:
-  Table #1: Customer #1 | VIP | SEATED | satisfaction 95 | no order
+  Table #1: Customer #1 | Critic | SEATED | satisfaction 88 | no order
   Table #2: FREE
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | SEATED | satisfaction 95 | no order
+  Customer #1 | Critic | SEATED | satisfaction 88 | no order
 Orders (use Order # when selecting):
   None yet
 Waiter task:
@@ -67,16 +67,16 @@ Waiter task:
   3. Serve a READY dish
   0. Wait
 Choice [0-3]: Customers (use Customer # when selecting):
-  Customer #1 | VIP | SEATED | satisfaction 95 | no order
+  Customer #1 | Critic | SEATED | satisfaction 88 | no order
 Enter customer number (0 = back):
-Choice [0-1]: Waiter took order for Salad from Customer #1.
+Choice [0-1]: Waiter took order for Pasta from Customer #1.
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PREPARING | preparation units remaining: 1
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PREPARING | preparation units remaining: 2
 Chef task:
   1. Prepare one unit of an order
   0. Wait
 Choice [0-1]: Enter order number (0 = back):
-Choice [0-1]: Order #1 (Salad) is READY to serve next turn.
+Choice [0-1]: Chef prepared one unit of Order #1 (Pasta). 1 preparation unit remaining.
 
 --- End of turn 2 ---
 Served: 0 | Paid: 0 | Departures: 0
@@ -94,63 +94,60 @@ Enter the displayed customer/order number; 0 means back or wait.
 Waiting queue (arrival order):
   Empty
 Tables:
-  Table #1: Customer #1 | VIP | ORDERED | satisfaction 90 | order #1 READY
+  Table #1: Customer #1 | Critic | ORDERED | satisfaction 76 | order #1 PREPARING
   Table #2: FREE
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | ORDERED | satisfaction 90 | order #1 READY
+  Customer #1 | Critic | ORDERED | satisfaction 76 | order #1 PREPARING
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | READY | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PREPARING | preparation units remaining: 1
 Waiter task:
   1. Seat a waiting customer
   2. Take a seated customer's order
   3. Serve a READY dish
   0. Wait
-Choice [0-3]: Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | READY | preparation units remaining: 0
-Enter order number (0 = back):
-Choice [0-1]: Waiter served Salad to Customer #1.
+Choice [0-3]: The Waiter waits this turn.
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | SERVED | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PREPARING | preparation units remaining: 1
 Chef task:
   1. Prepare one unit of an order
   0. Wait
-Choice [0-1]: The Chef waits this turn.
+Choice [0-1]: Enter order number (0 = back):
+Choice [0-1]: Order #1 (Pasta) is READY to serve next turn.
 
 --- End of turn 3 ---
-Served: 1 | Paid: 0 | Departures: 0
+Served: 0 | Paid: 0 | Departures: 0
 Revenue: $0.00 | Average paid-customer satisfaction: N/A (no paid customers)
 Turns used: 3 / 18
 
 ==================================================
 RESTAURANT RUSH | Turn 4 / 18
-Served: 1 | Paid: 0 | Departures: 0
+Served: 0 | Paid: 0 | Departures: 0
 Revenue: $0.00 | Average paid-customer satisfaction: N/A (no paid customers)
 Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction
 Choose one Waiter task, then one Chef task. Cashier acts automatically.
 Enter the displayed customer/order number; 0 means back or wait.
 
 Waiting queue (arrival order):
-  Customer #2 | VIP | WAITING | satisfaction 100 | no order
+  Customer #2 | Regular | WAITING | satisfaction 100 | no order
 Tables:
-  Table #1: Customer #1 | VIP | EATING | satisfaction 90 | order #1 SERVED
+  Table #1: Customer #1 | Critic | ORDERED | satisfaction 64 | order #1 READY
   Table #2: FREE
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | EATING | satisfaction 90 | order #1 SERVED
-  Customer #2 | VIP | WAITING | satisfaction 100 | no order
+  Customer #1 | Critic | ORDERED | satisfaction 64 | order #1 READY
+  Customer #2 | Regular | WAITING | satisfaction 100 | no order
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | SERVED | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | READY | preparation units remaining: 0
 Waiter task:
   1. Seat a waiting customer
   2. Take a seated customer's order
   3. Serve a READY dish
   0. Wait
-Choice [0-3]: Customers (use Customer # when selecting):
-  Customer #1 | VIP | EATING | satisfaction 90 | order #1 SERVED
-  Customer #2 | VIP | WAITING | satisfaction 100 | no order
-Enter customer number (0 = back):
-Choice [0-2]: Waiter seated Customer #2 at Table 2.
+Choice [0-3]: Orders (use Order # when selecting):
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | READY | preparation units remaining: 0
+Enter order number (0 = back):
+Choice [0-1]: Waiter served Pasta to Customer #1.
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | SERVED | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | SERVED | preparation units remaining: 0
 Chef task:
   1. Prepare one unit of an order
   0. Wait
@@ -170,45 +167,41 @@ Choose one Waiter task, then one Chef task. Cashier acts automatically.
 Enter the displayed customer/order number; 0 means back or wait.
 
 Waiting queue (arrival order):
-  Empty
+  Customer #2 | Regular | WAITING | satisfaction 92 | no order
 Tables:
-  Table #1: Customer #1 | VIP | READY_TO_PAY | satisfaction 90 | order #1 SERVED
-  Table #2: Customer #2 | VIP | SEATED | satisfaction 95 | no order
+  Table #1: Customer #1 | Critic | EATING | satisfaction 64 | order #1 SERVED
+  Table #2: FREE
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | READY_TO_PAY | satisfaction 90 | order #1 SERVED
-  Customer #2 | VIP | SEATED | satisfaction 95 | no order
+  Customer #1 | Critic | EATING | satisfaction 64 | order #1 SERVED
+  Customer #2 | Regular | WAITING | satisfaction 92 | no order
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | SERVED | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | SERVED | preparation units remaining: 0
 Waiter task:
   1. Seat a waiting customer
   2. Take a seated customer's order
   3. Serve a READY dish
   0. Wait
 Choice [0-3]: Customers (use Customer # when selecting):
-  Customer #1 | VIP | READY_TO_PAY | satisfaction 90 | order #1 SERVED
-  Customer #2 | VIP | SEATED | satisfaction 95 | no order
+  Customer #1 | Critic | EATING | satisfaction 64 | order #1 SERVED
+  Customer #2 | Regular | WAITING | satisfaction 92 | no order
 Enter customer number (0 = back):
-Choice [0-2]: Waiter took order for Burger from Customer #2.
+Choice [0-2]: Waiter seated Customer #2 at Table 2.
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | SERVED | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PREPARING | preparation units remaining: 1
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | SERVED | preparation units remaining: 0
 Chef task:
   1. Prepare one unit of an order
   0. Wait
-Choice [0-1]: Enter order number (0 = back):
-Choice [0-2]: Order #2 (Burger) is READY to serve next turn.
+Choice [0-1]: The Chef waits this turn.
 
 --- End of turn 5 ---
-Customer #1 paid $8.10.
-Table #1 is now free.
-Served: 1 | Paid: 1 | Departures: 0
-Revenue: $8.10 | Average paid-customer satisfaction: 90.00
+Served: 1 | Paid: 0 | Departures: 0
+Revenue: $0.00 | Average paid-customer satisfaction: N/A (no paid customers)
 Turns used: 5 / 18
 
 ==================================================
 RESTAURANT RUSH | Turn 6 / 18
-Served: 1 | Paid: 1 | Departures: 0
-Revenue: $8.10 | Average paid-customer satisfaction: 90.00
+Served: 1 | Paid: 0 | Departures: 0
+Revenue: $0.00 | Average paid-customer satisfaction: N/A (no paid customers)
 Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction
 Choose one Waiter task, then one Chef task. Cashier acts automatically.
 Enter the displayed customer/order number; 0 means back or wait.
@@ -216,71 +209,72 @@ Enter the displayed customer/order number; 0 means back or wait.
 Waiting queue (arrival order):
   Empty
 Tables:
-  Table #1: FREE
-  Table #2: Customer #2 | VIP | ORDERED | satisfaction 90 | order #2 READY
+  Table #1: Customer #1 | Critic | READY_TO_PAY | satisfaction 64 | order #1 SERVED
+  Table #2: Customer #2 | Regular | SEATED | satisfaction 84 | no order
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | ORDERED | satisfaction 90 | order #2 READY
+  Customer #1 | Critic | READY_TO_PAY | satisfaction 64 | order #1 SERVED
+  Customer #2 | Regular | SEATED | satisfaction 84 | no order
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | READY | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | SERVED | preparation units remaining: 0
+Waiter task:
+  1. Seat a waiting customer
+  2. Take a seated customer's order
+  3. Serve a READY dish
+  0. Wait
+Choice [0-3]: Customers (use Customer # when selecting):
+  Customer #1 | Critic | READY_TO_PAY | satisfaction 64 | order #1 SERVED
+  Customer #2 | Regular | SEATED | satisfaction 84 | no order
+Enter customer number (0 = back):
+Choice [0-2]: Waiter took order for Salad from Customer #2.
+Orders (use Order # when selecting):
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | SERVED | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PREPARING | preparation units remaining: 1
+Chef task:
+  1. Prepare one unit of an order
+  0. Wait
+Choice [0-1]: Enter order number (0 = back):
+Choice [0-2]: Order #2 (Salad) is READY to serve next turn.
+
+--- End of turn 6 ---
+Customer #1 paid $18.00.
+Table #1 is now free.
+Served: 1 | Paid: 1 | Departures: 0
+Revenue: $18.00 | Average paid-customer satisfaction: 64.00
+Turns used: 6 / 18
+
+==================================================
+RESTAURANT RUSH | Turn 7 / 18
+Served: 1 | Paid: 1 | Departures: 0
+Revenue: $18.00 | Average paid-customer satisfaction: 64.00
+Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction
+Choose one Waiter task, then one Chef task. Cashier acts automatically.
+Enter the displayed customer/order number; 0 means back or wait.
+
+Waiting queue (arrival order):
+  Customer #3 | Regular | WAITING | satisfaction 100 | no order
+Tables:
+  Table #1: FREE
+  Table #2: Customer #2 | Regular | ORDERED | satisfaction 76 | order #2 READY
+Customers (use Customer # when selecting):
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | ORDERED | satisfaction 76 | order #2 READY
+  Customer #3 | Regular | WAITING | satisfaction 100 | no order
+Orders (use Order # when selecting):
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | READY | preparation units remaining: 0
 Waiter task:
   1. Seat a waiting customer
   2. Take a seated customer's order
   3. Serve a READY dish
   0. Wait
 Choice [0-3]: Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | READY | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | READY | preparation units remaining: 0
 Enter order number (0 = back):
-Choice [0-2]: Waiter served Burger to Customer #2.
+Choice [0-2]: Waiter served Salad to Customer #2.
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | SERVED | preparation units remaining: 0
-Chef task:
-  1. Prepare one unit of an order
-  0. Wait
-Choice [0-1]: The Chef waits this turn.
-
---- End of turn 6 ---
-Served: 2 | Paid: 1 | Departures: 0
-Revenue: $8.10 | Average paid-customer satisfaction: 90.00
-Turns used: 6 / 18
-
-==================================================
-RESTAURANT RUSH | Turn 7 / 18
-Served: 2 | Paid: 1 | Departures: 0
-Revenue: $8.10 | Average paid-customer satisfaction: 90.00
-Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction
-Choose one Waiter task, then one Chef task. Cashier acts automatically.
-Enter the displayed customer/order number; 0 means back or wait.
-
-Waiting queue (arrival order):
-  Customer #3 | Critic | WAITING | satisfaction 100 | no order
-Tables:
-  Table #1: FREE
-  Table #2: Customer #2 | VIP | EATING | satisfaction 90 | order #2 SERVED
-Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | EATING | satisfaction 90 | order #2 SERVED
-  Customer #3 | Critic | WAITING | satisfaction 100 | no order
-Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | SERVED | preparation units remaining: 0
-Waiter task:
-  1. Seat a waiting customer
-  2. Take a seated customer's order
-  3. Serve a READY dish
-  0. Wait
-Choice [0-3]: Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | EATING | satisfaction 90 | order #2 SERVED
-  Customer #3 | Critic | WAITING | satisfaction 100 | no order
-Enter customer number (0 = back):
-Choice [0-3]: Waiter seated Customer #3 at Table 1.
-Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | SERVED | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | SERVED | preparation units remaining: 0
 Chef task:
   1. Prepare one unit of an order
   0. Wait
@@ -288,61 +282,57 @@ Choice [0-1]: The Chef waits this turn.
 
 --- End of turn 7 ---
 Served: 2 | Paid: 1 | Departures: 0
-Revenue: $8.10 | Average paid-customer satisfaction: 90.00
+Revenue: $18.00 | Average paid-customer satisfaction: 64.00
 Turns used: 7 / 18
 
 ==================================================
 RESTAURANT RUSH | Turn 8 / 18
 Served: 2 | Paid: 1 | Departures: 0
-Revenue: $8.10 | Average paid-customer satisfaction: 90.00
+Revenue: $18.00 | Average paid-customer satisfaction: 64.00
 Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction
 Choose one Waiter task, then one Chef task. Cashier acts automatically.
 Enter the displayed customer/order number; 0 means back or wait.
 
 Waiting queue (arrival order):
-  Empty
+  Customer #3 | Regular | WAITING | satisfaction 92 | no order
 Tables:
-  Table #1: Customer #3 | Critic | SEATED | satisfaction 88 | no order
-  Table #2: Customer #2 | VIP | READY_TO_PAY | satisfaction 90 | order #2 SERVED
+  Table #1: FREE
+  Table #2: Customer #2 | Regular | EATING | satisfaction 76 | order #2 SERVED
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | READY_TO_PAY | satisfaction 90 | order #2 SERVED
-  Customer #3 | Critic | SEATED | satisfaction 88 | no order
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | EATING | satisfaction 76 | order #2 SERVED
+  Customer #3 | Regular | WAITING | satisfaction 92 | no order
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | SERVED | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | SERVED | preparation units remaining: 0
 Waiter task:
   1. Seat a waiting customer
   2. Take a seated customer's order
   3. Serve a READY dish
   0. Wait
 Choice [0-3]: Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | READY_TO_PAY | satisfaction 90 | order #2 SERVED
-  Customer #3 | Critic | SEATED | satisfaction 88 | no order
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | EATING | satisfaction 76 | order #2 SERVED
+  Customer #3 | Regular | WAITING | satisfaction 92 | no order
 Enter customer number (0 = back):
-Choice [0-3]: Waiter took order for Pasta from Customer #3.
+Choice [0-3]: Waiter seated Customer #3 at Table 1.
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | SERVED | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PREPARING | preparation units remaining: 2
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | SERVED | preparation units remaining: 0
 Chef task:
   1. Prepare one unit of an order
   0. Wait
-Choice [0-1]: Enter order number (0 = back):
-Choice [0-3]: Chef prepared one unit of Order #3 (Pasta). 1 preparation unit remaining.
+Choice [0-1]: The Chef waits this turn.
 
 --- End of turn 8 ---
-Customer #2 paid $13.50.
-Table #2 is now free.
-Served: 2 | Paid: 2 | Departures: 0
-Revenue: $21.60 | Average paid-customer satisfaction: 90.00
+Served: 2 | Paid: 1 | Departures: 0
+Revenue: $18.00 | Average paid-customer satisfaction: 64.00
 Turns used: 8 / 18
 
 ==================================================
 RESTAURANT RUSH | Turn 9 / 18
-Served: 2 | Paid: 2 | Departures: 0
-Revenue: $21.60 | Average paid-customer satisfaction: 90.00
+Served: 2 | Paid: 1 | Departures: 0
+Revenue: $18.00 | Average paid-customer satisfaction: 64.00
 Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction
 Choose one Waiter task, then one Chef task. Cashier acts automatically.
 Enter the displayed customer/order number; 0 means back or wait.
@@ -350,41 +340,47 @@ Enter the displayed customer/order number; 0 means back or wait.
 Waiting queue (arrival order):
   Empty
 Tables:
-  Table #1: Customer #3 | Critic | ORDERED | satisfaction 76 | order #3 PREPARING
-  Table #2: FREE
+  Table #1: Customer #3 | Regular | SEATED | satisfaction 84 | no order
+  Table #2: Customer #2 | Regular | READY_TO_PAY | satisfaction 76 | order #2 SERVED
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | PAID | satisfaction 90 | order #2 PAID
-  Customer #3 | Critic | ORDERED | satisfaction 76 | order #3 PREPARING
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | READY_TO_PAY | satisfaction 76 | order #2 SERVED
+  Customer #3 | Regular | SEATED | satisfaction 84 | no order
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PREPARING | preparation units remaining: 1
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | SERVED | preparation units remaining: 0
 Waiter task:
   1. Seat a waiting customer
   2. Take a seated customer's order
   3. Serve a READY dish
   0. Wait
-Choice [0-3]: The Waiter waits this turn.
+Choice [0-3]: Customers (use Customer # when selecting):
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | READY_TO_PAY | satisfaction 76 | order #2 SERVED
+  Customer #3 | Regular | SEATED | satisfaction 84 | no order
+Enter customer number (0 = back):
+Choice [0-3]: Waiter took order for Burger from Customer #3.
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PREPARING | preparation units remaining: 1
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | SERVED | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | PREPARING | preparation units remaining: 1
 Chef task:
   1. Prepare one unit of an order
   0. Wait
 Choice [0-1]: Enter order number (0 = back):
-Choice [0-3]: Order #3 (Pasta) is READY to serve next turn.
+Choice [0-3]: Order #3 (Burger) is READY to serve next turn.
 
 --- End of turn 9 ---
+Customer #2 paid $9.00.
+Table #2 is now free.
 Served: 2 | Paid: 2 | Departures: 0
-Revenue: $21.60 | Average paid-customer satisfaction: 90.00
+Revenue: $27.00 | Average paid-customer satisfaction: 70.00
 Turns used: 9 / 18
 
 ==================================================
 RESTAURANT RUSH | Turn 10 / 18
 Served: 2 | Paid: 2 | Departures: 0
-Revenue: $21.60 | Average paid-customer satisfaction: 90.00
+Revenue: $27.00 | Average paid-customer satisfaction: 70.00
 Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction
 Choose one Waiter task, then one Chef task. Cashier acts automatically.
 Enter the displayed customer/order number; 0 means back or wait.
@@ -392,32 +388,32 @@ Enter the displayed customer/order number; 0 means back or wait.
 Waiting queue (arrival order):
   Customer #4 | VIP | WAITING | satisfaction 100 | no order
 Tables:
-  Table #1: Customer #3 | Critic | ORDERED | satisfaction 64 | order #3 READY
+  Table #1: Customer #3 | Regular | ORDERED | satisfaction 76 | order #3 READY
   Table #2: FREE
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | PAID | satisfaction 90 | order #2 PAID
-  Customer #3 | Critic | ORDERED | satisfaction 64 | order #3 READY
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | PAID | satisfaction 76 | order #2 PAID
+  Customer #3 | Regular | ORDERED | satisfaction 76 | order #3 READY
   Customer #4 | VIP | WAITING | satisfaction 100 | no order
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | READY | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | READY | preparation units remaining: 0
 Waiter task:
   1. Seat a waiting customer
   2. Take a seated customer's order
   3. Serve a READY dish
   0. Wait
 Choice [0-3]: Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | READY | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | READY | preparation units remaining: 0
 Enter order number (0 = back):
-Choice [0-3]: Waiter served Pasta to Customer #3.
+Choice [0-3]: Waiter served Burger to Customer #3.
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | SERVED | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | SERVED | preparation units remaining: 0
 Chef task:
   1. Prepare one unit of an order
   0. Wait
@@ -425,13 +421,13 @@ Choice [0-1]: The Chef waits this turn.
 
 --- End of turn 10 ---
 Served: 3 | Paid: 2 | Departures: 0
-Revenue: $21.60 | Average paid-customer satisfaction: 90.00
+Revenue: $27.00 | Average paid-customer satisfaction: 70.00
 Turns used: 10 / 18
 
 ==================================================
 RESTAURANT RUSH | Turn 11 / 18
 Served: 3 | Paid: 2 | Departures: 0
-Revenue: $21.60 | Average paid-customer satisfaction: 90.00
+Revenue: $27.00 | Average paid-customer satisfaction: 70.00
 Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction
 Choose one Waiter task, then one Chef task. Cashier acts automatically.
 Enter the displayed customer/order number; 0 means back or wait.
@@ -439,33 +435,33 @@ Enter the displayed customer/order number; 0 means back or wait.
 Waiting queue (arrival order):
   Customer #4 | VIP | WAITING | satisfaction 95 | no order
 Tables:
-  Table #1: Customer #3 | Critic | EATING | satisfaction 64 | order #3 SERVED
+  Table #1: Customer #3 | Regular | EATING | satisfaction 76 | order #3 SERVED
   Table #2: FREE
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | PAID | satisfaction 90 | order #2 PAID
-  Customer #3 | Critic | EATING | satisfaction 64 | order #3 SERVED
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | PAID | satisfaction 76 | order #2 PAID
+  Customer #3 | Regular | EATING | satisfaction 76 | order #3 SERVED
   Customer #4 | VIP | WAITING | satisfaction 95 | no order
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | SERVED | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | SERVED | preparation units remaining: 0
 Waiter task:
   1. Seat a waiting customer
   2. Take a seated customer's order
   3. Serve a READY dish
   0. Wait
 Choice [0-3]: Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | PAID | satisfaction 90 | order #2 PAID
-  Customer #3 | Critic | EATING | satisfaction 64 | order #3 SERVED
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | PAID | satisfaction 76 | order #2 PAID
+  Customer #3 | Regular | EATING | satisfaction 76 | order #3 SERVED
   Customer #4 | VIP | WAITING | satisfaction 95 | no order
 Enter customer number (0 = back):
 Choice [0-4]: Waiter seated Customer #4 at Table 2.
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | SERVED | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | SERVED | preparation units remaining: 0
 Chef task:
   1. Prepare one unit of an order
   0. Wait
@@ -473,13 +469,13 @@ Choice [0-1]: The Chef waits this turn.
 
 --- End of turn 11 ---
 Served: 3 | Paid: 2 | Departures: 0
-Revenue: $21.60 | Average paid-customer satisfaction: 90.00
+Revenue: $27.00 | Average paid-customer satisfaction: 70.00
 Turns used: 11 / 18
 
 ==================================================
 RESTAURANT RUSH | Turn 12 / 18
 Served: 3 | Paid: 2 | Departures: 0
-Revenue: $21.60 | Average paid-customer satisfaction: 90.00
+Revenue: $27.00 | Average paid-customer satisfaction: 70.00
 Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction
 Choose one Waiter task, then one Chef task. Cashier acts automatically.
 Enter the displayed customer/order number; 0 means back or wait.
@@ -487,33 +483,33 @@ Enter the displayed customer/order number; 0 means back or wait.
 Waiting queue (arrival order):
   Empty
 Tables:
-  Table #1: Customer #3 | Critic | READY_TO_PAY | satisfaction 64 | order #3 SERVED
+  Table #1: Customer #3 | Regular | READY_TO_PAY | satisfaction 76 | order #3 SERVED
   Table #2: Customer #4 | VIP | SEATED | satisfaction 90 | no order
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | PAID | satisfaction 90 | order #2 PAID
-  Customer #3 | Critic | READY_TO_PAY | satisfaction 64 | order #3 SERVED
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | PAID | satisfaction 76 | order #2 PAID
+  Customer #3 | Regular | READY_TO_PAY | satisfaction 76 | order #3 SERVED
   Customer #4 | VIP | SEATED | satisfaction 90 | no order
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | SERVED | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | SERVED | preparation units remaining: 0
 Waiter task:
   1. Seat a waiting customer
   2. Take a seated customer's order
   3. Serve a READY dish
   0. Wait
 Choice [0-3]: Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | PAID | satisfaction 90 | order #2 PAID
-  Customer #3 | Critic | READY_TO_PAY | satisfaction 64 | order #3 SERVED
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | PAID | satisfaction 76 | order #2 PAID
+  Customer #3 | Regular | READY_TO_PAY | satisfaction 76 | order #3 SERVED
   Customer #4 | VIP | SEATED | satisfaction 90 | no order
 Enter customer number (0 = back):
 Choice [0-4]: Waiter took order for Pasta from Customer #4.
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | SERVED | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | SERVED | preparation units remaining: 0
   Order #4 | Customer #4 | Pasta | Menu $18.00 | Bill $16.20 | PREPARING | preparation units remaining: 2
 Chef task:
   1. Prepare one unit of an order
@@ -522,35 +518,35 @@ Choice [0-1]: Enter order number (0 = back):
 Choice [0-4]: Chef prepared one unit of Order #4 (Pasta). 1 preparation unit remaining.
 
 --- End of turn 12 ---
-Customer #3 paid $18.00.
+Customer #3 paid $15.00.
 Table #1 is now free.
 Served: 3 | Paid: 3 | Departures: 0
-Revenue: $39.60 | Average paid-customer satisfaction: 81.33
+Revenue: $42.00 | Average paid-customer satisfaction: 72.00
 Turns used: 12 / 18
 
 ==================================================
 RESTAURANT RUSH | Turn 13 / 18
 Served: 3 | Paid: 3 | Departures: 0
-Revenue: $39.60 | Average paid-customer satisfaction: 81.33
+Revenue: $42.00 | Average paid-customer satisfaction: 72.00
 Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction
 Choose one Waiter task, then one Chef task. Cashier acts automatically.
 Enter the displayed customer/order number; 0 means back or wait.
 
 Waiting queue (arrival order):
-  Customer #5 | Critic | WAITING | satisfaction 100 | no order
+  Customer #5 | Regular | WAITING | satisfaction 100 | no order
 Tables:
   Table #1: FREE
   Table #2: Customer #4 | VIP | ORDERED | satisfaction 85 | order #4 PREPARING
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | PAID | satisfaction 90 | order #2 PAID
-  Customer #3 | Critic | PAID | satisfaction 64 | order #3 PAID
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | PAID | satisfaction 76 | order #2 PAID
+  Customer #3 | Regular | PAID | satisfaction 76 | order #3 PAID
   Customer #4 | VIP | ORDERED | satisfaction 85 | order #4 PREPARING
-  Customer #5 | Critic | WAITING | satisfaction 100 | no order
+  Customer #5 | Regular | WAITING | satisfaction 100 | no order
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | PAID | preparation units remaining: 0
   Order #4 | Customer #4 | Pasta | Menu $18.00 | Bill $16.20 | PREPARING | preparation units remaining: 1
 Waiter task:
   1. Seat a waiting customer
@@ -558,17 +554,17 @@ Waiter task:
   3. Serve a READY dish
   0. Wait
 Choice [0-3]: Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | PAID | satisfaction 90 | order #2 PAID
-  Customer #3 | Critic | PAID | satisfaction 64 | order #3 PAID
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | PAID | satisfaction 76 | order #2 PAID
+  Customer #3 | Regular | PAID | satisfaction 76 | order #3 PAID
   Customer #4 | VIP | ORDERED | satisfaction 85 | order #4 PREPARING
-  Customer #5 | Critic | WAITING | satisfaction 100 | no order
+  Customer #5 | Regular | WAITING | satisfaction 100 | no order
 Enter customer number (0 = back):
 Choice [0-5]: Waiter seated Customer #5 at Table 1.
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | PAID | preparation units remaining: 0
   Order #4 | Customer #4 | Pasta | Menu $18.00 | Bill $16.20 | PREPARING | preparation units remaining: 1
 Chef task:
   1. Prepare one unit of an order
@@ -578,13 +574,13 @@ Choice [0-4]: Order #4 (Pasta) is READY to serve next turn.
 
 --- End of turn 13 ---
 Served: 3 | Paid: 3 | Departures: 0
-Revenue: $39.60 | Average paid-customer satisfaction: 81.33
+Revenue: $42.00 | Average paid-customer satisfaction: 72.00
 Turns used: 13 / 18
 
 ==================================================
 RESTAURANT RUSH | Turn 14 / 18
 Served: 3 | Paid: 3 | Departures: 0
-Revenue: $39.60 | Average paid-customer satisfaction: 81.33
+Revenue: $42.00 | Average paid-customer satisfaction: 72.00
 Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction
 Choose one Waiter task, then one Chef task. Cashier acts automatically.
 Enter the displayed customer/order number; 0 means back or wait.
@@ -592,18 +588,18 @@ Enter the displayed customer/order number; 0 means back or wait.
 Waiting queue (arrival order):
   Empty
 Tables:
-  Table #1: Customer #5 | Critic | SEATED | satisfaction 88 | no order
+  Table #1: Customer #5 | Regular | SEATED | satisfaction 92 | no order
   Table #2: Customer #4 | VIP | ORDERED | satisfaction 80 | order #4 READY
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | PAID | satisfaction 90 | order #2 PAID
-  Customer #3 | Critic | PAID | satisfaction 64 | order #3 PAID
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | PAID | satisfaction 76 | order #2 PAID
+  Customer #3 | Regular | PAID | satisfaction 76 | order #3 PAID
   Customer #4 | VIP | ORDERED | satisfaction 80 | order #4 READY
-  Customer #5 | Critic | SEATED | satisfaction 88 | no order
+  Customer #5 | Regular | SEATED | satisfaction 92 | no order
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | PAID | preparation units remaining: 0
   Order #4 | Customer #4 | Pasta | Menu $18.00 | Bill $16.20 | READY | preparation units remaining: 0
 Waiter task:
   1. Seat a waiting customer
@@ -611,16 +607,16 @@ Waiter task:
   3. Serve a READY dish
   0. Wait
 Choice [0-3]: Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | PAID | preparation units remaining: 0
   Order #4 | Customer #4 | Pasta | Menu $18.00 | Bill $16.20 | READY | preparation units remaining: 0
 Enter order number (0 = back):
 Choice [0-4]: Waiter served Pasta to Customer #4.
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | PAID | preparation units remaining: 0
   Order #4 | Customer #4 | Pasta | Menu $18.00 | Bill $16.20 | SERVED | preparation units remaining: 0
 Chef task:
   1. Prepare one unit of an order
@@ -629,13 +625,13 @@ Choice [0-1]: The Chef waits this turn.
 
 --- End of turn 14 ---
 Served: 4 | Paid: 3 | Departures: 0
-Revenue: $39.60 | Average paid-customer satisfaction: 81.33
+Revenue: $42.00 | Average paid-customer satisfaction: 72.00
 Turns used: 14 / 18
 
 ==================================================
 RESTAURANT RUSH | Turn 15 / 18
 Served: 4 | Paid: 3 | Departures: 0
-Revenue: $39.60 | Average paid-customer satisfaction: 81.33
+Revenue: $42.00 | Average paid-customer satisfaction: 72.00
 Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction
 Choose one Waiter task, then one Chef task. Cashier acts automatically.
 Enter the displayed customer/order number; 0 means back or wait.
@@ -643,18 +639,18 @@ Enter the displayed customer/order number; 0 means back or wait.
 Waiting queue (arrival order):
   Empty
 Tables:
-  Table #1: Customer #5 | Critic | SEATED | satisfaction 76 | no order
+  Table #1: Customer #5 | Regular | SEATED | satisfaction 84 | no order
   Table #2: Customer #4 | VIP | EATING | satisfaction 80 | order #4 SERVED
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | PAID | satisfaction 90 | order #2 PAID
-  Customer #3 | Critic | PAID | satisfaction 64 | order #3 PAID
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | PAID | satisfaction 76 | order #2 PAID
+  Customer #3 | Regular | PAID | satisfaction 76 | order #3 PAID
   Customer #4 | VIP | EATING | satisfaction 80 | order #4 SERVED
-  Customer #5 | Critic | SEATED | satisfaction 76 | no order
+  Customer #5 | Regular | SEATED | satisfaction 84 | no order
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | PAID | preparation units remaining: 0
   Order #4 | Customer #4 | Pasta | Menu $18.00 | Bill $16.20 | SERVED | preparation units remaining: 0
 Waiter task:
   1. Seat a waiting customer
@@ -662,17 +658,17 @@ Waiter task:
   3. Serve a READY dish
   0. Wait
 Choice [0-3]: Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | PAID | satisfaction 90 | order #2 PAID
-  Customer #3 | Critic | PAID | satisfaction 64 | order #3 PAID
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | PAID | satisfaction 76 | order #2 PAID
+  Customer #3 | Regular | PAID | satisfaction 76 | order #3 PAID
   Customer #4 | VIP | EATING | satisfaction 80 | order #4 SERVED
-  Customer #5 | Critic | SEATED | satisfaction 76 | no order
+  Customer #5 | Regular | SEATED | satisfaction 84 | no order
 Enter customer number (0 = back):
 Choice [0-5]: Waiter took order for Pasta from Customer #5.
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | PAID | preparation units remaining: 0
   Order #4 | Customer #4 | Pasta | Menu $18.00 | Bill $16.20 | SERVED | preparation units remaining: 0
   Order #5 | Customer #5 | Pasta | Menu $18.00 | Bill $18.00 | PREPARING | preparation units remaining: 2
 Chef task:
@@ -683,33 +679,33 @@ Choice [0-5]: Chef prepared one unit of Order #5 (Pasta). 1 preparation unit rem
 
 --- End of turn 15 ---
 Served: 4 | Paid: 3 | Departures: 0
-Revenue: $39.60 | Average paid-customer satisfaction: 81.33
+Revenue: $42.00 | Average paid-customer satisfaction: 72.00
 Turns used: 15 / 18
 
 ==================================================
 RESTAURANT RUSH | Turn 16 / 18
 Served: 4 | Paid: 3 | Departures: 0
-Revenue: $39.60 | Average paid-customer satisfaction: 81.33
+Revenue: $42.00 | Average paid-customer satisfaction: 72.00
 Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction
 Choose one Waiter task, then one Chef task. Cashier acts automatically.
 Enter the displayed customer/order number; 0 means back or wait.
 
 Waiting queue (arrival order):
-  Customer #6 | VIP | WAITING | satisfaction 100 | no order
+  Customer #6 | Regular | WAITING | satisfaction 100 | no order
 Tables:
-  Table #1: Customer #5 | Critic | ORDERED | satisfaction 64 | order #5 PREPARING
+  Table #1: Customer #5 | Regular | ORDERED | satisfaction 76 | order #5 PREPARING
   Table #2: Customer #4 | VIP | READY_TO_PAY | satisfaction 80 | order #4 SERVED
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | PAID | satisfaction 90 | order #2 PAID
-  Customer #3 | Critic | PAID | satisfaction 64 | order #3 PAID
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | PAID | satisfaction 76 | order #2 PAID
+  Customer #3 | Regular | PAID | satisfaction 76 | order #3 PAID
   Customer #4 | VIP | READY_TO_PAY | satisfaction 80 | order #4 SERVED
-  Customer #5 | Critic | ORDERED | satisfaction 64 | order #5 PREPARING
-  Customer #6 | VIP | WAITING | satisfaction 100 | no order
+  Customer #5 | Regular | ORDERED | satisfaction 76 | order #5 PREPARING
+  Customer #6 | Regular | WAITING | satisfaction 100 | no order
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | PAID | preparation units remaining: 0
   Order #4 | Customer #4 | Pasta | Menu $18.00 | Bill $16.20 | SERVED | preparation units remaining: 0
   Order #5 | Customer #5 | Pasta | Menu $18.00 | Bill $18.00 | PREPARING | preparation units remaining: 1
 Waiter task:
@@ -719,9 +715,9 @@ Waiter task:
   0. Wait
 Choice [0-3]: The Waiter waits this turn.
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | PAID | preparation units remaining: 0
   Order #4 | Customer #4 | Pasta | Menu $18.00 | Bill $16.20 | SERVED | preparation units remaining: 0
   Order #5 | Customer #5 | Pasta | Menu $18.00 | Bill $18.00 | PREPARING | preparation units remaining: 1
 Chef task:
@@ -734,33 +730,33 @@ Choice [0-5]: Order #5 (Pasta) is READY to serve next turn.
 Customer #4 paid $16.20.
 Table #2 is now free.
 Served: 4 | Paid: 4 | Departures: 0
-Revenue: $55.80 | Average paid-customer satisfaction: 81.00
+Revenue: $58.20 | Average paid-customer satisfaction: 74.00
 Turns used: 16 / 18
 
 ==================================================
 RESTAURANT RUSH | Turn 17 / 18
 Served: 4 | Paid: 4 | Departures: 0
-Revenue: $55.80 | Average paid-customer satisfaction: 81.00
+Revenue: $58.20 | Average paid-customer satisfaction: 74.00
 Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction
 Choose one Waiter task, then one Chef task. Cashier acts automatically.
 Enter the displayed customer/order number; 0 means back or wait.
 
 Waiting queue (arrival order):
-  Customer #6 | VIP | WAITING | satisfaction 95 | no order
+  Customer #6 | Regular | WAITING | satisfaction 92 | no order
 Tables:
-  Table #1: Customer #5 | Critic | ORDERED | satisfaction 52 | order #5 READY
+  Table #1: Customer #5 | Regular | ORDERED | satisfaction 68 | order #5 READY
   Table #2: FREE
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | PAID | satisfaction 90 | order #2 PAID
-  Customer #3 | Critic | PAID | satisfaction 64 | order #3 PAID
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | PAID | satisfaction 76 | order #2 PAID
+  Customer #3 | Regular | PAID | satisfaction 76 | order #3 PAID
   Customer #4 | VIP | PAID | satisfaction 80 | order #4 PAID
-  Customer #5 | Critic | ORDERED | satisfaction 52 | order #5 READY
-  Customer #6 | VIP | WAITING | satisfaction 95 | no order
+  Customer #5 | Regular | ORDERED | satisfaction 68 | order #5 READY
+  Customer #6 | Regular | WAITING | satisfaction 92 | no order
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | PAID | preparation units remaining: 0
   Order #4 | Customer #4 | Pasta | Menu $18.00 | Bill $16.20 | PAID | preparation units remaining: 0
   Order #5 | Customer #5 | Pasta | Menu $18.00 | Bill $18.00 | READY | preparation units remaining: 0
 Waiter task:
@@ -769,17 +765,17 @@ Waiter task:
   3. Serve a READY dish
   0. Wait
 Choice [0-3]: Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | PAID | preparation units remaining: 0
   Order #4 | Customer #4 | Pasta | Menu $18.00 | Bill $16.20 | PAID | preparation units remaining: 0
   Order #5 | Customer #5 | Pasta | Menu $18.00 | Bill $18.00 | READY | preparation units remaining: 0
 Enter order number (0 = back):
 Choice [0-5]: Waiter served Pasta to Customer #5.
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | PAID | preparation units remaining: 0
   Order #4 | Customer #4 | Pasta | Menu $18.00 | Bill $16.20 | PAID | preparation units remaining: 0
   Order #5 | Customer #5 | Pasta | Menu $18.00 | Bill $18.00 | SERVED | preparation units remaining: 0
 Chef task:
@@ -789,33 +785,33 @@ Choice [0-1]: The Chef waits this turn.
 
 --- End of turn 17 ---
 Served: 5 | Paid: 4 | Departures: 0
-Revenue: $55.80 | Average paid-customer satisfaction: 81.00
+Revenue: $58.20 | Average paid-customer satisfaction: 74.00
 Turns used: 17 / 18
 
 ==================================================
 RESTAURANT RUSH | Turn 18 / 18
 Served: 5 | Paid: 4 | Departures: 0
-Revenue: $55.80 | Average paid-customer satisfaction: 81.00
+Revenue: $58.20 | Average paid-customer satisfaction: 74.00
 Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction
 Choose one Waiter task, then one Chef task. Cashier acts automatically.
 Enter the displayed customer/order number; 0 means back or wait.
 
 Waiting queue (arrival order):
-  Customer #6 | VIP | WAITING | satisfaction 90 | no order
+  Customer #6 | Regular | WAITING | satisfaction 84 | no order
 Tables:
-  Table #1: Customer #5 | Critic | EATING | satisfaction 52 | order #5 SERVED
+  Table #1: Customer #5 | Regular | EATING | satisfaction 68 | order #5 SERVED
   Table #2: FREE
 Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | PAID | satisfaction 90 | order #2 PAID
-  Customer #3 | Critic | PAID | satisfaction 64 | order #3 PAID
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | PAID | satisfaction 76 | order #2 PAID
+  Customer #3 | Regular | PAID | satisfaction 76 | order #3 PAID
   Customer #4 | VIP | PAID | satisfaction 80 | order #4 PAID
-  Customer #5 | Critic | EATING | satisfaction 52 | order #5 SERVED
-  Customer #6 | VIP | WAITING | satisfaction 90 | no order
+  Customer #5 | Regular | EATING | satisfaction 68 | order #5 SERVED
+  Customer #6 | Regular | WAITING | satisfaction 84 | no order
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | PAID | preparation units remaining: 0
   Order #4 | Customer #4 | Pasta | Menu $18.00 | Bill $16.20 | PAID | preparation units remaining: 0
   Order #5 | Customer #5 | Pasta | Menu $18.00 | Bill $18.00 | SERVED | preparation units remaining: 0
 Waiter task:
@@ -824,18 +820,18 @@ Waiter task:
   3. Serve a READY dish
   0. Wait
 Choice [0-3]: Customers (use Customer # when selecting):
-  Customer #1 | VIP | PAID | satisfaction 90 | order #1 PAID
-  Customer #2 | VIP | PAID | satisfaction 90 | order #2 PAID
-  Customer #3 | Critic | PAID | satisfaction 64 | order #3 PAID
+  Customer #1 | Critic | PAID | satisfaction 64 | order #1 PAID
+  Customer #2 | Regular | PAID | satisfaction 76 | order #2 PAID
+  Customer #3 | Regular | PAID | satisfaction 76 | order #3 PAID
   Customer #4 | VIP | PAID | satisfaction 80 | order #4 PAID
-  Customer #5 | Critic | EATING | satisfaction 52 | order #5 SERVED
-  Customer #6 | VIP | WAITING | satisfaction 90 | no order
+  Customer #5 | Regular | EATING | satisfaction 68 | order #5 SERVED
+  Customer #6 | Regular | WAITING | satisfaction 84 | no order
 Enter customer number (0 = back):
 Choice [0-6]: Waiter seated Customer #6 at Table 2.
 Orders (use Order # when selecting):
-  Order #1 | Customer #1 | Salad | Menu $9.00 | Bill $8.10 | PAID | preparation units remaining: 0
-  Order #2 | Customer #2 | Burger | Menu $15.00 | Bill $13.50 | PAID | preparation units remaining: 0
-  Order #3 | Customer #3 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #1 | Customer #1 | Pasta | Menu $18.00 | Bill $18.00 | PAID | preparation units remaining: 0
+  Order #2 | Customer #2 | Salad | Menu $9.00 | Bill $9.00 | PAID | preparation units remaining: 0
+  Order #3 | Customer #3 | Burger | Menu $15.00 | Bill $15.00 | PAID | preparation units remaining: 0
   Order #4 | Customer #4 | Pasta | Menu $18.00 | Bill $16.20 | PAID | preparation units remaining: 0
   Order #5 | Customer #5 | Pasta | Menu $18.00 | Bill $18.00 | SERVED | preparation units remaining: 0
 Chef task:
@@ -845,15 +841,15 @@ Choice [0-1]: The Chef waits this turn.
 
 --- End of turn 18 ---
 Served: 5 | Paid: 4 | Departures: 0
-Revenue: $55.80 | Average paid-customer satisfaction: 81.00
+Revenue: $58.20 | Average paid-customer satisfaction: 74.00
 Turns used: 18 / 18
 
 ==================================================
 FINAL RESULT: VICTORY
 Served: 5 | Paid: 4 | Departures: 0
-Revenue: $55.80 | Average paid-customer satisfaction: 81.00
+Revenue: $58.20 | Average paid-customer satisfaction: 74.00
 Turns used: 18 / 18
 Victory targets (all three must pass):
   PASS Paid customers: 4 / 4
-  PASS Revenue: $55.80 / $45.00
-  PASS Average paid-customer satisfaction: 81.00 / 60
+  PASS Revenue: $58.20 / $45.00
+  PASS Average paid-customer satisfaction: 74.00 / 60
