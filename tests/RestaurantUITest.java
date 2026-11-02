@@ -183,7 +183,7 @@ public class RestaurantUITest {
         final Table[] tables;
 
         Fixture() {
-            Customer customer = new Customer(1, 1) {
+            Customer customer = new RegularCustomer(1, 1) {
                 public int getCustomerId() { return 1; }
                 public int getSatisfaction() { return 76; }
                 public CustomerStatus getStatus() { return CustomerStatus.ORDERED; }
