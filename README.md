@@ -68,7 +68,7 @@ All bills use integer cents with half cents rounded up. VIP bills for Salad/Burg
 
 ## Stage 1 to Stage 2 design changes
 
-The implementation follows the [Stage 2 class diagram](docs/stage2_class_diagram.drawio.svg), with an [editable draw.io file](docs/stage2_class_diagram.drawio). Original Stage 1 diagrams and recordings remain unchanged. Add the implementation commit/compare link when this transition is committed and tagged.
+The implementation follows the [Stage 2 class diagram](docs/stage2_class_diagram.drawio.svg), with an [editable draw.io file](docs/stage2_class_diagram.drawio). Original Stage 1 diagrams and recordings remain unchanged. Implementation changes from Stage 1 to Stage 2: [stage-1...stage-2 comparison](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/compare/stage-1...stage-2).
 
 | Files | Change and reason |
 |---|---|
