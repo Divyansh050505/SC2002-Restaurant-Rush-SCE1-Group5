@@ -4,6 +4,7 @@ import entity.ActionResult;
 import entity.Cashier;
 import entity.Chef;
 import entity.Customer;
+import entity.HappyHour;
 import entity.Menu;
 import entity.Order;
 import entity.Table;
@@ -12,9 +13,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import entity.CustomerStatus;
 import entity.OrderStatus;
-/**
- * Turn sequence and game state, with a seeded Stage Two arrival plan.
- */
+
 public class RestaurantController {
     private static final int MAX_TURNS = 18;
     private static final int NUM_TABLES = 2;
@@ -34,6 +33,7 @@ public class RestaurantController {
     private Waiter waiter;
     private Chef chef;
     private Cashier cashier;
+    private HappyHour happyHour;
     private CustomerArrivalPlan arrivalPlan = null;
 
     public RestaurantController() {
@@ -49,13 +49,11 @@ public class RestaurantController {
         waiter = new Waiter();
         chef = new Chef();
         cashier = new Cashier();
+        happyHour = new HappyHour();
         paidCustomers = new ArrayList<>();
     }
 
-    /**
-     * Begins the next turn: frees every staff member's task and runs
-     * Step 1 (arrivals). Does nothing once all turns have been played.
-     */
+    
     public void startTurn() {
         if (isGameOver()) {
             return;
@@ -66,6 +64,24 @@ public class RestaurantController {
         chef.resetTurn();
         cashier.resetTurn();
         handleArrival();
+        if (happyHour.isActive()) {
+            handleHappyHourRecovery();
+        }
+    }
+
+    
+    public ActionResult activateHappyHour() {
+        if (currentTurn == 0) {
+            return ActionResult.failure("The game has not started yet.");
+        }
+        if (waiter.hasActed() || chef.hasActed()) {
+            return ActionResult.failure("Happy Hour can only be switched on at the start of a turn.");
+        }
+        ActionResult result = happyHour.activate();
+        if (result.isSuccess()) {
+            handleHappyHourRecovery(); 
+        }
+        return result;
     }
 
     public ActionResult seatCustomer(int customerId) {
@@ -85,7 +101,7 @@ public class RestaurantController {
         if (customer == null) {
             return ActionResult.failure("There is no customer #" + customerId + ".");
         }
-        ActionResult result = waiter.takeOrder(customer, nextOrderNo, menu);
+        ActionResult result = waiter.takeOrder(customer, nextOrderNo, menu, happyHour);
         if (result.isSuccess()) {
             orders.add(customer.getOrder());
             nextOrderNo++;
@@ -109,15 +125,12 @@ public class RestaurantController {
         return chef.prepare(order);
     }
 
-    /**
-     * Finishes the current turn after the Waiter and Chef have acted.
-     * Payment runs before eating so that a customer who becomes
-     * READY_TO_PAY this turn pays next turn at the earliest.
-     */
+    
     public void endTurn() {
-        handlePayment();  // Step 4a: Cashier pays the oldest READY_TO_PAY customer
-        handleEating();   // Step 4b: customers served on an earlier turn finish eating
-        handleWaiting();  // Step 5: unserved customers lose satisfaction, may leave
+        handlePayment();  
+        handleEating();   
+        handleWaiting(); 
+        happyHour.endTurn();
     }
 
     public boolean isGameOver() {
@@ -140,7 +153,7 @@ public class RestaurantController {
 
     public double getAverageSatisfaction() {
         if (paidCustomers.isEmpty()) {
-            return 0.0; // Avoid division by zero; UI can treat 0 as N/A
+            return 0.0; 
         }
         double totalSatisfaction = 0;
         for (Customer customer : paidCustomers) {
@@ -189,6 +202,10 @@ public class RestaurantController {
         return this.tables;
     }
 
+    public HappyHour getHappyHour() {
+        return this.happyHour;
+    }
+
     private void handleArrival() {
         for (int arrivalTurn : ARRIVAL_TURNS) {
             if (arrivalTurn == currentTurn) {
@@ -202,15 +219,15 @@ public class RestaurantController {
 
     private void handlePayment() {
         if (cashier.hasActed()) {
-            return; // Cashier has already acted this turn.
+            return; 
         }
 
-        // Find the first customer in the queue who is READY_TO_PAY
+       
         Customer customerToPay = null;
         for (Customer customer : customers) {
             if (customer.getStatus() == CustomerStatus.READY_TO_PAY) {
                 customerToPay = customer;
-                break; // Find the oldest one (first in the main list) and stop
+                break; 
             }
         }
 
@@ -234,12 +251,18 @@ public class RestaurantController {
     private void handleWaiting() {
         for (Customer customer : customers) {
             if (customer.isWaitingForService()) {
-                // At 0 satisfaction the customer leaves: order cancelled, table freed
+                
                 customer.loseSatisfaction();
                 if (customer.getStatus() == CustomerStatus.LEFT) {
                     waitingQueue.remove(customer);
                 }
             }
+        }
+    }
+
+    private void handleHappyHourRecovery() {
+        for (Customer customer : customers) {
+            customer.recoverSatisfaction(happyHour.getRecoveryPoints());
         }
     }
 
@@ -267,10 +290,10 @@ public class RestaurantController {
                 return table;
             }
         }
-        return null; // No free tables found
+        return null; 
     }
 
-    /** The UI selects the seed after controller construction, before turn one. */
+    
     private void initializeArrivalPlan() {
         if (arrivalPlan == null) {
             Long seed = Long.getLong("restaurant.rush.seed");

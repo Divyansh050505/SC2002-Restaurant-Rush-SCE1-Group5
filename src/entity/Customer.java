@@ -4,20 +4,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.WeakHashMap;
 
-/**
- * Shared customer lifecycle with polymorphic Stage Two behaviour hooks.
- *
- * <p>Invalid arguments and actions are rejected with descriptive
- * {@link IllegalArgumentException}s or {@link IllegalStateException}s, leaving
- * customer fields unchanged on failure. Staff can report these through {@link ActionResult};
- * this entity does not print messages or consume a staff task.</p>
- *
- * <p>State transitions establish the private table and order references.
- * Later actions rely on those references but recheck table occupancy and order
- * status because other objects can change them.</p>
- */
+
 public abstract class Customer {
-    // A controller creates one Menu per game; weak keys do not retain completed games.
+    
     private static final Map<Menu, int[]> CHOICES_BY_MENU = new WeakHashMap<>();
 
     private final int customerId;
@@ -28,7 +17,7 @@ public abstract class Customer {
     private Table table;
     private Order order;
 
-    /** Creates an unserved, waiting customer with satisfaction 100. */
+   
     protected Customer(int customerId, int arrivalTurn) {
         if (customerId <= 0) {
             throw new IllegalArgumentException("Customer ID must be positive.");
@@ -41,11 +30,7 @@ public abstract class Customer {
         this.status = CustomerStatus.WAITING;
     }
 
-    /**
-     * Chooses from the menu only while seated and without an order.
-     * Validates the shared preconditions before dispatching to selectItem.
-     * Choosing food does not place an order or consume a staff task.
-     */
+   
     public final MenuItem chooseItem(Menu menu) {
         if (menu == null) {
             throw new IllegalArgumentException("A menu is required to choose food.");
@@ -73,12 +58,7 @@ public abstract class Customer {
         return item;
     }
 
-    /**
-     * Default seeded choice for Regular and VIP customers. Each menu gets six
-     * shuffled slots covering every item; customer IDs select stable slots.
-     * Critic preferences can replace slots, so mixed groups need not order every
-     * dish. Selection order and retries never reroll a customer's choice.
-     */
+    
     protected MenuItem selectItem(Menu menu) {
         int itemCount = menu.getItemCount();
         int index;
@@ -91,7 +71,7 @@ public abstract class Customer {
                 for (int i = 0; i < choices.length; i++) {
                     choices[i] = i < itemCount ? i : random.nextInt(itemCount);
                 }
-                // Fisher-Yates shuffle gives each arrangement an unbiased shuffle.
+                
                 for (int i = choices.length - 1; i > 0; i--) {
                     int other = random.nextInt(i + 1);
                     int temporary = choices[i];
@@ -105,11 +85,7 @@ public abstract class Customer {
         return menu.getItem(index);
     }
 
-    /**
-     * Applies one end-of-turn loss to an unserved customer, with a floor of zero.
-     * Reaching zero also completes abandonment. Served and terminal customers
-     * are unchanged, so their satisfaction remains available for reporting.
-     */
+    
     public final void loseSatisfaction() {
         if (!isWaitingForService()) {
             return;
@@ -120,10 +96,17 @@ public abstract class Customer {
             try {
                 leave();
             } catch (RuntimeException exception) {
-                // Preserve the customer's state if cancellation or table release fails.
+                
                 satisfaction = previousSatisfaction;
                 throw exception;
             }
+        }
+    }
+
+   
+    public void recoverSatisfaction(int points) {
+        if (isWaitingForService()) {
+            satisfaction = Math.min(100, satisfaction + points);
         }
     }
 
@@ -133,11 +116,7 @@ public abstract class Customer {
                 || status == CustomerStatus.ORDERED;
     }
 
-    /**
-     * Finishes eating only on a turn after service; other states are unchanged.
-     * The controller processes payment before this step so newly ready customers
-     * cannot pay until the following turn.
-     */
+    
     public void finishEating(int currentTurn) {
         if (currentTurn < arrivalTurn) {
             throw new IllegalArgumentException("The current turn cannot be before the customer's arrival.");
@@ -159,7 +138,7 @@ public abstract class Customer {
         }
     }
 
-    /** Completes abandonment at zero satisfaction; repeated departure is harmless. */
+   
     public void leave() {
         if (status == CustomerStatus.LEFT) {
             return;
@@ -200,10 +179,7 @@ public abstract class Customer {
         return status;
     }
 
-    /**
-     * Serves a READY order and starts eating. An order already marked SERVED by
-     * the Waiter is accepted too; the customer must still be awaiting service.
-     */
+   
     public void markServed(int currentTurn) {
         if (currentTurn < arrivalTurn) {
             throw new IllegalArgumentException("The current turn cannot be before the customer's arrival.");
@@ -230,7 +206,7 @@ public abstract class Customer {
         return table;
     }
 
-    /** Seats a waiting customer and keeps both sides of the table association in sync. */
+   
     public void seatAt(Table table) {
         if (table == null) {
             throw new IllegalArgumentException("A table is required to seat a customer.");
@@ -243,7 +219,7 @@ public abstract class Customer {
             throw new IllegalStateException("The table is already occupied.");
         }
 
-        // The Waiter may already have assigned this customer to the table.
+        
         if (occupant != this) {
             table.assign(this);
         }
@@ -255,7 +231,7 @@ public abstract class Customer {
         return order;
     }
 
-    /** Attaches exactly one new order belonging to this seated customer. */
+    
     public void placeOrder(Order order) {
         if (order == null) {
             throw new IllegalArgumentException("An order is required.");
@@ -277,11 +253,7 @@ public abstract class Customer {
         status = CustomerStatus.ORDERED;
     }
 
-    /**
-     * Marks the customer and order paid and releases the table. The order and
-     * satisfaction are retained for revenue and satisfaction reporting.
-     * Cashier/controller code is responsible for the payment turn and revenue.
-     */
+   
     public void markPaid() {
         if (status != CustomerStatus.READY_TO_PAY) {
             throw new IllegalStateException("Only a customer who has finished eating can pay.");
@@ -294,7 +266,7 @@ public abstract class Customer {
             throw new IllegalStateException("Only a served order can be paid for.");
         }
 
-        // The Cashier may already have marked the order paid.
+        
         if (orderStatus == OrderStatus.SERVED) {
             order.markPaid();
         }
@@ -303,22 +275,18 @@ public abstract class Customer {
         status = CustomerStatus.PAID;
     }
 
-    /** Points lost per unserved turn; all types share the abandonment rules. */
+    
     protected abstract int getSatisfactionLoss();
 
-    /** Display label supplied by the customer, without UI subtype checks. */
+    
     public abstract String getTypeLabel();
 
-    /** Regular and Critic customers pay full price. */
+    
     protected int getDiscountPercent() {
         return 0;
     }
 
-    /**
-     * Calculates a bill in integer cents, rounding half cents up. A long
-     * intermediate avoids overflow even for the largest valid int price.
-     * Cashier and UI use this same calculation; it does not change game state.
-     */
+   
     public final int calculateBillCents(int basePriceCents) {
         if (basePriceCents < 0) {
             throw new IllegalArgumentException("The base price cannot be negative.");
