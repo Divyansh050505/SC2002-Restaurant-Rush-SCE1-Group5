@@ -95,7 +95,7 @@ public class RestaurantUI {
         System.out.println("RESTAURANT RUSH | Turn " + controller.getCurrentTurn() + " / 18");
         displayTotals();
         System.out.println("Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction");
-        System.out.println("Choose one Waiter task, then one Chef task. Cashier acts automatically.");
+        System.out.println("Choose one Host task, one Waiter task, then one Chef task. Cashier acts automatically.");
         System.out.println("Enter the displayed customer/order number; 0 means back or wait.");
         System.out.println("\nWaiting queue (arrival order):");
         if (controller.getWaitingQueue().isEmpty()) {
