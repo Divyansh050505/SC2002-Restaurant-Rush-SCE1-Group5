@@ -84,6 +84,26 @@ The implementation follows the [Stage 2 class diagram](docs/stage2_class_diagram
 
 SRP separates scheduling, lifecycle/behaviour, transactions and presentation. OCP and DIP appear in service code that uses `Customer` without subtype checks; concrete type registration stays in the arrival helper. LSP is checked by shared lifecycle and validation tests across all types, including the Critic's menu fallback. The hook API stays small without artificial interfaces (ISP). `ActionResult` remains the outcome value object, rather than a control class.
 
+
+## Stage 3: ComboMeal selection rule
+
+Each game offers one ComboMeal consisting of two existing menu items.
+
+The ComboMeal offered is determined by the game seed using `Math.floorMod(seed, 3L)`:
+
+- Remainder 0: Salad + Burger
+- Remainder 1: Burger + Pasta
+- Remainder 2: Salad + Pasta
+
+The ComboMeal costs 90% of the combined component prices, rounded to the nearest cent using integer arithmetic. Its preparation units equal the sum of the preparation units of both components.
+
+The menu is initialized once at the beginning of the first turn, after the game seed has been selected.
+
+Regular and VIP customers may select the ComboMeal through the existing seeded six-slot food selection mechanism. Critic customers retain their Pasta preference.
+
+Replaying the same seed produces the same available ComboMeal and customer food choices. The manager does not choose the customers' food.
+
+
 ## Run the checks
 
 No external test framework is needed. On Mac/Linux, from the repository root:
