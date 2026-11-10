@@ -45,7 +45,7 @@ public class RestaurantController {
         for (int i = 0; i < NUM_TABLES; i++) {
             tables[i] = new Table(i + 1);
         }
-        menu = new Menu();
+        
         waiter = new Waiter();
         chef = new Chef();
         cashier = new Cashier();
@@ -271,10 +271,21 @@ public class RestaurantController {
     }
 
     /** The UI selects the seed after controller construction, before turn one. */
+   
     private void initializeArrivalPlan() {
         if (arrivalPlan == null) {
+
             Long seed = Long.getLong("restaurant.rush.seed");
-            arrivalPlan = new CustomerArrivalPlan(seed == null ? new Random().nextLong() : seed);
+
+            long gameSeed = seed == null
+                    ? new Random().nextLong()
+                    : seed;
+
+            arrivalPlan = new CustomerArrivalPlan(gameSeed);
+
+            // Initialize the menu using the SAME game seed
+            menu = new Menu(gameSeed);
         }
     }
+
 }
