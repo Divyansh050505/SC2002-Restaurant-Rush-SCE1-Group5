@@ -199,44 +199,25 @@ public class RestaurantUI {
             }
         }
     }
-    private void chooseHostTask() {
+private void chooseHostTask() {
         while (true) {
             System.out.println("Host task:");
             System.out.println("  1. Seat a waiting customer");
-            System.out.println("  2. Take a seated customer's order");
-            System.out.println("  3. Serve a READY dish");
             System.out.println("  0. Wait");
-            int choice = readChoice(0, 3);
+            int choice = readChoice(0, 1);
             if (choice == 0) {
                 System.out.println("The Host waits this turn.");
                 return;
             }
 
-            ActionResult result;
-            if (choice == 1 || choice == 2) {
-                displayCustomers();
-                System.out.println("Enter customer number (0 = back):");
-                int customerId = readChoice(0, controller.getCustomers().size());
-                if (customerId == 0) {
-                    continue;
-                }
-                result = (choice == 1)
-                        ? controller.hostSeatCustomer(customerId)
-                        : controller.hostTakeOrder(customerId);
-            } else {
-                if (controller.getOrders().isEmpty()) {
-                    System.out.println("There are no orders yet.");
-                    continue;
-                }
-                displayOrders();
-                System.out.println("Enter order number (0 = back):");
-                int orderNo = readChoice(0, controller.getOrders().size());
-                if (orderNo == 0) {
-                    continue;
-                }
-                result = controller.hostServeOrder(orderNo);
+            displayCustomers();
+            System.out.println("Enter customer number (0 = back):");
+            int customerId = readChoice(0, controller.getCustomers().size());
+            if (customerId == 0) {
+                continue;
             }
 
+            ActionResult result = controller.hostSeatCustomer(customerId);
             System.out.println(result.getMessage());
             if (result.isSuccess()) {
                 return;
