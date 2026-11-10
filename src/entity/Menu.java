@@ -2,13 +2,20 @@ package entity;
 
 import java.util.ArrayList;
 
-/**
- * Stage One menu skeleton.
- */
+
+
 public class Menu {
     private ArrayList<MenuItem> items;
 
+    // Default constructor for existing tests
     public Menu() {
+        this(0L);
+    }
+
+    // Constructor using the game seed
+    public Menu(long seed) {
+    
+        
         
 
         items=new ArrayList<>();
@@ -18,22 +25,33 @@ public class Menu {
         items.add(new MenuItem("Pasta", 1800, 2));
 
 
-        int r =(int)(Math.random()*3);
+        // Deterministic combo selection based on seed
+        int choice = (int) Math.floorMod(seed, 3L);
 
-        if (r==0) {
         
-                items.add(new ComboMeal(items.get(0), items.get(1)));
-        }
+        switch (choice) {
+        
+             
+            case 0: items.add(
+                    new ComboMeal(items.get(0), items.get(1))
+            );
 
-        else if (r==1) {
-        
-                items.add(new ComboMeal(items.get(1), items.get(2)));
-        }
+            break;
 
-        else if (r==2) {
+            case 1:  items.add(
+                    new ComboMeal(items.get(1), items.get(2))
+            );
+            
+            break;
+
+            case 2: items.add(
+                    new ComboMeal(items.get(0), items.get(2))
+            );
+            
+            break;
         
-                items.add(new ComboMeal(items.get(0), items.get(2)));
         }
+        
         
         
     }
