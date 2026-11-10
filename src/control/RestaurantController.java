@@ -82,25 +82,8 @@ public class RestaurantController {
         }
         return result;
     }
-    public ActionResult hostTakeOrder(int customerId) {
-        Customer customer = findCustomer(customerId);
-        if (customer == null) {
-            return ActionResult.failure("There is no customer #" + customerId + ".");
-        }
-        ActionResult result = host.takeOrder(customer, nextOrderNo, menu);
-        if (result.isSuccess()) {
-            orders.add(customer.getOrder());
-            nextOrderNo++;
-        }
-        return result;
-    }
-    public ActionResult hostServeOrder(int orderNo) {
-        Order order = findOrder(orderNo);
-        if (order == null) {
-            return ActionResult.failure("There is no order #" + orderNo + ".");
-        }
-        return host.serve(order, currentTurn);
-    }
+
+
 
     public ActionResult seatCustomer(int customerId) {
         Customer customer = findCustomer(customerId);
