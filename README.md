@@ -33,6 +33,17 @@ Turn-based restaurant management game in Java (command-line). The current versio
 
 **Video and report:** the demo video and signed declarations are submitted in the zip, not in this repository. The group report goes in `docs/report/`.
 
+## Video timestamps
+| # | Segment | Timestamp | Presenter |
+|---|---|---|---|
+| 1 | The game launching from the submitted project | – | – |
+| 2 | Meaningful manager choices, including a decision where staff are constrained | – | – |
+| 3 | A dish going READY → SERVED → payment | – | – |
+| 4 | A VIP or Critic behaviour | – | – |
+| 5 | A Stage 3 feature | – | – |
+| 6 | One victory and one defeat | – | – |
+| 7 | The stage tag comparisons and the diagrams | – | – |
+
 ## Repository layout
 | Path | Contents |
 |---|---|
