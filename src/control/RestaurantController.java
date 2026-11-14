@@ -1,6 +1,7 @@
 package control;
 
 import entity.ActionResult;
+import entity.Host;
 import entity.Cashier;
 import entity.Chef;
 import entity.Customer;
@@ -31,6 +32,7 @@ public class RestaurantController {
     private Table[] tables;
     private Menu menu;
     private Waiter waiter;
+    private Host host;
     private Chef chef;
     private Cashier cashier;
     private HappyHour happyHour;
@@ -47,6 +49,7 @@ public class RestaurantController {
         }
         menu = new Menu();
         waiter = new Waiter();
+        host = new Host();
         chef = new Chef();
         cashier = new Cashier();
         happyHour = new HappyHour();
@@ -61,6 +64,7 @@ public class RestaurantController {
         initializeArrivalPlan();
         currentTurn++;
         waiter.resetTurn();
+        host.resetTurn();
         chef.resetTurn();
         cashier.resetTurn();
         handleArrival();
@@ -83,6 +87,19 @@ public class RestaurantController {
         }
         return result;
     }
+    public ActionResult hostSeatCustomer(int customerId) {
+        Customer customer = findCustomer(customerId);
+        if (customer == null) {
+            return ActionResult.failure("There is no customer #" + customerId + ".");
+        }
+        ActionResult result = host.seat(customer, findFreeTable());
+        if (result.isSuccess()) {
+            waitingQueue.remove(customer);
+        }
+        return result;
+    }
+
+
 
     public ActionResult seatCustomer(int customerId) {
         Customer customer = findCustomer(customerId);

@@ -60,6 +60,7 @@ public class RestaurantUI {
             while (!controller.isGameOver()) {
                 controller.startTurn();
                 displayTurnStart();
+                chooseHostTask();
                 chooseWaiterTask();
                 chooseChefTask();
                 customerTablesBeforeEnd.clear();
@@ -89,7 +90,7 @@ public class RestaurantUI {
         displayTotals();
         System.out.println("Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction");
         displayHappyHour();
-        System.out.println("Choose one Waiter task, then one Chef task. Cashier acts automatically.");
+        System.out.println("Choose one Host task, one Waiter task, then one Chef task. Cashier acts automatically.");
         System.out.println("Enter the displayed customer/order number; 0 means back or wait.");
         System.out.println("\nWaiting queue (arrival order):");
         if (controller.getWaitingQueue().isEmpty()) {
@@ -206,6 +207,31 @@ public class RestaurantUI {
                 result = controller.serveOrder(orderNo);
             }
 
+            System.out.println(result.getMessage());
+            if (result.isSuccess()) {
+                return;
+            }
+        }
+    }
+private void chooseHostTask() {
+        while (true) {
+            System.out.println("Host task:");
+            System.out.println("  1. Seat a waiting customer");
+            System.out.println("  0. Wait");
+            int choice = readChoice(0, 1);
+            if (choice == 0) {
+                System.out.println("The Host waits this turn.");
+                return;
+            }
+
+            displayCustomers();
+            System.out.println("Enter customer number (0 = back):");
+            int customerId = readChoice(0, controller.getCustomers().size());
+            if (customerId == 0) {
+                continue;
+            }
+
+            ActionResult result = controller.hostSeatCustomer(customerId);
             System.out.println(result.getMessage());
             if (result.isSuccess()) {
                 return;
