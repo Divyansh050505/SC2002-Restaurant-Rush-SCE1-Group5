@@ -4,6 +4,45 @@ Turn-based restaurant management game in Java (command-line). The current versio
 
 **Repository:** https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5
 
+## Submission links
+
+**Stage tags** (each one is a runnable commit):
+[stage-1](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/tree/stage-1) |
+[stage-2](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/tree/stage-2) |
+[stage-3](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/tree/stage-3)
+
+**Stage comparisons:**
+[stage-1...stage-2](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/compare/stage-1...stage-2) |
+[stage-2...stage-3](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/compare/stage-2...stage-3)
+
+**Diagrams:**
+[Stage 1 class](docs/diagrams/class/stage1_class_diagram.drawio.svg) |
+[Stage 2 class](docs/diagrams/class/stage2_class_diagram.drawio.svg) |
+[Stage 3 class](docs/diagrams/class/stage3_class_diagram.drawio.svg) |
+[Stage 3 sequence](docs/diagrams/sequence/stage3_sequence_diagram.pdf)
+
+**AI history:** each member's full AI chat history is kept on their own branch, in `ai-history/stage-N/`.
+
+| Member | Branch |
+|---|---|
+| Divyansh | [ai-history/divyansh](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/tree/ai-history/divyansh) |
+| Lei Yueer | [ai-history/lei-yueer](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/tree/ai-history/lei-yueer) |
+| Shi Hong | [ai-history/shi-hong](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/tree/ai-history/shi-hong) |
+| Jan Guirey | [ai-history/jan-guirey](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/tree/ai-history/jan-guirey) |
+| Liu Yanxi | [ai-history/liu-yanxi](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/tree/ai-history/liu-yanxi) |
+
+**Video and report:** the demo video and signed declarations are submitted in the zip, not in this repository. The group report goes in `docs/report/`.
+
+## Repository layout
+| Path | Contents |
+|---|---|
+| `src/` | Game source (`boundary`, `control`, `entity`, and `RestaurantApp`) |
+| `tests/` | Dependency-free checks (see [Run the checks](#run-the-checks)) |
+| `test-runs/` | Victory and defeat inputs and transcripts for each stage, with [notes](test-runs/README.md) |
+| `docs/diagrams/class/` | Class diagrams for Stages 1–3 (`.drawio` source and `.svg` export) |
+| `docs/diagrams/sequence/` | Stage 3 sequence diagram |
+| `docs/report/` | Group report |
+
 ## Team
 | Member | Responsibility |
 |---|---|
@@ -77,7 +116,7 @@ All bills use integer cents with half cents rounded up. VIP bills for Salad/Burg
 
 ## Stage 1 to Stage 2 design changes
 
-The Stage 2 implementation is documented in the [Stage 2 class diagram](docs/stage2_class_diagram.drawio.svg), with an [editable draw.io file](docs/stage2_class_diagram.drawio). Original Stage 1 and Stage 2 diagrams and recordings remain unchanged. Implementation changes from Stage 1 to Stage 2: [stage-1...stage-2 comparison](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/compare/stage-1...stage-2).
+The Stage 2 implementation is documented in the [Stage 2 class diagram](docs/diagrams/class/stage2_class_diagram.drawio.svg), with an [editable draw.io file](docs/diagrams/class/stage2_class_diagram.drawio). Original Stage 1 and Stage 2 diagrams and recordings remain unchanged. Implementation changes from Stage 1 to Stage 2: [stage-1...stage-2 comparison](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/compare/stage-1...stage-2).
 
 | Files | Change and reason |
 |---|---|
@@ -118,7 +157,7 @@ The Host seats at most one queued customer per turn, in addition to the Waiter's
 
 ## Stage 2 to Stage 3 design changes
 
-The [Stage 3 class diagram](docs/stage3_class_diagram.drawio.svg), with an [editable draw.io file](docs/stage3_class_diagram.drawio), extends the Stage 2 diagram. It retains the existing classes and relationships, adds `Host`, `ComboMeal` and `HappyHour`, and updates members and annotations affected by the Stage 3 implementation. `ComboMeal` uses its two component items during construction; it does not store component references.
+The [Stage 3 class diagram](docs/diagrams/class/stage3_class_diagram.drawio.svg), with an [editable draw.io file](docs/diagrams/class/stage3_class_diagram.drawio), extends the Stage 2 diagram. It retains the existing classes and relationships, adds `Host`, `ComboMeal` and `HappyHour`, and updates members and annotations affected by the Stage 3 implementation. `ComboMeal` uses its two component items during construction; it does not store component references.
 
 Implementation changes from Stage 2 to Stage 3: [stage-2...stage-3 comparison](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/compare/stage-2...stage-3).
 
