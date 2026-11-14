@@ -118,7 +118,7 @@ public class RestaurantUI {
         } else if (happyHour.isUsed()) {
             System.out.println("Happy Hour: used");
         } else {
-            System.out.println("Happy Hour: available (once per game, from the Waiter menu)");
+            System.out.println("Happy Hour: available (once per game, from the Host menu)");
         }
     }
 
@@ -165,21 +165,11 @@ public class RestaurantUI {
             System.out.println("  1. Seat a waiting customer");
             System.out.println("  2. Take a seated customer's order");
             System.out.println("  3. Serve a READY dish");
-            boolean canStartHappyHour = !controller.getHappyHour().isUsed();
-            if (canStartHappyHour) {
-                System.out.println("  4. Switch on Happy Hour (does not use the Waiter's task)");
-            }
             System.out.println("  0. Wait");
-            int choice = readChoice(0, canStartHappyHour ? 4 : 3);
+            int choice = readChoice(0, 3);
             if (choice == 0) {
                 System.out.println("The Waiter waits this turn.");
                 return;
-            }
-            if (choice == 4) {
-                System.out.println(controller.activateHappyHour().getMessage());
-                displayHappyHour();
-                displayCustomers(); 
-                continue;
             }
 
             ActionResult result;
@@ -213,15 +203,25 @@ public class RestaurantUI {
             }
         }
     }
-private void chooseHostTask() {
+    private void chooseHostTask() {
         while (true) {
             System.out.println("Host task:");
             System.out.println("  1. Seat a waiting customer");
+            boolean canStartHappyHour = !controller.getHappyHour().isUsed();
+            if (canStartHappyHour) {
+                System.out.println("  2. Switch on Happy Hour (does not use the Host's task)");
+            }
             System.out.println("  0. Wait");
-            int choice = readChoice(0, 1);
+            int choice = readChoice(0, canStartHappyHour ? 2 : 1);
             if (choice == 0) {
                 System.out.println("The Host waits this turn.");
                 return;
+            }
+            if (choice == 2) {
+                System.out.println(controller.activateHappyHour().getMessage());
+                displayHappyHour();
+                displayCustomers();
+                continue;
             }
 
             displayCustomers();

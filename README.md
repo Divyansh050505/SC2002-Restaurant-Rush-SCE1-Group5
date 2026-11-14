@@ -34,10 +34,11 @@ java -cp out RestaurantApp
 
 ## How to play
 At launch, choose **1. New game** or **2. Replay using a seed**.
-New games print a six-digit seed; enter that seed in Replay to reproduce customer types and food choices within Stage 2.
+New games print a six-digit seed; enter that seed in Replay to reproduce customer types, the ComboMeal on offer and food choices.
 You still choose the staff actions, so the result can differ. Choose `0` to exit the startup menu or return from the seed prompt.
 
-Each turn the game shows the restaurant state, then asks for one Waiter task and one Chef task by number.
+Each turn the game shows the restaurant state, then asks for one Host task, one Waiter task and one Chef task by number.
+The Host can only seat a waiting customer; the Host menu also offers Happy Hour until it has been used.
 Customers and orders are chosen by the number shown next to them; `0` goes back or makes the staff member wait.
 An invalid choice explains why it failed and asks again without using up the staff task.
 
@@ -68,7 +69,7 @@ All bills use integer cents with half cents rounded up. VIP bills for Salad/Burg
 
 ## Stage 3 Happy Hour rules
 
-- Switch it on with option **4** in the Waiter menu. It is only offered at the start of a turn (before the Waiter or Chef acts), does not use the Waiter's task, and can be used once per game.
+- Switch it on with option **2** in the Host menu, the first menu of each turn. It is only allowed at the start of a turn (before the Host, Waiter or Chef acts), does not use the Host's task, and can be used once per game.
 - It lasts for the turn it is switched on and the next turn. The turn display shows how many turns are left.
 - Orders taken while it is active get 20% off. The customer's own discount comes first, then Happy Hour, rounding half cents up: a VIP Burger is $15 × 0.9 × 0.8 = **$10.80**.
 - Each order's bill is locked when the order is taken (`Order` stores it). Orders placed before Happy Hour keep their price, and Happy Hour orders keep their discount after it ends. The Cashier charges the locked bill.
@@ -111,6 +112,29 @@ Regular and VIP customers may select the ComboMeal through the existing seeded s
 
 Replaying the same seed produces the same available ComboMeal and customer food choices. The manager does not choose the customers' food.
 
+## Stage 3 Host rule
+
+The Host seats at most one queued customer per turn, in addition to the Waiter's task. The Waiter can still seat customers, so two customers can be seated in the same turn. The Host does not take orders or serve.
+
+## Stage 2 to Stage 3 design changes
+
+Implementation changes from Stage 2 to Stage 3: [stage-2...stage-3 comparison](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/compare/stage-2...stage-3).
+
+| Files | Change and reason |
+|---|---|
+| `src/entity/Host.java` | New staff member. Extends `Staff`, so it reuses the one-task-per-turn rule; its only action is seating. |
+| `src/entity/ComboMeal.java` | New menu item made of two existing items. Extends `MenuItem`, so orders, the Chef and pricing use it without type checks. |
+| `src/entity/HappyHour.java` | New pricing policy object: once per game, two turns, 20% off, satisfaction recovery. |
+| `src/entity/Menu.java` | Adds the seeded ComboMeal after the three base items. |
+| `src/entity/Order.java` | Stores the bill when the order is taken, so the price is locked even after Happy Hour ends. |
+| `src/entity/Waiter.java` | Works out the locked bill (customer discount first, then Happy Hour) when taking an order. |
+| `src/entity/Cashier.java` | Charges the order's locked bill instead of recalculating it. |
+| `src/entity/Customer.java` | Adds `recoverSatisfaction` for Happy Hour. Existing rules are unchanged. |
+| `src/control/RestaurantController.java` | Owns the Host and Happy Hour, creates the menu from the game seed, applies Happy Hour recovery at turn start and counts it down at turn end. |
+| `src/boundary/RestaurantUI.java` | Adds the Host step before the Waiter, the Happy Hour option and status line, and shows each order's locked bill. |
+
+Several source files also had comments removed during Stage 3; this does not change behaviour. Stage 2 recordings are kept for the Stage 2 revision; the Host prompt and ComboMeal mean they are not Stage 3 replay fixtures.
+
 
 ## Run the checks
 
@@ -138,7 +162,7 @@ Run integration checks from the repository root so they can read the recorded St
 
 ## Game settings
 - 18 turns, 2 tables
-- Staff: 1 Waiter, 1 Chef, 1 Cashier
+- Staff: 1 Host (Stage 3), 1 Waiter, 1 Chef, 1 Cashier
 - Customers arrive at the start of turns 1, 4, 7, 10, 13 and 16
-- Menu: Salad $9.00 (1 unit), Burger $15.00 (1 unit), Pasta $18.00 (2 units)
+- Menu: Salad $9.00 (1 unit), Burger $15.00 (1 unit), Pasta $18.00 (2 units), plus one seeded ComboMeal (Stage 3)
 - Victory: at least 4 paid customers, revenue at least $45.00, average satisfaction of paid customers at least 60

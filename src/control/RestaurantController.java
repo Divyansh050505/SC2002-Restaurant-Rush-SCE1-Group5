@@ -78,7 +78,7 @@ public class RestaurantController {
         if (currentTurn == 0) {
             return ActionResult.failure("The game has not started yet.");
         }
-        if (waiter.hasActed() || chef.hasActed()) {
+        if (host.hasActed() || waiter.hasActed() || chef.hasActed()) {
             return ActionResult.failure("Happy Hour can only be switched on at the start of a turn.");
         }
         ActionResult result = happyHour.activate();
