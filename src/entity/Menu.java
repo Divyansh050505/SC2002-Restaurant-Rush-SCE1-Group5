@@ -12,7 +12,6 @@ public class Menu {
         this(0L);
     }
 
-    // Constructor using the game seed
     public Menu(long seed) {
     
         
@@ -25,7 +24,6 @@ public class Menu {
         items.add(new MenuItem("Pasta", 1800, 2));
 
 
-        // Deterministic combo selection based on seed
         int choice = (int) Math.floorMod(seed, 3L);
 
         

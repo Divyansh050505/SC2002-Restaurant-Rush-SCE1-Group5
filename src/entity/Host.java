@@ -1,25 +1,11 @@
 package entity;
 
-/**
- * Host acts specifically to seat at most one queued customer per turn.
- * This runs in addition to the Waiter's task.
- */
 public class Host extends Staff {
 
-    /**
-     * Constructs a Host. Calls the parent Staff constructor.
-     */
     public Host() {
         super();
     }
 
-    /**
-     * Seats a waiting customer at a free table.
-     *
-     * @param customer The customer to be seated.
-     * @param table    The table to assign to the customer.
-     * @return An ActionResult indicating success or failure.
-     */
     public ActionResult seat(Customer customer, Table table) {
         if (hasActed()) {
             return ActionResult.failure("The Host has already acted this turn.");

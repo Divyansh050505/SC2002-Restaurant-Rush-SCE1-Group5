@@ -42,7 +42,7 @@ public class Waiter extends Staff {
             billCents = happyHour.applyDiscount(billCents);
         }
         Order newOrder = new Order(orderNo, customer, chosenItem, billCents, happyHourPrice);
-        customer.placeOrder(newOrder); // Links the order to the customer
+        customer.placeOrder(newOrder);
 
         markActed();
         String message = "Waiter took order for " + chosenItem.getName() + " from Customer #" + customer.getCustomerId() + ".";
@@ -68,4 +68,3 @@ public class Waiter extends Staff {
         return ActionResult.success("Waiter served " + order.getItem().getName() + " to Customer #" + order.getCustomer().getCustomerId() + ".");
     }
 }
-

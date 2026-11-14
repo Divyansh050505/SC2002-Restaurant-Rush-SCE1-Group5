@@ -323,7 +323,6 @@ public class RestaurantController {
 
             arrivalPlan = new CustomerArrivalPlan(gameSeed);
 
-            // Initialize the menu using the SAME game seed
             menu = new Menu(gameSeed);
         }
     }

@@ -11,7 +11,7 @@ public class Cashier extends Staff {
    
     public int collectPayment(Customer customer) {
         if (hasActed() || customer.getStatus() != CustomerStatus.READY_TO_PAY) {
-            return 0; // Cannot collect payment if cashier already acted or customer is not ready
+            return 0;
         }
 
         Order order = customer.getOrder();
