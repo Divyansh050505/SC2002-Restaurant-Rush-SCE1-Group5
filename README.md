@@ -1,6 +1,6 @@
 # SC2002 Restaurant Rush – SCE1 Group 5
 
-Turn-based restaurant management game in Java (command-line). The current version implements Stage 2 customer behaviour.
+Turn-based restaurant management game in Java (command-line). The current version implements Stage 3: customer subtypes, a Host, seeded ComboMeals and Happy Hour.
 
 **Repository:** https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5
 
@@ -45,11 +45,11 @@ An invalid choice explains why it failed and asks again without using up the sta
 ## Replaying the test runs
 The recorded runs in `test-runs/` can be replayed by redirecting them into the game (after building as above):
 ```
-java -cp out RestaurantApp < test-runs/stage2_victory.txt
-java -cp out RestaurantApp < test-runs/stage2_defeat.txt
+java -cp out RestaurantApp < test-runs/stage3_victory.txt
+java -cp out RestaurantApp < test-runs/stage3_defeat.txt
 ```
 
-Both Stage 2 examples use seed **482193**, contain VIP and Critic arrivals, and run all 18 turns. The victory pays four customers, including the VIP and Critic, earns **$58.20**, and records average paid-customer satisfaction **74.00**. See [test notes](test-runs/README.md) for the strategies and full transcripts. Stage 1 recordings are preserved for the Stage 1 revision; they are not Stage 2 replay fixtures.
+Both Stage 3 examples use seed **482193**, contain VIP and Critic arrivals, offer **ComboMeal (Salad + Burger)**, activate Happy Hour on turn 10, and run all 18 turns. The victory pays five customers, including the VIP and Critic, earns **$79.15**, and records average paid-customer satisfaction **87.80**. The defeat collects no payments and records one departure. See [test notes](test-runs/README.md) for the strategies and full transcripts. Stage 1 and Stage 2 recordings are preserved for their respective revisions; they are not Stage 3 replay fixtures.
 
 ## Stage 2 customer rules
 
@@ -77,7 +77,7 @@ All bills use integer cents with half cents rounded up. VIP bills for Salad/Burg
 
 ## Stage 1 to Stage 2 design changes
 
-The implementation follows the [Stage 2 class diagram](docs/stage2_class_diagram.drawio.svg), with an [editable draw.io file](docs/stage2_class_diagram.drawio). Original Stage 1 diagrams and recordings remain unchanged. Implementation changes from Stage 1 to Stage 2: [stage-1...stage-2 comparison](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/compare/stage-1...stage-2).
+The Stage 2 implementation is documented in the [Stage 2 class diagram](docs/stage2_class_diagram.drawio.svg), with an [editable draw.io file](docs/stage2_class_diagram.drawio). Original Stage 1 and Stage 2 diagrams and recordings remain unchanged. Implementation changes from Stage 1 to Stage 2: [stage-1...stage-2 comparison](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/compare/stage-1...stage-2).
 
 | Files | Change and reason |
 |---|---|
@@ -117,6 +117,8 @@ Replaying the same seed produces the same available ComboMeal and customer food 
 The Host seats at most one queued customer per turn, in addition to the Waiter's task. The Waiter can still seat customers, so two customers can be seated in the same turn. The Host does not take orders or serve.
 
 ## Stage 2 to Stage 3 design changes
+
+The [Stage 3 class diagram](docs/stage3_class_diagram.drawio.svg), with an [editable draw.io file](docs/stage3_class_diagram.drawio), extends the Stage 2 diagram. It retains the existing classes and relationships, adds `Host`, `ComboMeal` and `HappyHour`, and updates members and annotations affected by the Stage 3 implementation. `ComboMeal` uses its two component items during construction; it does not store component references.
 
 Implementation changes from Stage 2 to Stage 3: [stage-2...stage-3 comparison](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/compare/stage-2...stage-3).
 
