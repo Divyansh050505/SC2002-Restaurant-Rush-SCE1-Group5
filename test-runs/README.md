@@ -1,8 +1,67 @@
 # Recorded runs
 
-## Stage Two
+## Stage Three
 
 Build the current source using the main README, then run:
+
+```sh
+java -cp out RestaurantApp < test-runs/stage3_victory.txt
+java -cp out RestaurantApp < test-runs/stage3_defeat.txt
+```
+
+Both recordings use replay seed **482193**, start from a fresh game, and complete all **18 turns**. The `stage3_victory.txt` and `stage3_defeat.txt` files contain the exact numeric inputs, including startup selection, seed, all Host/Waiter/Chef choices and Happy Hour activation. The corresponding `stage3_*_transcript.txt` files contain the application's complete redirected output; input is not echoed. Both replays were run twice in fresh JVMs and their output matched byte for byte, without invalid choices or exhausted input.
+
+The customer type sequence remains Critic, Regular, Regular, VIP, Regular, Regular at turns 1, 4, 7, 10, 13, 16. The seed offers **ComboMeal (Salad + Burger)** for **$21.60**, requiring **2 preparation units**. Both strategies activate Happy Hour from the Host menu on turn **10**, before seating; it remains active through turn **11**. Activating it leaves the Host's seating task available.
+
+Victory strategy: the Host seats the oldest waiting customer whenever a table is free. The Waiter serves the oldest READY order first, otherwise takes the oldest seated customer's order, otherwise seats the oldest waiting customer if possible. The Chef advances the oldest PREPARING order each turn, including a newly taken order. There is no customer-type branch in this strategy.
+
+| Customer | Type | Food | Final state | Satisfaction | Amount collected |
+| --- | --- | --- | --- | ---: | ---: |
+| 1 | Critic | Pasta | PAID | 76 | $18.00 |
+| 2 | Regular | Burger | PAID | 92 | $15.00 |
+| 3 | Regular | ComboMeal (Salad + Burger) | PAID | 84 | $21.60 |
+| 4 | VIP | ComboMeal (Salad + Burger), Happy Hour | PAID | 95 | $15.55 |
+| 5 | Regular | Salad | PAID | 92 | $9.00 |
+| 6 | Regular | Pasta | EATING | 84 | $0.00 |
+
+Customer #4 orders on turn 10, is served on turn 12, and pays on turn 14, after Happy Hour has ended. The locked bill applies the VIP discount first (**$21.60 × 0.9 = $19.44**), then Happy Hour (**$19.44 × 0.8 = $15.55**, rounded to cents). Its satisfaction recovers from 95 to 100 at the start of turn 11 before that turn's waiting loss. Customer #3's earlier ComboMeal keeps its original **$21.60** bill when paid on turn 11 during Happy Hour.
+
+```text
+FINAL RESULT: VICTORY
+Served: 6 | Paid: 5 | Departures: 0
+Revenue: $79.15 | Average paid-customer satisfaction: 87.80
+Turns used: 18 / 18
+Victory targets (all three must pass):
+  PASS Paid customers: 5 / 4
+  PASS Revenue: $79.15 / $45.00
+  PASS Average paid-customer satisfaction: 87.80 / 60
+```
+
+Defeat uses the same Host and Waiter priorities but leaves the Chef on Wait every turn. The Critic leaves on turn 9, cancelling its unfinished Pasta and releasing Table #1. On turn 10 the Host seats the oldest queued customer (#3), and the Waiter takes its ComboMeal order with a locked Happy Hour bill of **$17.28**. Recovery on turns 10 and 11 keeps the remaining unserved customers above zero through turn 18; there is one departure and no payments.
+
+```text
+FINAL RESULT: DEFEAT
+Served: 0 | Paid: 0 | Departures: 1
+Revenue: $0.00 | Average paid-customer satisfaction: N/A (no paid customers)
+Turns used: 18 / 18
+Victory targets (all three must pass):
+  FAIL Paid customers: 0 / 4
+  FAIL Revenue: $0.00 / $45.00
+  FAIL Average paid-customer satisfaction: N/A (no paid customers) / 60
+```
+
+To check a fresh replay against either saved transcript after building:
+
+```sh
+java -cp out RestaurantApp < test-runs/stage3_victory.txt > /tmp/stage3_victory_transcript.txt
+diff -u test-runs/stage3_victory_transcript.txt /tmp/stage3_victory_transcript.txt
+java -cp out RestaurantApp < test-runs/stage3_defeat.txt > /tmp/stage3_defeat_transcript.txt
+diff -u test-runs/stage3_defeat_transcript.txt /tmp/stage3_defeat_transcript.txt
+```
+
+## Stage Two (historical)
+
+These inputs and transcripts are unchanged evidence for the Stage 2 revision. The Stage 3 Host prompt and ComboMeal change the input and food plans, so replay these with Stage 2 source. Build that revision using the main README, then run:
 
 ```sh
 java -cp out RestaurantApp < test-runs/stage2_victory.txt
@@ -44,7 +103,7 @@ The dependency-free Stage 2 tests also cover all three customer types through th
 
 ## Stage One (historical)
 
-These inputs and transcripts are unchanged evidence for source baseline `084d133`. Run them with that Stage 1 revision, rather than with the current Stage 2 source, whose types and Critic preferences change the schedule.
+These inputs and transcripts are unchanged evidence for source baseline `084d133`. Run them with that Stage 1 revision; later stages change the customer behaviour, food plan and prompts.
 
 Both runs use replay seed **482190** and the same six-customer food plan.
 Each run starts from a fresh game and completes all 18 turns.
