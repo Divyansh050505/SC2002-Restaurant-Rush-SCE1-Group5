@@ -66,6 +66,14 @@ Regular/VIP food choices retain the existing six-slot plan: one of each menu ite
 
 All bills use integer cents with half cents rounded up. VIP bills for Salad/Burger/Pasta are **$8.10 / $13.50 / $16.20**. Cashier and UI share the same customer pricing method, so displayed payments match revenue.
 
+## Stage 3 Happy Hour rules
+
+- Switch it on with option **4** in the Waiter menu. It is only offered at the start of a turn (before the Waiter or Chef acts), does not use the Waiter's task, and can be used once per game.
+- It lasts for the turn it is switched on and the next turn. The turn display shows how many turns are left.
+- Orders taken while it is active get 20% off. The customer's own discount comes first, then Happy Hour, rounding half cents up: a VIP Burger is $15 × 0.9 × 0.8 = **$10.80**.
+- Each order's bill is locked when the order is taken (`Order` stores it). Orders placed before Happy Hour keep their price, and Happy Hour orders keep their discount after it ends. The Cashier charges the locked bill.
+- At the start of each active turn, every customer still waiting for a table or for food (waiting, seated, or ordered and not yet served) recovers 15 satisfaction, up to 100. Customers who have been served or have left are not affected.
+
 ## Stage 1 to Stage 2 design changes
 
 The implementation follows the [Stage 2 class diagram](docs/stage2_class_diagram.drawio.svg), with an [editable draw.io file](docs/stage2_class_diagram.drawio). Original Stage 1 diagrams and recordings remain unchanged. Implementation changes from Stage 1 to Stage 2: [stage-1...stage-2 comparison](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/compare/stage-1...stage-2).

@@ -4,6 +4,7 @@ import control.RestaurantController;
 import entity.ActionResult;
 import entity.Customer;
 import entity.CustomerStatus;
+import entity.HappyHour;
 import entity.Order;
 import entity.Table;
 import java.util.LinkedHashMap;
@@ -12,14 +13,12 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
-/**
- * Console input and output for Stage Two. Game actions remain in the controller.
- */
+
 public class RestaurantUI {
     private RestaurantController controller;
     private Scanner sc;
     private boolean inputEnded;
-    // Active customers and table numbers before automatic end-of-turn actions.
+   
     private final Map<Customer, Integer> customerTablesBeforeEnd = new LinkedHashMap<>();
 
     public RestaurantUI(RestaurantController controller) {
@@ -27,12 +26,7 @@ public class RestaurantUI {
         this.sc = new Scanner(System.in);
     }
 
-    /**
-     * Offers a new game or a replay by seed before turn 1.
-     * Every turn runs arrivals, the Waiter's task,
-     * the Chef's task (Waiter always before Chef), then eating, payment and
-     * waiting. The game always runs all turns before showing the result.
-     */
+    
     public void start() {
         int seed;
         while (true) {
@@ -94,6 +88,7 @@ public class RestaurantUI {
         System.out.println("RESTAURANT RUSH | Turn " + controller.getCurrentTurn() + " / 18");
         displayTotals();
         System.out.println("Targets: 4 paid customers | $45.00 revenue | 60 average satisfaction");
+        displayHappyHour();
         System.out.println("Choose one Waiter task, then one Chef task. Cashier acts automatically.");
         System.out.println("Enter the displayed customer/order number; 0 means back or wait.");
         System.out.println("\nWaiting queue (arrival order):");
@@ -111,6 +106,19 @@ public class RestaurantUI {
         }
         displayCustomers();
         displayOrders();
+    }
+
+    private void displayHappyHour() {
+        HappyHour happyHour = controller.getHappyHour();
+        if (happyHour.isActive()) {
+            System.out.println("Happy Hour: ON | " + happyHour.getTurnsRemaining()
+                    + (happyHour.getTurnsRemaining() == 1 ? " turn" : " turns")
+                    + " remaining (including this one)");
+        } else if (happyHour.isUsed()) {
+            System.out.println("Happy Hour: used");
+        } else {
+            System.out.println("Happy Hour: available (once per game, from the Waiter menu)");
+        }
     }
 
     private String describeCustomer(Customer customer) {
@@ -142,29 +150,35 @@ public class RestaurantUI {
                     + " | Customer #" + order.getCustomer().getCustomerId()
                     + " | " + order.getItem().getName()
                     + " | Menu " + formatMoney(order.getItem().getPriceCents())
-                    + " | Bill " + formatMoney(order.getCustomer()
-                            .calculateBillCents(order.getItem().getPriceCents()))
+                    + " | Bill " + formatMoney(order.getBillCents())
+                    + (order.isHappyHourPrice() ? " (Happy Hour)" : "")
                     + " | " + order.getStatus()
                     + " | preparation units remaining: " + order.getRemainingUnits());
         }
     }
 
-    /**
-     * Asks for one Waiter task until a valid one is done or the manager
-     * chooses Wait. A rejected choice prints the reason and does not use
-     * up the Waiter's task.
-     */
+    
     private void chooseWaiterTask() {
         while (true) {
             System.out.println("Waiter task:");
             System.out.println("  1. Seat a waiting customer");
             System.out.println("  2. Take a seated customer's order");
             System.out.println("  3. Serve a READY dish");
+            boolean canStartHappyHour = !controller.getHappyHour().isUsed();
+            if (canStartHappyHour) {
+                System.out.println("  4. Switch on Happy Hour (does not use the Waiter's task)");
+            }
             System.out.println("  0. Wait");
-            int choice = readChoice(0, 3);
+            int choice = readChoice(0, canStartHappyHour ? 4 : 3);
             if (choice == 0) {
                 System.out.println("The Waiter waits this turn.");
                 return;
+            }
+            if (choice == 4) {
+                System.out.println(controller.activateHappyHour().getMessage());
+                displayHappyHour();
+                displayCustomers(); 
+                continue;
             }
 
             ActionResult result;
@@ -199,13 +213,9 @@ public class RestaurantUI {
         }
     }
 
-    /**
-     * Asks for one Chef task until a valid one is done or the manager
-     * chooses Wait. A rejected choice prints the reason and does not use
-     * up the Chef's task.
-     */
+   
     private void chooseChefTask() {
-        // Refresh after the Waiter: a newly taken order can be prepared this turn.
+       
         displayOrders();
         while (true) {
             System.out.println("Chef task:");
@@ -241,8 +251,7 @@ public class RestaurantUI {
             Customer customer = entry.getKey();
             if (customer.getStatus() == CustomerStatus.PAID) {
                 System.out.println("Customer #" + customer.getCustomerId() + " paid "
-                        + formatMoney(customer.calculateBillCents(
-                                customer.getOrder().getItem().getPriceCents())) + ".");
+                        + formatMoney(customer.getOrder().getBillCents()) + ".");
             } else if (customer.getStatus() == CustomerStatus.LEFT) {
                 System.out.println("Customer #" + customer.getCustomerId() + " left without paying."
                         + (customer.getOrder() == null ? ""
@@ -301,7 +310,7 @@ public class RestaurantUI {
                             : "\nInput ended. Remaining staff tasks will use Wait.");
                     inputEnded = true;
                 }
-                // Every menu includes 0: exit before play, otherwise back or Wait.
+                
                 return 0;
             }
             String input = sc.nextLine().trim();
@@ -311,7 +320,7 @@ public class RestaurantUI {
                     return choice;
                 }
             } catch (NumberFormatException exception) {
-                // Blank input, non-integers and integer overflow all re-prompt.
+                
             }
             System.out.println("Invalid input. Enter a whole number from " + min + " to " + max + ".");
         }

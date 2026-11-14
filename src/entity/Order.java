@@ -1,24 +1,32 @@
 package entity;
 
-/**
- * Stage One order skeleton.
- */
+
 public class Order {
     private int orderNo;
     private Customer customer;
     private MenuItem item;
     private int unitsDone = 0;
     private OrderStatus status;
+    private int billCents;
+    private boolean happyHourPrice;
 
+    
     public Order(int orderNo, Customer customer, MenuItem item) {
+        this(orderNo, customer, item, 0, false);
+        if (customer != null && item != null) {
+            this.billCents = customer.calculateBillCents(item.getPriceCents());
+        }
+    }
+
+   
+    public Order(int orderNo, Customer customer, MenuItem item, int billCents, boolean happyHourPrice) {
 
         this.orderNo=orderNo;
         this.customer=customer;
         this.item=item;
         this.status=OrderStatus.PREPARING;
-
-
-        
+        this.billCents=billCents;
+        this.happyHourPrice=happyHourPrice;
     }
 
     public void advanceOneUnit() {
@@ -105,5 +113,13 @@ public class Order {
        
 
         return this.status;
+    }
+
+    public int getBillCents() {
+        return this.billCents;
+    }
+
+    public boolean isHappyHourPrice() {
+        return this.happyHourPrice;
     }
 }
