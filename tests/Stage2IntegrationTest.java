@@ -4,11 +4,14 @@ import control.RestaurantController;
 import entity.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 
-/** Actual controller/staff integration and console replay; no controller fixtures. */
+/**
+ * Actual controller/staff integration and console replay; no controller fixtures.
+ * Since Stage 3 this is a regression test: the Host waits every turn, so the
+ * Stage 2 customer rules are checked on the current code. The saved Stage 2
+ * recordings belong to the stage-2 tag and are no longer compared here.
+ */
 public class Stage2IntegrationTest {
     private static int checks;
 
@@ -31,12 +34,8 @@ public class Stage2IntegrationTest {
                     "unfinished and abandoned orders generate no revenue");
             for (Run run : List.of(victory, defeat)) {
                 String name = run == victory ? "victory" : "defeat";
-                String saved = Files.readString(Path.of("test-runs/stage2_" + name + ".txt"));
-                check(saved.equals(run.input), "recorded " + name + " manager inputs reproduce the strategy");
-                String output = console(saved);
-                check(output.equals(Files.readString(Path.of("test-runs/stage2_" + name + "_transcript.txt"))),
-                        "saved transcript matches a fresh real CLI replay");
-                check(output.equals(console(saved)), "same seed and manager choices reproduce the entire console output");
+                String output = console(run.input);
+                check(output.equals(console(run.input)), "same seed and manager choices reproduce the entire console output");
                 check(output.contains("FINAL RESULT: " + name.toUpperCase(Locale.ROOT))
                         && count(output, "--- End of turn") == 18 && !output.contains("Invalid input."),
                         "actual CLI replay completes all turns with valid actions");
@@ -123,6 +122,7 @@ public class Stage2IntegrationTest {
             while (!game.isGameOver()) {
                 game.startTurn();
                 int turn = game.getCurrentTurn();
+                inputs.append("0\n"); // the Host waits; Stage 2 rules only
                 check(!game.seatCustomer(999).isSuccess() && !game.prepareOrder(999).isSuccess(),
                         "invalid IDs are rejected without preventing the actual action");
                 Order ready = game.getOrders().stream().filter(o -> o.getStatus() == OrderStatus.READY).findFirst().orElse(null);

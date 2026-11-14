@@ -70,8 +70,8 @@ public class RestaurantUITest {
         check(java.util.Objects.equals(previousSeed, System.getProperty("restaurant.rush.seed")),
                 "the launch seed configuration is restored after a game");
 
-        // EOF at top level, customer selection, Chef menu, and Chef order selection.
-        for (String input : List.of("", "1\n", "0\n", "0\n1\n")) {
+        // EOF at the Host menu, Host customer selection, Waiter menu, Chef menu and Chef order selection.
+        for (String input : List.of("", "1\n", "0\n", "0\n0\n", "0\n0\n1\n")) {
             Fixture fixture = new Fixture();
             capture("1\n" + input, fixture, (ui, out) -> {
                 ui.start();
@@ -87,8 +87,8 @@ public class RestaurantUITest {
 
     private static void actions() throws Exception {
         Fixture fixture = new Fixture();
-        // Back, rejected seating, retry seating, then Chef action.
-        capture("1\n1\n0\n1\n1\n1\n1\n1\n1\n", fixture, (ui, out) -> {
+        // Host waits, then Waiter: back, rejected seating, retry seating, then Chef action.
+        capture("1\n0\n1\n0\n1\n1\n1\n1\n1\n1\n", fixture, (ui, out) -> {
             ui.start();
             check(fixture.calls.equals(List.of("seat:1", "seat:1", "prepare:1")),
                     "back/rejection do not spend task; success advances to Chef");
@@ -96,18 +96,36 @@ public class RestaurantUITest {
                     "controller rejection shown");
         });
         Fixture other = new Fixture();
-        capture("1\n2\n1\n0\n3\n1\n0\n", other, (ui, out) -> {
+        capture("1\n0\n2\n1\n0\n0\n3\n1\n0\n", other, (ui, out) -> {
             ui.start();
             check(other.calls.equals(List.of("order:1", "serve:1")), "order and serve route by IDs");
         });
         Fixture empty = new Fixture();
         empty.orders.clear();
         empty.customers.clear();
-        capture("1\n3\n0\n1\n0\n", empty, (ui, out) -> {
+        capture("1\n0\n3\n0\n1\n0\n", empty, (ui, out) -> {
             ui.start();
             check(count(out.toString(StandardCharsets.UTF_8), "There are no orders yet.") == 2,
                     "empty order menus recover");
             check(empty.calls.isEmpty(), "empty lists do not trigger actions");
+        });
+        Fixture host = new Fixture();
+        // Host: back, then seat customer 1; the Waiter still has its own task.
+        capture("1\n1\n0\n1\n1\n1\n1\n0\n", host, (ui, out) -> {
+            ui.start();
+            check(host.calls.equals(List.of("host:1", "seat:1")),
+                    "Host seats by ID and does not use up the Waiter's task");
+        });
+        Fixture happy = new Fixture();
+        // Turn 1: Happy Hour, then Host waits. Turn 2: option 2 is gone, so 2 is invalid.
+        capture("1\n2\n0\n0\n0\n2\n0\n0\n0\n", happy, (ui, out) -> {
+            ui.start();
+            String text = out.toString(StandardCharsets.UTF_8);
+            check(happy.calls.equals(List.of("happy")), "Happy Hour is switched on from the Host menu");
+            check(text.contains("Happy Hour: ON | 2 turns remaining"), "Happy Hour duration is displayed");
+            check(count(text, "2. Switch on Happy Hour") == 1, "Happy Hour is only offered until it is used");
+            check(count(text, "Invalid input. Enter a whole number from 0 to 1.") == 1,
+                    "Host menu rejects the Happy Hour option after it is used");
         });
     }
 
@@ -124,7 +142,8 @@ public class RestaurantUITest {
                     "Pasta", "$18.00", "PREPARING", "preparation units remaining: 1",
                     "Table #1: Customer #1", "Table #2: FREE", "Served: 5 | Paid: 4 | Departures: 1",
                     "FINAL RESULT: VICTORY", "PASS Paid customers", "PASS Revenue",
-                    "PASS Average paid-customer satisfaction", "60.00 / 60", "Turns used: 18 / 18")) {
+                    "PASS Average paid-customer satisfaction", "60.00 / 60", "Turns used: 18 / 18",
+                    "Host task:", "Happy Hour: available", "Bill $18.00")) {
                 check(text.contains(expected), "screen includes " + expected);
             }
         });
@@ -224,6 +243,10 @@ public class RestaurantUITest {
         public ArrayList<Customer> getWaitingQueue() { return new ArrayList<>(); }
         public ArrayList<Order> getOrders() { return orders; }
         public Table[] getTables() { return tables; }
+        final HappyHour happyHour = new HappyHour();
+        public HappyHour getHappyHour() { return happyHour; }
+        public ActionResult activateHappyHour() { calls.add("happy"); return happyHour.activate(); }
+        public ActionResult hostSeatCustomer(int id) { calls.add("host:" + id); return ActionResult.success("Host seated"); }
         public ActionResult seatCustomer(int id) {
             calls.add("seat:" + id);
             return calls.size() == 1 ? ActionResult.failure("Seat rejected for test") : ActionResult.success("Seated");

@@ -150,7 +150,7 @@ java -cp out/tests RestaurantUITest
 java -cp out/tests Stage2IntegrationTest
 ```
 
-Run integration checks from the repository root so they can read the recorded Stage 2 input files. The older UI checks use controlled fixtures; the Stage 2 integration checks use the real controller, staff, entities and UI.
+The UI checks use controlled fixtures and cover the Host and Happy Hour menus. The Stage 2 integration checks use the real controller, staff, entities and UI; since Stage 3 the Host waits in those runs, so they check that the Stage 2 customer rules still hold.
 
 ## Source layout
 | Package | Role |
