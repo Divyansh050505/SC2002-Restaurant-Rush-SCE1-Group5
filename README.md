@@ -4,6 +4,8 @@ Turn-based restaurant management game in Java (command-line). The current versio
 
 **Repository:** https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5
 
+The repository URL is also included on the cover page of the [group report](docs/report/SCE1_Grp5_Report.pdf).
+
 ## Submission links
 
 **Stage tags** (each one is a runnable commit):
@@ -37,17 +39,53 @@ Turn-based restaurant management game in Java (command-line). The current versio
 [GAI declarations](docs/declarations/)
 
 ## Video timestamps
-| # | Segment | Timestamp | Presenter |
-|---|---|---|---|
-| 1 | The game launching from the submitted project | 02:52 | Eng Shi Hong |
-| 2 | Meaningful manager choices, including a decision where staff are constrained | 02:52 – 03:27; outcome comparison 04:24 – 04:56 | Eng Shi Hong |
-| 3 | A dish going READY → SERVED → payment | 03:27 – 03:49; sequence walkthrough 11:14 – 12:41 | Eng Shi Hong; Jan Guirey |
-| 4 | A VIP or Critic behaviour | Critic picks Pasta 02:52 – 03:27; VIP pricing 03:49 – 04:24; design 05:44 – 06:30 | Eng Shi Hong; Lei Yueer |
-| 5 | A Stage 3 feature | Host 02:52; Happy Hour and ComboMeal 03:49 – 04:24; design 07:58 – 10:39 | Eng Shi Hong; Liu Yanxi |
-| 6 | One victory and one defeat (seed 482193) | 04:24 – 04:56 | Eng Shi Hong |
-| 7 | The stage tag comparisons and the diagrams | Class diagrams 00:37 – 01:53; Stage 1 → 2 04:56 – 07:58; Stage 2 → 3 07:58 – 10:39; sequence diagram 10:39 – 13:06 | Tomar Divyansh; Lei Yueer; Liu Yanxi; Jan Guirey |
+These timestamps are also included in Appendix A of the [group report](docs/report/SCE1_Grp5_Report.pdf).
 
-Individual reflections run from 13:06 to 14:52 (total length 14:55). The full speaker-by-speaker index is in Appendix A of the report.
+Timestamps refer to the submitted video (total length 14:55).
+
+**Required video evidence**
+
+| Required evidence | Timestamp |
+|---|---|
+| Launch from the submitted project | 02:52 |
+| Meaningful choices and constrained staff (Host, Waiter and Chef tasks; rejected early serve) | 02:52 – 03:27; outcome comparison at 04:24 – 04:56 |
+| READY, SERVED, eating and payment | 03:27 – 03:49; sequence walkthrough at 11:14 – 12:41 |
+| VIP and Critic behaviour | Critic chooses Pasta at 02:52 – 03:27; VIP pricing at 03:49 – 04:24; design explanation at 05:44 – 06:30 |
+| Stage 3 features (Host, ComboMeal, Happy Hour) | Host at 02:52; Happy Hour and ComboMeal at 03:49 – 04:24; design at 07:58 – 10:39 |
+| One reproducible victory and one defeat (seed 482193) | 04:24 – 04:56 |
+| Stage comparisons and diagrams | Class diagrams at 00:37 – 01:53; Stage 1 to Stage 2 at 04:56 – 07:58; Stage 2 to Stage 3 at 07:58 – 10:39; sequence diagram at 10:39 – 13:06 |
+| Individual explanations and reflection | All main segments, then 13:06 – 14:52 |
+
+**Video index**
+
+| Time | Speaker | Segment |
+|---|---|---|
+| 00:00 – 00:37 | Tomar Divyansh | Introduction: Restaurant Rush, base game settings and victory conditions |
+| 00:37 – 01:15 | Tomar Divyansh | The three stages and the Stage 1, 2 and 3 class diagrams |
+| 01:15 – 02:14 | Tomar Divyansh | Responsibilities (boundary, control, entity), Single Responsibility Principle, composition and association |
+| 02:14 – 02:52 | Tomar Divyansh | Encapsulation and inheritance (Customer, Staff) |
+| 02:52 – 03:27 | Eng Shi Hong | Gameplay: launch with replay seed 482193, Host seats the Critic, Critic orders Pasta, early serve rejected |
+| 03:27 – 03:49 | Eng Shi Hong | Serving the READY dish, eating, payment and table release |
+| 03:49 – 04:24 | Eng Shi Hong | Happy Hour activation and the locked VIP ComboMeal bill ($15.55) |
+| 04:24 – 04:56 | Eng Shi Hong | Stage 3 victory and defeat replays compared |
+| 04:56 – 05:44 | Lei Yueer | Stage 1 to Stage 2 changes: 4 added, 4 modified, 9 unchanged classes |
+| 05:44 – 06:30 | Lei Yueer | Abstraction and polymorphism across customer types |
+| 06:30 – 07:15 | Lei Yueer | Open-Closed and Dependency Inversion Principles |
+| 07:15 – 07:58 | Lei Yueer | Liskov Substitution and Interface Segregation Principles |
+| 07:58 – 08:40 | Liu Yanxi | Stage 2 to Stage 3 changes: 3 added, 7 modified, 10 unchanged classes |
+| 08:40 – 09:30 | Liu Yanxi | Reuse in Host and ComboMeal |
+| 09:30 – 10:16 | Liu Yanxi | HappyHour and the required changes to Waiter, Order and Cashier |
+| 10:16 – 10:39 | Liu Yanxi | Extensibility and design trade-offs |
+| 10:39 – 11:14 | Jan Guirey | Sequence diagram: VIP arrival, Happy Hour activation and seating |
+| 11:14 – 11:56 | Jan Guirey | Sequence diagram: ordering and preparation |
+| 11:56 – 12:41 | Jan Guirey | Sequence diagram: eating, payment and final result |
+| 12:41 – 13:06 | Jan Guirey | Effect of the manager's Happy Hour decision on the bill |
+| 13:06 – 13:39 | Tomar Divyansh | Individual contribution and reflection |
+| 13:39 – 13:58 | Eng Shi Hong | Individual contribution and reflection |
+| 13:58 – 14:17 | Lei Yueer | Individual contribution and reflection |
+| 14:17 – 14:36 | Liu Yanxi | Individual contribution and reflection |
+| 14:36 – 14:52 | Jan Guirey | Individual contribution and reflection |
+| 14:52 – 14:55 | All | Closing |
 
 ## Repository layout
 | Path | Contents |
@@ -134,22 +172,58 @@ All bills use integer cents with half cents rounded up. VIP bills for Salad/Burg
 
 ## Stage 1 to Stage 2 design changes
 
-The Stage 2 implementation is documented in the [Stage 2 class diagram](docs/diagrams/class/stage2_class_diagram.drawio.svg), with an [editable draw.io file](docs/diagrams/class/stage2_class_diagram.drawio). Original Stage 1 and Stage 2 diagrams and recordings remain unchanged. Implementation changes from Stage 1 to Stage 2: [stage-1...stage-2 comparison](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/compare/stage-1...stage-2).
+This stage comparison is also included in Section 4.2 of the [group report](docs/report/SCE1_Grp5_Report.pdf).
 
-| Files | Change and reason |
+### New Requirements
+Stage 2 introduces three customer types while retaining 18 turns, two tables, six arrivals and the original victory targets. Regular customers lose 8 satisfaction per unserved turn and pay full price; VIP customers lose 5 and receive a 10% discount; Critics lose 12, pay full price and choose Pasta from the standard menu.
+
+Each seeded arrival plan contains exactly four Regulars, one VIP and one Critic, with their positions shuffled. Regular and VIP customers use the seeded food plan. All three types share the same seating, ordering, service, eating, payment and departure lifecycle. Satisfaction loss applies while WAITING, SEATED or ORDERED, stops after service, and reaching zero cancels unfinished orders and releases the table.
+
+All bills use integer cents, with half-cent results rounded up. The VIP bills for Salad, Burger and Pasta are $8.10, $13.50 and $16.20 respectively. Host, ComboMeal and Happy Hour are introduced in Stage 3 and are not part of the Stage 2 version.
+
+### New Files
+| New file or file set | Purpose |
 |---|---|
-| `src/entity/RegularCustomer.java`, `VIPCustomer.java`, `CriticCustomer.java` | New concrete customer types implement the UML's loss, label, discount and preference hooks. |
-| `src/control/CustomerArrivalPlan.java` | New helper confines concrete customer construction and seeded type scheduling to game setup. |
-| `src/entity/Customer.java` | Abstract parent retains private state and lifecycle validation; final choice/loss/pricing methods dispatch through narrow protected hooks. |
-| `src/entity/Cashier.java` | Collects the customer-supplied bill instead of the undiscounted menu price. |
-| `src/control/RestaurantController.java` | Initializes the arrival plan after seed selection and uses it for the six arrivals. Service loops and win criteria retain their existing rules. |
-| `src/boundary/RestaurantUI.java` | Displays customer-supplied labels and the same bill used by the Cashier. |
-| `tests/entity/CustomerTest.java`, `tests/RestaurantUITest.java` | Existing Regular regression fixtures now instantiate `RegularCustomer`. |
-| `tests/entity/Stage2CustomerTest.java`, `tests/control/CustomerArrivalPlanTest.java`, `tests/Stage2IntegrationTest.java` | Add subtype contracts, actual billing/abandonment integration, seeded scheduling, and real CLI replays. |
-| `test-runs/stage2_*.txt` | New reproducible manager inputs and application output for both endings. |
+| `src/entity/RegularCustomer.java` | Regular label and loss of 8 points per unserved turn. |
+| `src/entity/VIPCustomer.java` | VIP label, loss of 5 points and 10% discount policy. |
+| `src/entity/CriticCustomer.java` | Critic label, loss of 12 points and Pasta preference. |
+| `src/control/CustomerArrivalPlan.java` | Seeded schedule containing four Regular, one VIP and one Critic factory slots. |
+| `tests/entity/Stage2CustomerTest.java` | Shared lifecycle, abandonment, food choice, bill rounding and Cashier collection for all subtypes. |
+| `tests/control/CustomerArrivalPlanTest.java` | Fixed type counts, seed repeatability, stable creation order and invalid bounds. |
+| `tests/Stage2IntegrationTest.java` | Real controller/staff integration and complete CLI replay checks. |
+| `test-runs/stage2_victory.txt` and `stage2_defeat.txt` | Recorded startup and manager inputs for reproducible winning and losing strategies. |
+| `test-runs/stage2_victory_transcript.txt` and `stage2_defeat_transcript.txt` | Expected console output for those recordings. |
+| `docs/stage2_class_diagram.drawio` and `.drawio.svg` | Editable Stage 2 class diagram and vector export. |
 
-SRP separates scheduling, lifecycle/behaviour, transactions and presentation. OCP and DIP appear in service code that uses `Customer` without subtype checks; concrete type registration stays in the arrival helper. LSP is checked by shared lifecycle and validation tests across all types, including the Critic's menu fallback. The hook API stays small without artificial interfaces (ISP). `ActionResult` remains the outcome value object, rather than a control class.
+### Existing Files Changed or Deleted, with Reasons
+| Changed file | Change and reason |
+|---|---|
+| `Customer.java` | Becomes abstract. Shared lifecycle algorithms call subtype hooks for loss, discount and food choice while retaining common validation. |
+| `RestaurantController.java` | Initializes CustomerArrivalPlan after seed selection and delegates arrivals to it; ordinary service logic continues to use Customer. |
+| `Cashier.java` | Collects the customer-calculated bill rather than the undiscounted menu price. |
+| `RestaurantUI.java` | Displays customer-supplied type labels and the same payable bill that Cashier collects. |
+| `tests/entity/CustomerTest.java` and `tests/RestaurantUITest.java` | Existing Regular-customer fixtures instantiate RegularCustomer after Customer becomes abstract. |
+| `README.md` and `test-runs/README.md` | Document subtype rules, stage-specific recordings and verification commands. |
 
+No paths were deleted between the stage-1 and stage-2 tags. The earlier diagrams and recordings remain available as historical evidence.
+
+### Stage 2 Class Diagram
+The completed stage 2 class diagram can be also viewed in the github repository under docs:
+https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/blob/main/docs/diagrams/class/stage2_class_diagram.drawio.svg
+
+### Compare Link
+All implementation changes from Stage 1 to Stage 2 can be viewed in the group repository:
+https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/compare/stage-1...stage-2
+
+| Item | Detail |
+|---|---|
+| Base tag | stage-1 |
+| Compare tag | stage-2 |
+| Commits between the tags | 5 |
+| Files changed | 21 |
+| Contributors | 3 |
+
+The version at the stage-2 tag compiles and runs on its own and contains only Stage 1 and Stage 2 features.
 
 ## Stage 3: ComboMeal selection rule
 
@@ -175,25 +249,54 @@ The Host seats at most one queued customer per turn, in addition to the Waiter's
 
 ## Stage 2 to Stage 3 design changes
 
-The [Stage 3 class diagram](docs/diagrams/class/stage3_class_diagram.drawio.svg), with an [editable draw.io file](docs/diagrams/class/stage3_class_diagram.drawio), extends the Stage 2 diagram. It retains the existing classes and relationships, adds `Host`, `ComboMeal` and `HappyHour`, and updates members and annotations affected by the Stage 3 implementation. `ComboMeal` uses its two component items during construction; it does not store component references.
+This stage comparison is also included in Section 4.3 of the [group report](docs/report/SCE1_Grp5_Report.pdf).
 
-Implementation changes from Stage 2 to Stage 3: [stage-2...stage-3 comparison](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/compare/stage-2...stage-3).
+### New Requirements
+Stage 3 adds three new features to the Stage 2 game. All Stage 1 and Stage 2 rules stay the same.
 
-| Files | Change and reason |
+- **Host:** a new staff member who seats at most one queued customer per turn, in addition to the Waiter's task. The Waiter can still seat customers, so two customers can be seated in the same turn. The Host does not take orders or serve food.
+- **ComboMeal:** each game offers one combo made of two existing menu items, decided by the game seed using Math.floorMod(seed, 3): remainder 0 gives Salad + Burger, 1 gives Burger + Pasta and 2 gives Salad + Pasta. It costs 90% of the two items' combined price, and its preparation units are the sum of both items'. Regular and VIP customers can choose it through the existing seeded food selection, while Critics keep their Pasta preference.
+- **Happy Hour:** the manager can switch it on once per game from the Host menu at the start of a turn, without using up the Host's task. It lasts for that turn and the next. Orders taken while it is active get 20% off, applied after the customer's own discount (a VIP Burger costs $15 × 0.9 × 0.8 = $10.80). At the start of each active turn, every customer still waiting for a table or for food recovers 15 satisfaction, up to a maximum of 100.
+- **Locked order price:** each order's bill is fixed when the order is taken, so orders placed before Happy Hour keep their normal price and Happy Hour orders keep their discount after it ends.
+
+### New Files
+Three new classes were added to the entity package:
+
+| New file | Purpose |
 |---|---|
-| `src/entity/Host.java` | New staff member. Extends `Staff`, so it reuses the one-task-per-turn rule; its only action is seating. |
-| `src/entity/ComboMeal.java` | New menu item made of two existing items. Extends `MenuItem`, so orders, the Chef and pricing use it without type checks. |
-| `src/entity/HappyHour.java` | New pricing policy object: once per game, two turns, 20% off, satisfaction recovery. |
+| `src/entity/Host.java` | New staff member. Extends Staff, so it reuses the one-task-per-turn rule; its only action is seating a queued customer. |
+| `src/entity/ComboMeal.java` | New menu item made of two existing items. Extends MenuItem, so orders, the Chef and pricing use it without any type checks. |
+| `src/entity/HappyHour.java` | New pricing policy object: once per game, lasts two turns, gives 20% off and satisfaction recovery. |
+
+Two sequence diagrams for ordering a ComboMeal (one without and one with error handling) were also added to the docs folder of the repository.
+
+### Existing Files Changed or Deleted, with Reasons
+No files were deleted in Stage 3. The following existing files were changed:
+
+| Existing file | Change and reason |
+|---|---|
 | `src/entity/Menu.java` | Adds the seeded ComboMeal after the three base items. |
-| `src/entity/Order.java` | Stores the bill when the order is taken, so the price is locked even after Happy Hour ends. |
-| `src/entity/Waiter.java` | Works out the locked bill (customer discount first, then Happy Hour) when taking an order. |
-| `src/entity/Cashier.java` | Charges the order's locked bill instead of recalculating it. |
-| `src/entity/Customer.java` | Adds `recoverSatisfaction` for Happy Hour. Existing rules are unchanged. |
-| `src/control/RestaurantController.java` | Owns the Host and Happy Hour, creates the menu from the game seed, applies Happy Hour recovery at turn start and counts it down at turn end. |
+| `src/entity/Order.java` | Stores the bill when the order is taken, so the price stays locked even after Happy Hour ends. |
+| `src/entity/Waiter.java` | Works out the locked bill when taking an order: the customer's discount first, then Happy Hour. |
+| `src/entity/Cashier.java` | Charges the order's locked bill instead of recalculating it at payment time. |
+| `src/entity/Customer.java` | Adds recoverSatisfaction() for Happy Hour. Existing rules are unchanged. |
+| `src/control/RestaurantController.java` | Owns the Host and Happy Hour, creates the menu from the game seed, applies Happy Hour recovery at the start of a turn and counts it down at the end of a turn. |
 | `src/boundary/RestaurantUI.java` | Adds the Host step before the Waiter, the Happy Hour option and status line, and shows each order's locked bill. |
+| `README.md` | Documents the Stage 3 rules (Host, ComboMeal, Happy Hour) and the Stage 2 to Stage 3 design changes. |
 
-Several source files also had comments removed during Stage 3; this does not change behaviour. Stage 2 recordings are kept for the Stage 2 revision; the Host prompt and ComboMeal mean they are not Stage 3 replay fixtures.
+Because the bill uses item.getPriceCents(), the ComboMeal discount is applied automatically when ComboMeal overrides that method, so the Waiter and Cashier did not need any special case for it. Several source files also had comments removed during Stage 3; this does not change their behaviour. The Stage 2 recorded runs are kept for the Stage 2 version only, since the new Host prompt and ComboMeal mean they no longer replay the same way in Stage 3.
 
+### Compare Link
+All implementation changes from Stage 2 to Stage 3 can be viewed in the group repository:
+https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/compare/stage-2...stage-3
+
+| Item | Detail |
+|---|---|
+| Base tag | stage-2 |
+| Compare tag | stage-3 |
+| Pull requests merged for Stage 3 | #15 Happy Hour and locked order price, #16 Host seats one queued customer per turn, #17 Seeded ComboMeal on the menu |
+
+The version at the stage-3 tag is the final submitted version of the game.
 
 ## Run the checks
 
