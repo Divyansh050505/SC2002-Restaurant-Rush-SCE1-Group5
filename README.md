@@ -21,28 +21,33 @@ Turn-based restaurant management game in Java (command-line). The current versio
 [Stage 3 class](docs/diagrams/class/stage3_class_diagram.drawio.svg) |
 [Stage 3 sequence](docs/diagrams/sequence/stage3_sequence_diagram.pdf)
 
-**AI history:** each member's full AI chat history is kept on their own branch, in `ai-history/stage-N/`.
+**AI history:** each member's full AI chat history is kept on their own branch, in its `ai-history/` folder, split by stage.
 
 | Member | Branch |
 |---|---|
 | Divyansh | [ai-history/divyansh](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/tree/ai-history/divyansh) |
-| Lei Yueer | [ai-history/lei-yueer](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/tree/ai-history/lei-yueer) |
+| Lei Yueer | [ai-history/yueer](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/tree/ai-history/yueer) |
 | Shi Hong | [ai-history/shi-hong](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/tree/ai-history/shi-hong) |
 | Jan Guirey | [ai-history/jan-guirey](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/tree/ai-history/jan-guirey) |
-| Liu Yanxi | [ai-history/liu-yanxi](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/tree/ai-history/liu-yanxi) |
+| Liu Yanxi | [ai-history/liuyanxi](https://github.com/Divyansh050505/SC2002-Restaurant-Rush-SCE1-Group5/tree/ai-history/liuyanxi) |
 
-**Video and report:** the demo video and signed declarations are submitted in the zip, not in this repository. The group report goes in `docs/report/`.
+**Report, video and declarations:**
+[Group report (PDF)](docs/report/SCE1_Grp5_Report.pdf) |
+[Demo video](docs/video/SCE1_Grp5_GrpAssignment_Video.mp4) |
+[GAI declarations](docs/declarations/)
 
 ## Video timestamps
 | # | Segment | Timestamp | Presenter |
 |---|---|---|---|
-| 1 | The game launching from the submitted project | – | – |
-| 2 | Meaningful manager choices, including a decision where staff are constrained | – | – |
-| 3 | A dish going READY → SERVED → payment | – | – |
-| 4 | A VIP or Critic behaviour | – | – |
-| 5 | A Stage 3 feature | – | – |
-| 6 | One victory and one defeat | – | – |
-| 7 | The stage tag comparisons and the diagrams | – | – |
+| 1 | The game launching from the submitted project | 02:52 | Eng Shi Hong |
+| 2 | Meaningful manager choices, including a decision where staff are constrained | 02:52 – 03:27; outcome comparison 04:24 – 04:56 | Eng Shi Hong |
+| 3 | A dish going READY → SERVED → payment | 03:27 – 03:49; sequence walkthrough 11:14 – 12:41 | Eng Shi Hong; Jan Guirey |
+| 4 | A VIP or Critic behaviour | Critic picks Pasta 02:52 – 03:27; VIP pricing 03:49 – 04:24; design 05:44 – 06:30 | Eng Shi Hong; Lei Yueer |
+| 5 | A Stage 3 feature | Host 02:52; Happy Hour and ComboMeal 03:49 – 04:24; design 07:58 – 10:39 | Eng Shi Hong; Liu Yanxi |
+| 6 | One victory and one defeat (seed 482193) | 04:24 – 04:56 | Eng Shi Hong |
+| 7 | The stage tag comparisons and the diagrams | Class diagrams 00:37 – 01:53; Stage 1 → 2 04:56 – 07:58; Stage 2 → 3 07:58 – 10:39; sequence diagram 10:39 – 13:06 | Tomar Divyansh; Lei Yueer; Liu Yanxi; Jan Guirey |
+
+Individual reflections run from 13:06 to 14:52 (total length 14:55). The full speaker-by-speaker index is in Appendix A of the report.
 
 ## Repository layout
 | Path | Contents |
@@ -52,16 +57,18 @@ Turn-based restaurant management game in Java (command-line). The current versio
 | `test-runs/` | Victory and defeat inputs and transcripts for each stage, with [notes](test-runs/README.md) |
 | `docs/diagrams/class/` | Class diagrams for Stages 1–3 (`.drawio` source and `.svg` export) |
 | `docs/diagrams/sequence/` | Stage 3 sequence diagram |
-| `docs/report/` | Group report |
+| `docs/report/` | Group report (PDF) |
+| `docs/video/` | Demo video |
+| `docs/declarations/` | Each member's Declaration on Use of GAI Assistance |
 
 ## Team
-| Member | Responsibility |
-|---|---|
-| Divyansh (Divyansh050505) | Game controller, repo lead |
-| (name) | Customers + satisfaction |
-| (name) | Menu, orders, kitchen |
-| (name) | Waiter, Cashier, restaurant state |
-| (name) | Console UI |
+| Member | Classes | Other roles |
+|---|---|---|
+| Tomar Divyansh (Divyansh050505) | `RestaurantApp`, `RestaurantController`, `HappyHour` | Repository lead, reviews, merges and tags |
+| Lei Yueer | `Customer`, `CustomerStatus`, `RegularCustomer`, `VIPCustomer`, `CriticCustomer`, `CustomerArrivalPlan` | Class diagram and tests, recorded victory and defeat runs |
+| Eng Shi Hong | `Menu`, `MenuItem`, `Order`, `OrderStatus`, `Table`, `Chef`, `ComboMeal` | Stage 1 class diagram, ComboMeal rule in the README |
+| Jan Guirey | `Staff`, `Waiter`, `Cashier`, `ActionResult`, `Host` | Test notes, sequence diagram |
+| Liu Yanxi | `RestaurantUI` | Design decisions log, console UI review, Stage 2 documentation and testing summary |
 
 ## Requirements
 JDK 17 or later. No external libraries; works fully offline.
